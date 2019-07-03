@@ -1,5 +1,7 @@
 import React from 'react';
+import ProductItem from '../product-item/product-item';
 import {
+  Button,
   Carousel,
   CarouselItem,
   CarouselControl,
@@ -7,10 +9,8 @@ import {
   CarouselCaption,
   Container,
   Row,
-  Col,
-  Button
+  Col
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
 
 const items = [
   {
@@ -30,7 +30,7 @@ const items = [
   }
 ];
 
-class Landing extends React.Component {
+class HomeCatalog extends React.Component {
   constructor(props) {
     super(props);
     this.state = { activeIndex: 0 };
@@ -66,6 +66,8 @@ class Landing extends React.Component {
     this.setState({ activeIndex: newIndex });
   }
 
+
+
   render() {
     const { activeIndex } = this.state;
 
@@ -82,34 +84,46 @@ class Landing extends React.Component {
       );
     });
 
+    // const productList = this.props.products.map(product => {
+    //   return (
+    //     <ProductItem
+    //       key={product.id}
+    //       product={product}
+    //     />
+    //   );
+    // });
     return (
       <Container fluid={true}>
         <Row>
-          <h1>Welcome to Record Repo</h1>
+          <Col />
+          <Col>
+            <h1>Welcome to Record Repo</h1>
+          </Col>
+          <Col />
         </Row>
         <Row>
-          <Carousel
-            activeIndex={activeIndex}
-            next={this.next}
-            previous={this.previous}
-            hover={true}
-            pause= "hover"
-            ride="carousel"
-          >
-            <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
-            {slides}
-            <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-            <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
-          </Carousel>
+          <Col />
+          <Col>
+            <Carousel
+              activeIndex={activeIndex}
+              next={this.next}
+              previous={this.previous}
+              hover={true}
+              pause= "hover"
+              ride="carousel"
+            >
+              <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
+              {slides}
+              <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+              <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+            </Carousel>
+          </Col>
+          <Col />         
         </Row>
-        <Row>
-          <Link to="/catalog">
-            <Button color="primary" size="lg">Proceed to Catalog</Button>
-          </Link>
-        </Row>
+        {/* <div>{productList}</div> */}
       </Container>
     );
   }
 }
 
-export default Landing;
+export default HomeCatalog;
