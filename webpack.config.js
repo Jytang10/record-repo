@@ -41,10 +41,8 @@ module.exports = {
     stats: 'minimal',
     proxy: {
       '/api': {
-        target: 'http://localhost',
-        headers: {
-          Host: 'record-repo.localhost'
-        }
+        changeOrigin: true,
+        target: 'http://localhost/record-repo/server/public'
       }
     }
   }

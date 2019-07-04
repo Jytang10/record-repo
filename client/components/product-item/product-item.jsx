@@ -14,14 +14,11 @@ class ProductItem extends React.Component {
 
   render() {
 
-
     const productImage = this.props.product.image;
     const cardStyle = { 'width': '18rem' };
 
-
     return (
       <div className='col-sm-4 card-deck'>
-
 
         <div className="card bg-light mb-3" style={cardStyle}>
           <img className="card-img-top img-fluid cardClass " src={productImage} alt="Card image cap" />
@@ -32,7 +29,6 @@ class ProductItem extends React.Component {
             <a href="#" className="btn btn-primary">View Product Details</a>
           </div>
         </div>
-
 
       </div>
     );
