@@ -10,7 +10,9 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  DropdownItem
+} from 'reactstrap';
+import './header.css';
 
 class Header extends React.Component {
   constructor(props) {
@@ -47,7 +49,7 @@ class Header extends React.Component {
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                   Options
+                  Options
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>

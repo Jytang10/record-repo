@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from '../header/header';
-import Landing from '../landing/landing';
-import Catalog from '../catalog/catalog';
+import HomeCatalog from '../home-catalog/home-catalog';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import './app.css';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -34,8 +34,8 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    // this.getProducts();
-    // this.getCartItems();
+    this.getProducts();
+    this.getCartItems();
   }
 
   addToCart(product) {
@@ -69,6 +69,7 @@ export default class App extends React.Component {
   // setView(name, params) {
   //   this.setState({ view: { name: name, params: params } });
   // }
+
   render() {
 
     return (
@@ -80,11 +81,8 @@ export default class App extends React.Component {
           <Switch>
             <Route
               path="/"
-              exact component={Landing}
-            />
-            <Route
-              path="/catalog"
-              render={ props => <Catalog {...props}
+              // exact component={HomeCatalog}
+              render={ props => <HomeCatalog {...props}
                 products={this.state.products} /> }
             />
           </Switch>

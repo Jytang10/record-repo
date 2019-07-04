@@ -1,16 +1,20 @@
 [
   {
     "id": 3,
-    "name": "Snuggie",
-    "price": 2900,
-    "image": "https://bit.ly/2LVHYAk",
-    "shortDescription": "Super-Soft Fleece with pockets! One Size fits all Adults! Keeps you Warm & Your Hands-Free!"
+    "name": "3",
+    "artist": "tricot",
+    "release": 2017,
+    "price": 1899,
+    "image": "https://images-na.ssl-images-amazon.com/images/I/71unJ5QoIIL._SY355_.jpg",
+    "shortDescription": "Third album by Japanese math-rock band tricot."
   },
   {
-    "id": 5,
-    "name": "Ostrich Pillow",
-    "price": 9900,
-    "image": "https://bit.ly/2VD80b8",
-    "shortDescription": "Create your own snugly space in the world and feel-good anywhere with the ultimate cocoon pillow."
+    "id": 6,
+    "name": "Sol-fa",
+    "artist": "Asian Kung-Fu Generation",
+    "release": 2004,
+    "price": 1999,
+    "image": "http://st.cdjapan.co.jp/pictures/l/00/25/KSCL-2811.jpg",
+    "shortDescription": "2018 re-master of their 2004 classic Sol-fa"
   }
 ]

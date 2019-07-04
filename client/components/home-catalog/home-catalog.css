@@ -1,0 +1,11 @@
+.greeting-h1{
+  text-align: center;
+}
+
+.carousel-item > img {
+  width: 100%;
+}
+
+.carousel-control-prev, .carousel-control-next {
+  cursor:pointer;
+}
