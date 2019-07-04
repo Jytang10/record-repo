@@ -1,7 +1,10 @@
 <?php
+
 header('Content-Type: application/json');
+
 $method = $_SERVER['REQUEST_METHOD'];
 $item = file_get_contents('php://input');
+
 if ($method == 'GET') {
   readfile('dummy-cart-items.json');
 } else if ($method == 'POST') {
@@ -14,4 +17,5 @@ if ($method == 'GET') {
     'message' => "Cannot $method /api/cart.php"
   ]));
 }
+
 ?>

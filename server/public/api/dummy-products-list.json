@@ -1,44 +1,56 @@
 [
   {
     "id": 1,
-    "name": "Shake Weight",
-    "price": 2999,
-    "image": "https://bit.ly/2JtVNE6",
-    "shortDescription": "Dynamic Inertia technology ignites muscles in arms, shoulders, and chest."
+    "name": "Beggars",
+    "artist": "Thrice",
+    "price": 1999,
+    "release": 2009,
+    "image": "https://live.staticflickr.com/2689/4199246747_fe04f7347a.jpg",
+    "shortDescription": "Seventh studio album released through Vagrant Records."
   },
   {
     "id": 2,
-    "name": "ShamWow",
-    "price": 2595,
-    "image": "https://bit.ly/2w9C3Nm",
-    "shortDescription": "It's like a chamois, towel, and sponge, all in one! Soaks up to 10x it's weight in any liquid!"
+    "name": "だから僕は音楽を辞めた",
+    "artist": "ヨルシカ",
+    "release": 2019,
+    "price": 2999,
+    "image": "https://images-na.ssl-images-amazon.com/images/I/91ldxzF9x5L._SY450_.jpg",
+    "shortDescription": "First full studio album by Japanese producer n-buna and collaborator Suis"
   },
   {
     "id": 3,
-    "name": "Snuggie",
-    "price": 2900,
-    "image": "https://bit.ly/2LVHYAk",
-    "shortDescription": "Super-Soft Fleece with pockets! One Size fits all Adults! Keeps you Warm & Your Hands-Free!"
+    "name": "3",
+    "artist": "tricot",
+    "release": 2017,
+    "price": 1899,
+    "image": "https://images-na.ssl-images-amazon.com/images/I/71unJ5QoIIL._SY355_.jpg",
+    "shortDescription": "Third album by Japanese math-rock band tricot."
   },
   {
     "id": 4,
-    "name": "Wax Vac",
-    "price": 999,
-    "image": "https://bit.ly/2EjCU2a",
-    "shortDescription": "Gentle way to remove ear wax. Safe and hygienic. Reduces the risk of painful infections."
+    "name": "Deja Entendu",
+    "artist": "Brand New",
+    "release": 2003,
+    "price": 2900,
+    "image": "http://heartlandrecords.com.au/wp-content/uploads/2015/10/brand-new-deja-entendu-lp-1.jpg",
+    "shortDescription": "Super-Soft Fleece with pockets! One Size fits all Adults! Keeps you Warm & Your Hands-Free!"
   },
   {
     "id": 5,
-    "name": "Ostrich Pillow",
-    "price": 9900,
-    "image": "https://bit.ly/2VD80b8",
+    "name": "The Earth is Not a Cold Dead Place",
+    "artist": "Explosions in the Sky",
+    "release": 2003,
+    "price": 999,
+    "image": "https://www.sputnikmusic.com/images/albums/748.jpg",
     "shortDescription": "Create your own snugly space in the world and feel-good anywhere with the ultimate cocoon pillow."
   },
   {
     "id": 6,
-    "name": "Tater Mitts",
-    "price": 830,
-    "image": "https://bit.ly/2w9EmzO",
-    "shortDescription": "8 Seconds is All You Need with Tater Mitts Quickly and easily prepare all your favorite potato dishes with Tater Mitts."
+    "name": "Sol-fa",
+    "artist": "Asian Kung-Fu Generation",
+    "release": 2004,
+    "price": 1999,
+    "image": "http://st.cdjapan.co.jp/pictures/l/00/25/KSCL-2811.jpg",
+    "shortDescription": "2018 re-master of their 2004 classic Sol-fa"
   }
 ]
