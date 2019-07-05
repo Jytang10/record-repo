@@ -2,6 +2,8 @@ import React from 'react';
 import Header from '../header/header';
 import HomeCatalog from '../home-catalog/home-catalog';
 import ProductDetails from '../product-details/product-details';
+import CartSummary from '../cart-summary/cart-summary';
+import CheckoutForm from '../checkout-form/checkout-form';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './app.css';
 
@@ -74,7 +76,7 @@ export default class App extends React.Component {
     return (
       <Router>
         <div>
-          <Header />
+          <Header cartItemCount={this.state.cart.length} />
         </div>
         <div>
           <Switch>
@@ -89,6 +91,17 @@ export default class App extends React.Component {
               render={ props => <ProductDetails {...props}
                 productID={this.state.productID.id}
                 handleAdd={this.addToCart} />}
+            />
+            <Route
+              path="/cart"
+              render={ props => <CartSummary {...props}
+                cartItems={this.state.cart} />}
+            />
+            <Route
+              path="/checkout"
+              render={ props => <CheckoutForm {...props}
+                checkoutItems={this.state.cart}
+                handlePlaceOrder={this.placeOrder} />}
             />
           </Switch>
         </div>

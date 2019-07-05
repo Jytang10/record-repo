@@ -6,18 +6,14 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
+  Badge
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import './header.css';
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    // this.handleViewCart = this.handleViewCart.bind(this);
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false
@@ -28,9 +24,6 @@ class Header extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
-  // handleViewCart() {
-  //   this.props.onClick('cart', {});
-  // }
   render() {
     return (
       <div>
@@ -42,28 +35,22 @@ class Header extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="#">About</NavLink>
+                <Link to="/" className="nav-link">
+                  Home
+                </Link>
               </NavItem>
               <NavItem>
-                <NavLink href="#">Cart</NavLink>
+                <Link to="/about" className="nav-link">
+                  About
+                </Link>
               </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    $USD
-                  </DropdownItem>
-                  <DropdownItem>
-                    ¥YEN
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+              <NavItem>
+                <Link to="/cart" className="nav-link">
+                  <i className="fas fa-shopping-cart mr-1"></i>
+                  Cart
+                  <Badge className="ml-1" color="light">{this.props.cartItemCount}</Badge>
+                </Link>
+              </NavItem>
             </Nav>
           </Collapse>
         </Navbar>
