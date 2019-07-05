@@ -1,0 +1,18 @@
+.product-image {
+  filter: drop-shadow(2px 2px 2px black);
+}
+
+.product-title {
+  font-weight: 900;
+  font-size: 150%;
+}
+
+.product-price {
+  font-size: 140%;
+  color: rgb(68, 65, 65);
+}
+
+.product-text {
+  font-style: italic;
+  color: rgb(68, 65, 65);
+}

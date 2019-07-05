@@ -5,7 +5,7 @@
     "artist": "tricot",
     "release": 2017,
     "price": 1899,
-    "image": "https://images-na.ssl-images-amazon.com/images/I/71unJ5QoIIL._SY355_.jpg",
+    "image": "./images/tricot.jpg",   
     "shortDescription": "Third album by Japanese math-rock band tricot."
   },
   {
@@ -14,7 +14,7 @@
     "artist": "Asian Kung-Fu Generation",
     "release": 2004,
     "price": 1999,
-    "image": "http://st.cdjapan.co.jp/pictures/l/00/25/KSCL-2811.jpg",
+    "image": "./images/ajikan.jpg",
     "shortDescription": "2018 re-master of their 2004 classic Sol-fa"
   }
 ]

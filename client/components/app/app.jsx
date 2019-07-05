@@ -9,12 +9,10 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       products: [],
+      productID: {},
       cart: []
-      // view: {
-      //   name: 'catalog',
-      //   params: {}
-      // }
     };
+    this.setProductID = this.setProductID.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
   }
@@ -24,6 +22,10 @@ export default class App extends React.Component {
       .then(res => res.json())
       .then(products => this.setState({ products }))
       .catch(err => console.error('No products found', err));
+  }
+
+  setProductID(id) {
+    this.setState({ productID: id });
   }
 
   getCartItems() {
@@ -83,7 +85,8 @@ export default class App extends React.Component {
               path="/"
               // exact component={HomeCatalog}
               render={ props => <HomeCatalog {...props}
-                products={this.state.products} /> }
+                products={this.state.products}
+                setProductID={this.setProductID} /> }
             />
           </Switch>
         </div>

@@ -34,7 +34,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
+        <Navbar className="top-navbar" dark expand="md">
           <NavbarBrand href="/">
             <i className="fas fa-compact-disc mr-1"></i>
             Record Repo</NavbarBrand>
