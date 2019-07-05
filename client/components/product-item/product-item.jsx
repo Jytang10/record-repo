@@ -7,6 +7,7 @@ import {
   CardTitle,
   CardSubtitle
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import './product-item.css';
 class ProductItem extends React.Component {
   constructor(props) {
@@ -22,12 +23,17 @@ class ProductItem extends React.Component {
   render() {
     const productImage = this.props.product.image;
     // const cardStyle = { 'width': '18rem' };
+    const productID = this.props.product.id;
+
     return (
       <Card className="shadow p-2 mb-5 bg-white rounded">
-        <CardImg className="product-image" top width="100%" src={productImage} alt="Item image" />
+        <Link to={`/products/${productID}`}>
+          <CardImg className="product-image" top width="100%" src={productImage} alt="Item image" />
+        </Link>
         <CardBody>
           <CardTitle className="product-title">{this.props.product.name}</CardTitle>
-          <CardSubtitle className="product-price">{'$' + (this.props.product.price / 100)}</CardSubtitle>
+          <CardSubtitle className="product-artist">{this.props.product.artist}</CardSubtitle>
+          <CardText className="product-price">{'$' + (this.props.product.price / 100)}</CardText>
           <CardText className="product-text">{this.props.product.shortDescription}</CardText>
         </CardBody>
       </Card>

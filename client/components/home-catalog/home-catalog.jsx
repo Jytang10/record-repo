@@ -21,10 +21,10 @@ const items = [
     subcaption: 'metaphorical music'
   },
   {
-    src: './images/yorushika.jpg',
+    src: './images/sun.jpg',
     altText: 'Record 2',
-    caption: 'ヨルシカ',
-    subcaption: 'だから僕は音楽を辞めた'
+    caption: '星野源',
+    subcaption: 'Sun'
   },
   {
     src: './images/shishamo.jpg',
@@ -98,7 +98,7 @@ class HomeCatalog extends React.Component {
       <Container fluid={true}>
         <Row className="greeting-row">
           <Col className="greeting-h1">
-            <h1>Welcome!</h1>
+            <h1>Your one-stop shop for Japanese Records</h1>
             <h6>Top Sellers</h6>
           </Col>
         </Row>
