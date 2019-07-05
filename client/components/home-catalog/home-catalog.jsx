@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductItem from '../product-item/product-item';
 import {
-  Button,
+  CardDeck,
   Carousel,
   CarouselItem,
   CarouselControl,
@@ -15,22 +15,22 @@ import './home-catalog.css';
 
 const items = [
   {
-    src: '/images/deja.jpg',
+    src: '/images/meta.jpg',
     altText: 'Record 1',
-    caption: 'Brand New',
-    subcaption: 'Deja Entendu'
+    caption: 'Nujabes',
+    subcaption: 'metaphorical music'
   },
   {
-    src: './images/tricot.jpg',
+    src: './images/yorushika.jpg',
     altText: 'Record 2',
-    caption: 'tricot',
-    subcaption: '3'
+    caption: 'ヨルシカ',
+    subcaption: 'だから僕は音楽を辞めた'
   },
   {
-    src: './images/eits.jpg',
+    src: './images/shishamo.jpg',
     altText: 'Record 3',
-    caption: 'Explosions in the Sky',
-    subcaption: 'The Earth is Not a Cold Dead Place'
+    caption: 'SHISHAMO',
+    subcaption: 'SHISHAMO'
   }
 ];
 
@@ -81,7 +81,7 @@ class HomeCatalog extends React.Component {
           key={item.src}
         >
           <img src={item.src} alt={item.altText} />
-          {/* <CarouselCaption captionText={item.caption} captionHeader={item.subcaption} /> */}
+          <CarouselCaption captionText={item.caption} captionHeader={item.subcaption} className="carousel-caption"/>
         </CarouselItem>
       );
     });
@@ -90,18 +90,19 @@ class HomeCatalog extends React.Component {
         <ProductItem
           key={product.id}
           product={product}
+          setProductID={this.props.setProductID}
         />
       );
     });
     return (
       <Container fluid={true}>
-        <Row>
+        <Row className="greeting-row">
           <Col className="greeting-h1">
-            <h1>Welcome to Record Repo</h1>
-            <h6>Browse Top Sellers</h6>
+            <h1>Welcome!</h1>
+            <h6>Top Sellers</h6>
           </Col>
         </Row>
-        <Row>
+        <Row className="carousel-row">
           <Col />
           <Col>
             <Carousel
@@ -121,7 +122,9 @@ class HomeCatalog extends React.Component {
           <Col />
         </Row>
         <Row>
-          {productList}
+          <CardDeck>
+            {productList}
+          </CardDeck>
         </Row>
       </Container>
     );

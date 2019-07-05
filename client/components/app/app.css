@@ -1,3 +1,5 @@
 body{
-  background-color: azure;
+  background-color:#F8F8FD;
+  font-family: 'Fjalla One', sans-serif;
+  font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
 }
