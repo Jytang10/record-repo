@@ -10,12 +10,12 @@
   },
   {
     "id": 2,
-    "name": "だから僕は音楽を辞めた",
-    "artist": "ヨルシカ",
-    "release": 2019,
-    "price": 2999,
-    "image": "./images/yorushika.jpg",
-    "shortDescription": "First full studio album by Japanese producer n-buna and collaborator Suis"
+    "name": "愚か者たち",
+    "artist": "Glim Spanky",
+    "release": 2018,
+    "price": 899,
+    "image": "./images/glim.jpg",
+    "shortDescription": "Orokamonotachi single from the album 'Looking for the Magic' by rock band Glim Spanky"
   },
   {
     "id": 3,

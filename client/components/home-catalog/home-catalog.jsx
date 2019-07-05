@@ -96,13 +96,12 @@ class HomeCatalog extends React.Component {
     });
     return (
       <Container fluid={true}>
-        <Row className="greeting-row">
+        <Row className="greeting-row mt-2">
           <Col className="greeting-h1">
-            <h1>Your one-stop shop for Japanese Records</h1>
-            <h6>Top Sellers</h6>
+            <h3>Browse Top Sellers</h3>
           </Col>
         </Row>
-        <Row className="carousel-row">
+        <Row className="carousel-row mb-3">
           <Col />
           <Col>
             <Carousel
