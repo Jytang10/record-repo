@@ -45,7 +45,7 @@ class Header extends React.Component {
                 </Link>
               </NavItem>
               <NavItem>
-                <Link to="/cart" className="nav-link"> 
+                <Link to="/cart" className="nav-link">
                   <i className="fas fa-shopping-cart mr-1"></i>
                   Cart
                   <Badge className="ml-1" color="light">{this.props.cartItemCount}</Badge>
