@@ -3,12 +3,15 @@
 }
 
 .product-title {
-  font-weight: 900;
+  font-weight: 500;
   font-size: 150%;
 }
 
+.product-artist {
+  color: rgb(68, 65, 65);
+}
+
 .product-price {
-  font-size: 140%;
   color: rgb(68, 65, 65);
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../header/header';
 import HomeCatalog from '../home-catalog/home-catalog';
+import ProductDetails from '../product-details/product-details';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './app.css';
 
@@ -68,10 +69,6 @@ export default class App extends React.Component {
       });
   }
 
-  // setView(name, params) {
-  //   this.setState({ view: { name: name, params: params } });
-  // }
-
   render() {
 
     return (
@@ -82,11 +79,16 @@ export default class App extends React.Component {
         <div>
           <Switch>
             <Route
-              path="/"
-              // exact component={HomeCatalog}
+              exact path="/"
               render={ props => <HomeCatalog {...props}
                 products={this.state.products}
                 setProductID={this.setProductID} /> }
+            />
+            <Route
+              path="/products/:id"
+              render={ props => <ProductDetails {...props}
+                productID={this.state.productID.id}
+                handleAdd={this.addToCart} />}
             />
           </Switch>
         </div>

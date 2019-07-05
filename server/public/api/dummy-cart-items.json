@@ -1,5 +1,14 @@
 [
   {
+    "id": 1,
+    "name": "SHISHAMO",
+    "artist": "SHISHAMO",
+    "price": 1999,
+    "release": 2013,
+    "image": "./images/shishamo.jpg",
+    "shortDescription": "First full length album by Japanese rock band SHISHAMO."
+  },
+  {
     "id": 3,
     "name": "3",
     "artist": "tricot",
@@ -7,14 +16,5 @@
     "price": 1899,
     "image": "./images/tricot.jpg",   
     "shortDescription": "Third album by Japanese math-rock band tricot."
-  },
-  {
-    "id": 6,
-    "name": "Sol-fa",
-    "artist": "Asian Kung-Fu Generation",
-    "release": 2004,
-    "price": 1999,
-    "image": "./images/ajikan.jpg",
-    "shortDescription": "2018 re-master of their 2004 classic Sol-fa"
   }
 ]
