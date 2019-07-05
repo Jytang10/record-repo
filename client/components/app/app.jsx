@@ -67,7 +67,7 @@ export default class App extends React.Component {
     fetch('/api/orders.php', postOrderData)
       .then(res => {
         res.json();
-        this.setState({ cart: [], view: { name: 'catalog', params: {} } });
+        this.setState({ cart: [] });
       });
   }
 
@@ -100,6 +100,7 @@ export default class App extends React.Component {
             <Route
               path="/checkout"
               render={ props => <CheckoutForm {...props}
+                // cartItems={this.state.cart}
                 checkoutItems={this.state.cart}
                 handlePlaceOrder={this.placeOrder} />}
             />

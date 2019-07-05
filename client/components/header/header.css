@@ -1,3 +1,18 @@
 .top-navbar {
   background-color:  #049456;
 }
+
+.navbar-brand {
+  color: white !important;
+}
+
+.navbar-brand small {
+  color: white;
+  font-style: italic;
+  display:block;
+  font-size:15px;
+}
+
+.contact-link {
+  color: black;
+}

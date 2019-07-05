@@ -2,9 +2,13 @@
   filter: drop-shadow(2px 2px 2px black);
 }
 
+.product-image:hover{
+  filter: drop-shadow(0 0 0.75rem rgb(212, 197, 54));
+}
+
 .product-title {
   font-weight: 500;
-  font-size: 150%;
+  font-size: 125%;
 }
 
 .product-artist {
