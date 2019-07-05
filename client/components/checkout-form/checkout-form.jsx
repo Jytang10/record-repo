@@ -1,4 +1,5 @@
 import React from 'react';
+import CheckoutFormCartItem from '../checkout-form-cart-item/checkout-form-cart-item';
 import {
   Container,
   Col,
@@ -8,7 +9,8 @@ import {
   FormGroup,
   Label,
   Input,
-  FormFeedback
+  FormFeedback,
+  Table
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './checkout-form.css';
@@ -50,7 +52,7 @@ class CheckoutForm extends React.Component {
       zip: parseInt(this.state.zip)
     };
     this.props.handlePlaceOrder(newOrder);
-    this.setState({ 
+    this.setState({
       name: '',
       email: '',
       address1: '',
@@ -71,6 +73,26 @@ class CheckoutForm extends React.Component {
     const stateValue = this.state.state;
     const zipValue = this.state.zip;
     const cartItemsList = this.props.checkoutItems;
+
+    let cartItemDisplay;
+    if (cartItemsList.length === 0) {
+      cartItemDisplay = (
+        <div>
+          No Items in Cart
+        </div>
+      );
+    } else {
+      let cartList = cartItemsList.map(item => {
+        return (
+          <CheckoutFormCartItem
+            key={item.id}
+            item={item}
+          />
+        );
+      });
+      cartItemDisplay = cartList;
+    }; 
+
     let orderTotal = 0;
     for (let item of cartItemsList) {
       orderTotal += item.price;
@@ -90,25 +112,29 @@ class CheckoutForm extends React.Component {
                   <FormGroup>
                     <Label for="name">Full Name</Label>
                     <Input value={nameValue} onChange={this.handleChange} type="name" name="name" id="name" placeholder="Your full name" />
+                    <FormFeedback>Please enter your name</FormFeedback>
                   </FormGroup>
                 </Col>
                 <Col md={6}>
                   <FormGroup>
                     <Label for="email">E-mail</Label>
-                    <Input value={emailValue} onChange={this.handleChange} type="email" name="email" id="email" placeholder="Your e-mail address" />
+                    <Input value={emailValue} onChange={this.handleChange} type="text" name="email" id="email" placeholder="Your e-mail address" />
+                    <FormFeedback>Please enter a valid e-mail address</FormFeedback>
                   </FormGroup>
                 </Col>
               </Row>
               <FormGroup>
                 <Label for="ccnumber">Credit Card Number</Label>
                 <Input value={ccValue} onChange={this.handleChange} type="number" name="ccnumber" id="ccnumber" placeholder="Your credit card number"/>
+                <FormFeedback>Please enter a valid credit card number</FormFeedback>
               </FormGroup>
               <FormGroup>
-                <Label for="address1">Address Line 1</Label>
+                <Label for="address1">Shipping Address Line 1</Label>
                 <Input value={address1Value} onChange={this.handleChange} type="text" name="address1" id="address1" placeholder="1234 Main Street"/>
+                <FormFeedback>Please enter your shipping address</FormFeedback>
               </FormGroup>
               <FormGroup>
-                <Label for="address2">Address Line 2</Label>
+                <Label for="address2">Shipping Address Line 2</Label>
                 <Input value={address2Value} onChange={this.handleChange} type="text" name="address2" id="address2" placeholder="Apartment, studio, or floor"/>
               </FormGroup>
               <Row form>
@@ -116,18 +142,21 @@ class CheckoutForm extends React.Component {
                   <FormGroup>
                     <Label for="city">City</Label>
                     <Input value={cityValue} onChange={this.handleChange} type="text" name="city" id="city"/>
+                    <FormFeedback>Please enter your city</FormFeedback>
                   </FormGroup>
                 </Col>
                 <Col md={4}>
                   <FormGroup>
                     <Label for="state">State</Label>
                     <Input value={stateValue} onChange={this.handleChange} type="text" name="state" id="state"/>
+                    <FormFeedback>Please enter your state</FormFeedback>
                   </FormGroup>
                 </Col>
                 <Col md={2}>
                   <FormGroup>
                     <Label for="zip">Zip</Label>
                     <Input value={zipValue} onChange={this.handleChange} type="number" name="zip" id="zip"/>
+                    <FormFeedback>Please enter your zip code</FormFeedback>
                   </FormGroup>
                 </Col>
               </Row>
@@ -145,11 +174,27 @@ class CheckoutForm extends React.Component {
               </Row>
             </Form>
           </Col>
-          <Col>
+          <Col className="cart-item-summary-div">
             <Container>
-              <Row>Items</Row>
-              <Row>Subtotal</Row>
-              <Row>{'Order Total $' + fixedOrderTotal}</Row>
+              <Row className="mt-1">
+                <Table>
+                  <tbody>
+                    {cartItemDisplay}
+                  </tbody>
+                </Table>
+              </Row>
+              <Row>
+                <Col>Subtotal</Col>
+                <Col>Number</Col>
+              </Row>
+              <Row>
+                <Col>Shipping</Col>
+                <Col>Number</Col>
+              </Row>
+              <Row>
+                <Col>Order Total</Col>
+                <Col>{'$' + fixedOrderTotal}</Col>
+              </Row>
             </Container>
           </Col>
         </Row>

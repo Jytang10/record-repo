@@ -33,11 +33,11 @@ class Header extends React.Component {
       <div>
         <Navbar className="top-navbar" dark expand="md">
           <Link to="/">
-            <NavbarBrand className="navbar-brand">
+            <div className="navbar-brand">
               <i className="fas fa-compact-disc mr-1"></i>
               Record Repo
               <small>J-Pop Record Specialist</small>
-            </NavbarBrand>
+            </div>
           </Link>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
@@ -64,7 +64,7 @@ class Header extends React.Component {
               </UncontrolledDropdown>
               <NavItem>
                 <Link to="/cart" className="nav-link">
-                  <i className="fas fa-shopping-cart mr-1"></i>                  
+                  <i className="fas fa-shopping-cart mr-1"></i>
                   <Badge className="ml-1" color="light">{this.props.cartItemCount}</Badge>
                 </Link>
               </NavItem>
