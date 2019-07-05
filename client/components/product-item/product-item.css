@@ -3,7 +3,7 @@
 }
 
 .product-image:hover{
-  filter: drop-shadow(0 0 0.75rem rgb(212, 197, 54));
+  filter: drop-shadow(0 0 0.75rem #1d446c);
 }
 
 .product-title {
