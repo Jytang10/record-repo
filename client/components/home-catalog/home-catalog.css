@@ -1,11 +1,13 @@
 
 .greeting-h1 {
   text-align: center;
+  color: 	black;
+  /* text-shadow: 0.4px 0.4px 0.4px black; */
 }
 
 .carousel-item > img {
   width: 100%;
-  border: 2mm ridge #049456;
+  border: 2mm ridge 	#571a1a;
   filter: contrast(60%);
 }
 
@@ -19,8 +21,8 @@
 
 .carousel-row {
   position: relative;
-  border-top: 4px solid #A4E4CF;
-  border-bottom: 4px solid #A4E4CF;
+  border-top: 4px solid 	#571a1a;
+  border-bottom: 4px solid 	#571a1a;
 }
 
 .carousel-row::before {

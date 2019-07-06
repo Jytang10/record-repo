@@ -1,5 +1,5 @@
 body{
-  background-color:#F8F8FD;
+  background-color:#f1f1f1;
   font-family: 'Fjalla One', sans-serif;
   font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
 }

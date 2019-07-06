@@ -91,7 +91,7 @@ class CheckoutForm extends React.Component {
         );
       });
       cartItemDisplay = cartList;
-    }; 
+    }
 
     let orderTotal = 0;
     for (let item of cartItemsList) {
