@@ -1,66 +1,73 @@
 [
   {
     "id": 1,
-    "name": "SHISHAMO",
-    "artist": "SHISHAMO",
-    "price": 1999,
-    "release": 2013,
-    "image": "./images/shishamo.jpg",
-    "shortDescription": "First full length album by Japanese rock band SHISHAMO."
-  },
-  {
-    "id": 2,
-    "name": "愚か者たち",
-    "artist": "Glim Spanky",
-    "release": 2018,
-    "price": 899,
-    "image": "./images/glim.jpg",
-    "shortDescription": "Orokamonotachi single from the album 'Looking for the Magic' by rock band Glim Spanky"
-  },
-  {
-    "id": 3,
-    "name": "3",
-    "artist": "tricot",
-    "release": 2017,
-    "price": 1899,
-    "image": "./images/tricot.jpg",
-    "shortDescription": "Third album by Japanese math-rock band tricot."
-  },
-  {
-    "id": 4,
-    "name": "metaphorical music",
-    "artist": "Nujabes",
-    "release": 2003,
-    "price": 2900,
-    "image": "./images/meta.jpg",
-    "shortDescription": "First solo album by Hip-hop producer Nujabes"
-  },
-  {
-    "id": 5,
-    "name": "Making the Road",
-    "artist": "Hi-Standard",
-    "release": 1999,
-    "price": 999,
-    "image": "./images/road.jpg",
-    "shortDescription": "Third full-length album by Japanese Punk band Hi-Standard"
-  },
-  {
-    "id": 6,
     "name": "Sol-fa",
     "artist": "Asian Kung-Fu Generation",
     "release": 2004,
     "price": 1999,
     "image": "./images/ajikan.jpg",
-    "shortDescription": "2018 re-master of their 2004 classic Sol-fa"
+    "shortDescription": "2018 re-master of their 2004 classic Sol-fa",
+    "quantity": 1
   },
   {
-    "id": 7,
+    "id": 2,
+    "name": "metaphorical music",
+    "artist": "Nujabes",
+    "release": 2003,
+    "price": 2900,
+    "image": "./images/meta.jpg",
+    "shortDescription": "First solo album by Hip-hop producer Nujabes",
+    "quantity": 1
+  },
+  {
+    "id": 3,
     "name": "Sunplugged vol.2",
     "artist": "Dizzy Sunfist",
     "release": 2018,
     "price": 499,
     "image": "./images/dizzy.jpg",
-    "shortDescription": "Rare acoustic takes on Dizzy Sunfist classics"
+    "shortDescription": "Rare acoustic takes on Dizzy Sunfist classics",
+    "quantity": 1
+  },
+  {
+    "id": 4,
+    "name": "SHISHAMO",
+    "artist": "SHISHAMO",
+    "price": 1999,
+    "release": 2013,
+    "image": "./images/shishamo.jpg",
+    "shortDescription": "First full length album by Japanese rock band SHISHAMO.",
+    "quantity": 1
+  },
+  {
+    "id": 5,
+    "name": "愚か者たち",
+    "artist": "Glim Spanky",
+    "release": 2018,
+    "price": 899,
+    "image": "./images/glim.jpg",
+    "shortDescription": "Orokamonotachi single from the album 'Looking for the Magic' by rock band Glim Spanky",
+    "quantity": 1
+  },
+  {
+    "id": 6,
+    "name": "3",
+    "artist": "tricot",
+    "release": 2017,
+    "price": 1899,
+    "image": "./images/tricot.jpg",
+    "shortDescription": "Third album by Japanese math-rock band tricot.",
+    "quantity": 1
+  },
+  {
+    "id": 7,
+    "name": "Making the Road",
+    "artist": "Hi-Standard",
+    "release": 1999,
+    "price": 999,
+    "image": "./images/road.jpg",
+    "shortDescription": "Third full-length album by Japanese Punk band Hi-Standard",
+    "quantity": 1
   },
   {
     "id": 8,
@@ -69,6 +76,7 @@
     "release": 2015,
     "price": 499,
     "image": "./images/sun.jpg",
-    "shortDescription": "Popular single by J-Pop artist Hosino Gen"
+    "shortDescription": "Popular single by J-Pop artist Hosino Gen",
+    "quantity": 1
   }
 ]
