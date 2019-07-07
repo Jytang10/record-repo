@@ -9,6 +9,10 @@ class CartSummary extends React.Component {
     super(props);
   }
 
+  handleRemoveItem() {
+
+  }
+
   render() {
     const cartItemsList = this.props.cartItems;
     let cartItemDisplay;
@@ -35,23 +39,24 @@ class CartSummary extends React.Component {
       }
       let convertItemTotal = itemTotal / 100;
       let fixedItemTotal = convertItemTotal.toFixed(2);
-      itemTotalDisplay = 'Subtotal: $' + fixedItemTotal;
+      itemTotalDisplay = 'Total: $' + fixedItemTotal;
     }
 
     return (
       <Container>
-        <Row>
+        <Row className="cart-header">
           <h1>My Shopping Cart</h1>
         </Row>
         <Row>
           <Table responsive>
             <thead>
               <tr>
-                <th>Image</th>
-                <th>Product Name</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
-                <th>Delete</th>
+                <th className="text-center">Image</th>
+                <th className="text-center">Product Name</th>
+                <th className="text-center">Price</th>
+                <th className="text-center">Quantity</th>
+                <th className="text-center">Subtotal</th>
+                <th className="text-center">Remove</th>
               </tr>
             </thead>
             <tbody>
@@ -59,14 +64,16 @@ class CartSummary extends React.Component {
             </tbody>
           </Table>
         </Row>
-        <Row>
-          {itemTotalDisplay}
+        <Row className="float-right">
+          {itemTotalDisplay}         
         </Row>
         <Row>
           <Link to="/">
             <Button outline color="secondary">Continue Shopping</Button>
           </Link>
-          <Button outline color="secondary">Update Cart</Button>
+        </Row>
+        <Row className="float-right">
+          <Button outline color="primary" className="mr-4">Update Cart</Button>
           <Link to="/checkout">
             <Button color="success">Check Out</Button>
           </Link>

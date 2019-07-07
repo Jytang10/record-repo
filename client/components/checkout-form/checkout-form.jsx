@@ -10,7 +10,11 @@ import {
   Label,
   Input,
   FormFeedback,
-  Table
+  Table,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './checkout-form.css';
@@ -19,6 +23,7 @@ class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      modal: false,
       name: '',
       email: '',
       address1: '',
@@ -30,6 +35,13 @@ class CheckoutForm extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle() {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }));
   }
 
   handleChange(event) {
@@ -61,6 +73,7 @@ class CheckoutForm extends React.Component {
       state: '',
       zip: '',
       ccnumber: '' });
+      this.toggle();
   }
 
   render() {
@@ -73,6 +86,7 @@ class CheckoutForm extends React.Component {
     const stateValue = this.state.state;
     const zipValue = this.state.zip;
     const cartItemsList = this.props.checkoutItems;
+    const closeBtn = <button className="close modal-close" onClick={this.toggle}>&times;</button>;
 
     let cartItemDisplay;
     if (cartItemsList.length === 0) {
@@ -99,6 +113,7 @@ class CheckoutForm extends React.Component {
     }
     let convertOrderTotal = orderTotal / 100;
     let fixedOrderTotal = convertOrderTotal.toFixed(2);
+    let shippingTotal = parseFloat(fixedOrderTotal) + 5;
     return (
       <Container>
         <Row className="justify-content-center">
@@ -106,7 +121,7 @@ class CheckoutForm extends React.Component {
         </Row>
         <Row>
           <Col>
-            <Form onSubmit={this.handleSubmit}>
+            <Form>
               <Row form>
                 <Col md={6}>
                   <FormGroup>
@@ -169,7 +184,7 @@ class CheckoutForm extends React.Component {
                   </Link>
                 </Col>
                 <Col className="text-center">
-                  <Button color="success" size="lg">Place Order</Button>
+                  <Button color="success" size="lg" onClick={this.toggle}>Place Order</Button>
                 </Col>
               </Row>
             </Form>
@@ -185,19 +200,34 @@ class CheckoutForm extends React.Component {
               </Row>
               <Row>
                 <Col>Subtotal</Col>
-                <Col>Number</Col>
+                <Col>{'$' + fixedOrderTotal}</Col>
               </Row>
               <Row>
                 <Col>Shipping</Col>
-                <Col>Number</Col>
+                <Col>$5.00</Col>
               </Row>
               <Row>
                 <Col>Order Total</Col>
-                <Col>{'$' + fixedOrderTotal}</Col>
+                <Col>{'$' + shippingTotal}</Col>
               </Row>
             </Container>
           </Col>
         </Row>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+          <ModalHeader toggle={this.toggle} close={closeBtn}>
+            <i className="mr-1 fas fa-exclamation-triangle confirm-icon"></i>
+            CONFIRM YOUR ORDER
+          </ModalHeader>
+          <ModalBody>
+            <Row className="modal-body-row">Would you like to submit your order?</Row>
+          </ModalBody>
+          <ModalFooter>
+            <Link to="/checkout">
+              <Button color="danger" onClick={this.toggle}>Return to Checkout</Button>{' '}
+            </Link>
+            <Button color="success" onClick={this.handleSubmit}>Submit Order</Button>
+          </ModalFooter>
+        </Modal>
       </Container>
     );
   }

@@ -1,27 +1,34 @@
 import React from 'react';
+import { Button } from 'reactstrap';
 import './cart-summary-item.css';
 
 class CartSummaryItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleRemoveItem = this.handleRemoveItem.bind(this);
+  }
+
+  handleRemoveItem() {
+
+  }
+
   render() {
     const productImage = this.props.item.image;
-    // const cardStyle = { 'width': '18rem' };
+    let convertItemPrice = this.props.item.price / 100;
+    let fixedItemPrice = convertItemPrice.toFixed(2);
+    let itemSubtotal = this.props.item.quantity * fixedItemPrice;
     return (
-      // <Card className="shadow p-2 mb-5 bg-white rounded">
-      //   <CardImg className="product-image" top width="100%" src={productImage} alt="Item image" />
-      //   <CardBody>
-      //     <CardTitle className="product-title">{this.props.item.name}</CardTitle>
-      //     <CardSubtitle className="product-artist">{this.props.item.artist}</CardSubtitle>
-      //     <CardText className="product-price">{'$' + (this.props.item.price / 100)}</CardText>
-      //     <CardText className="product-text">{this.props.item.shortDescription}</CardText>
-      //   </CardBody>
-      // </Card>
-      // <tbody>
       <tr>
-        <td><img className="cart-image" width="100%" src={productImage} alt="Cart item image" /></td>
-        <td>{this.props.item.name}</td>
-        <td>Quantity</td>
-        <td>Subtotal</td>
-        <td>Delete</td>
+        <td align="center"><img className="cart-image" width="150rem" src={productImage} alt="Cart item image" /></td>
+        <td align="center">{this.props.item.name}</td>
+        <td align="center">{'$' + (fixedItemPrice)}</td>
+        <td align="center">{this.props.item.quantity}</td>
+        <td align="center">{itemSubtotal}</td>
+        <td align="center">
+          <Button color="danger" onClick={this.handleRemoveItem}>
+            <i className="fas fa-trash-alt"></i>
+          </Button>
+        </td>
       </tr>
     );
   }
