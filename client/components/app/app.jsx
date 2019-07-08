@@ -4,6 +4,7 @@ import HomeCatalog from '../home-catalog/home-catalog';
 import ProductDetails from '../product-details/product-details';
 import CartSummary from '../cart-summary/cart-summary';
 import CheckoutForm from '../checkout-form/checkout-form';
+import About from '../about/about';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './app.css';
 
@@ -103,6 +104,11 @@ export default class App extends React.Component {
                 // cartItems={this.state.cart}
                 checkoutItems={this.state.cart}
                 handlePlaceOrder={this.placeOrder} />}
+            />
+            <Route
+              path="/about"
+              render={ props => <About {...props}
+                products={this.state.products}/>}
             />
           </Switch>
         </div>

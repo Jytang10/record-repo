@@ -5,3 +5,7 @@
 .confirm-icon {
   color: goldenrod;
 }
+
+.order-success-modal {
+  justify-content: center;
+}

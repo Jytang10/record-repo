@@ -24,6 +24,8 @@ class CheckoutForm extends React.Component {
     super(props);
     this.state = {
       modal: false,
+      nestedModal: false,
+      closeAll: false,
       name: '',
       email: '',
       address1: '',
@@ -36,12 +38,28 @@ class CheckoutForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.toggleNested = this.toggleNested.bind(this);
+    this.toggleAll = this.toggleAll.bind(this);
   }
 
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
+  }
+
+  toggleNested() {
+    this.setState({
+      nestedModal: !this.state.nestedModal,
+      closeAll: false
+    });
+  }
+
+  toggleAll() {
+    this.setState({
+      nestedModal: !this.state.nestedModal,
+      closeAll: true
+    });
   }
 
   handleChange(event) {
@@ -73,7 +91,7 @@ class CheckoutForm extends React.Component {
       state: '',
       zip: '',
       ccnumber: '' });
-      this.toggle();
+    this.toggleNested();
   }
 
   render() {
@@ -87,7 +105,6 @@ class CheckoutForm extends React.Component {
     const zipValue = this.state.zip;
     const cartItemsList = this.props.checkoutItems;
     const closeBtn = <button className="close modal-close" onClick={this.toggle}>&times;</button>;
-
     let cartItemDisplay;
     if (cartItemsList.length === 0) {
       cartItemDisplay = (
@@ -106,7 +123,6 @@ class CheckoutForm extends React.Component {
       });
       cartItemDisplay = cartList;
     }
-
     let orderTotal = 0;
     for (let item of cartItemsList) {
       orderTotal += item.price;
@@ -184,7 +200,7 @@ class CheckoutForm extends React.Component {
                   </Link>
                 </Col>
                 <Col className="text-center">
-                  <Button color="success" size="lg" onClick={this.toggle}>Place Order</Button>
+                  <Button color="success" size="lg" onClick={this.toggle}>Confirm Order</Button>
                 </Col>
               </Row>
             </Form>
@@ -226,6 +242,18 @@ class CheckoutForm extends React.Component {
               <Button color="danger" onClick={this.toggle}>Return to Checkout</Button>{' '}
             </Link>
             <Button color="success" onClick={this.handleSubmit}>Submit Order</Button>
+            <Modal isOpen={this.state.nestedModal} toggle={this.toggleNested} onClosed={this.state.closeAll ? this.toggle : undefined}>
+              <ModalHeader>
+                <i className="mr-1 fas fa-handshake"></i>
+                THANK YOU
+              </ModalHeader>
+              <ModalBody>Order successfully placed. Thank you for your patronage.</ModalBody>
+              <ModalFooter className="order-success-modal">
+                <Link to="/">
+                  <Button color="success" onClick={this.toggleAll}>Back to Home</Button>
+                </Link>
+              </ModalFooter>
+            </Modal>
           </ModalFooter>
         </Modal>
       </Container>
