@@ -1,22 +1,15 @@
 import React from 'react';
 import CartSummaryItem from '../cart-summary-item/cart-summary-item';
-import { Table, Container, Row, Col, Button } from 'reactstrap';
+import { Table, Container, Row, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './cart-summary.css';
 
 class CartSummary extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  handleRemoveItem() {
-
-  }
-
   render() {
-    const cartItemsList = this.props.cartItems;
+    const cartItemArray = Object.values(this.props.cartItems);
+    const cartItemsList = cartItemArray;
     let cartItemDisplay;
-    let itemTotalDisplay;
+    // let cartTotal;
     if (cartItemsList.length === 0) {
       cartItemDisplay = (
         <div>
@@ -28,18 +21,21 @@ class CartSummary extends React.Component {
         return (
           <CartSummaryItem
             key={item.id}
+            id={item.id}
             item={item}
+            handleRemove={this.props.handleRemove}
           />
         );
       });
       cartItemDisplay = cartList;
-      let itemTotal = 0;
-      for (let item of cartItemsList) {
-        itemTotal += item.price;
-      }
-      let convertItemTotal = itemTotal / 100;
-      let fixedItemTotal = convertItemTotal.toFixed(2);
-      itemTotalDisplay = 'Total: $' + fixedItemTotal;
+      // cartTotal = this.props.cartTotal;
+      // let itemTotal = 0;
+      // for (let item of cartItemsList) {
+      //   itemTotal += item.price;
+      // }
+      // let convertItemTotal = itemTotal / 100;
+      // let fixedItemTotal = convertItemTotal.toFixed(2);
+      // itemTotalDisplay = 'Total: $' + fixedItemTotal;
     }
 
     return (
@@ -65,7 +61,7 @@ class CartSummary extends React.Component {
           </Table>
         </Row>
         <Row className="float-right">
-          {itemTotalDisplay}         
+          {'Current Cart Total: $' + ((this.props.cartTotal / 100)).toFixed(2)}
         </Row>
         <Row>
           <Link to="/">

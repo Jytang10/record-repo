@@ -5,7 +5,8 @@
 }
 
 .carousel-item > img {
-  width: 23rem;
+  /* width: 23rem; */
+  width: 100%;
   border: 2mm ridge 	#571a1a;
   filter: contrast(60%);
 }

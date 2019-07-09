@@ -13,3 +13,19 @@
 .catalog-btn {
   justify-content: center;
 }
+
+.quantity-label {
+  justify-content: center;
+}
+
+.quantity-input-row {
+  justify-content: center;
+}
+
+.quantity-input {
+  width: 50% !important;
+}
+
+.quantity-icon {
+  line-height: inherit;
+}

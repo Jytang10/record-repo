@@ -9,8 +9,12 @@ class ProductDetails extends React.Component {
     super(props);
     this.state = {
       product: null,
-      modal: false
+      modal: false,
+      quantity: 1
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleAddQuantity = this.handleAddQuantity.bind(this);
+    this.handleMinusQuantity = this.handleMinusQuantity.bind(this);
     this.handleAddToCart = this.handleAddToCart.bind(this);
     this.toggle = this.toggle.bind(this);
   }
@@ -28,8 +32,27 @@ class ProductDetails extends React.Component {
     }));
   }
 
+  handleAddQuantity() {
+    let currentQuantity = parseInt(this.state.quantity);
+    this.setState({ quantity: currentQuantity + 1 });
+  }
+
+  handleMinusQuantity() {
+    let currentQuantity = parseInt(this.state.quantity);
+    if (currentQuantity !== 0) {
+      this.setState({ quantity: currentQuantity - 1 });
+    }
+  }
+
+  handleChange(event) {
+    let inputVal = parseInt(event.target.value);
+    this.setState({
+      [event.target.name]: inputVal
+    });
+  }
+
   handleAddToCart() {
-    this.props.handleAdd(this.state.product);
+    this.props.handleAdd(this.state.product, this.state.quantity);
     this.toggle();
   }
 
@@ -41,7 +64,7 @@ class ProductDetails extends React.Component {
     let productPrice;
     let productQuantity;
     let productSumPrice;
-    let cartTotal;
+    let quantityVal = this.state.quantity;
     if (productStatus) {
       productRender = (
         <CardGroup>
@@ -56,17 +79,24 @@ class ProductDetails extends React.Component {
               <Row>
                 <Col>
                   <FormGroup>
-                    <Label for="quantityNumber">Quantity</Label>
-                    <Input
-                      type="number"
-                      name="quantity"
-                      id="quantityNumber"
-                      placeholder="1"
-                    />
+                    <Row className="quantity-label"><Label for="quantityNumber">Quantity</Label></Row>
+                    <Row className="quantity-input-row">
+                      <i className="quantity-icon mr-1 fas fa-minus-square fa-lg" onClick={this.handleMinusQuantity}></i>
+                      <Input
+                        className="quantity-input"
+                        type="number"
+                        name="quantity"
+                        id="quantityNumber"
+                        placeholder="1"
+                        value={quantityVal}
+                        onChange={this.handleChange}
+                      />
+                      <i className="quantity-icon ml-1 fas fa-plus-square fa-lg" onClick={this.handleAddQuantity}></i>
+                    </Row>
                   </FormGroup>
                 </Col>
                 <Col>
-                  <Button color="success" size="lg" onClick={this.toggle}>
+                  <Button color="success" onClick={this.handleAddToCart}>
                     <i className="fas fa-cart-plus"></i>
                     &nbsp; Add to Cart
                   </Button>
@@ -83,12 +113,11 @@ class ProductDetails extends React.Component {
         </CardGroup>
       );
       productTitle = this.state.product.name;
-      productQuantity = this.state.product.quantity;
+      productQuantity = this.state.quantity;
       let convertPrice = this.state.product.price / 100;
       let fixedPrice = convertPrice.toFixed(2);
       productPrice = fixedPrice;
-      productSumPrice = productPrice * productQuantity;
-      cartTotal = 0;
+      productSumPrice = (productPrice * productQuantity).toFixed(2);
     }
 
     return (
@@ -105,16 +134,16 @@ class ProductDetails extends React.Component {
             Added to Cart!
           </ModalHeader>
           <ModalBody>
-            <Row className="modal-body-row">&quot;{productTitle}&quot; Quantity: {productQuantity}</Row>
+            <Row className="modal-body-row">&quot;{productTitle}&quot; x {productQuantity}</Row>
             <Row className="modal-body-row">{'$' + (productPrice) + ' x ' + (productQuantity) + ' = $' + (productSumPrice)}</Row>
-            <Row className="modal-body-row">{'Cart Total: $' + (cartTotal)}</Row>
+            <Row className="modal-body-row">{'Current Cart Total: $' + ((this.props.cartTotal / 100)).toFixed(2)}</Row>
           </ModalBody>
           <ModalFooter>
             <Link to="/">
               <Button color="primary" onClick={this.toggle}>Continue Shopping</Button>{' '}
             </Link>
             <Link to="/cart">
-              <Button color="success" onClick={this.handleAddToCart}>Continue to Cart</Button>
+              <Button color="success" onClick={this.toggle}>Continue to Cart</Button>
             </Link>
           </ModalFooter>
         </Modal>

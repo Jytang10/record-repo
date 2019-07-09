@@ -11,7 +11,7 @@ class CheckoutFormCartItem extends React.Component {
       <tr>
         <td><img className="cart-image" width="100rem" src={productImage} alt="Cart item image" /></td>
         <td>{this.props.item.name}</td>
-        <td>{this.props.item.quantity}</td>
+        <td>x{this.props.item.quantity}</td>
         <td>${itemSubtotal}</td>
       </tr>
     );
