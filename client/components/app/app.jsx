@@ -15,7 +15,8 @@ export default class App extends React.Component {
       products: [],
       productID: {},
       cartItems: {},
-      cartTotal: 0
+      cartTotal: 0,
+      cartLength: 0
     };
     this.setProductID = this.setProductID.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -23,12 +24,6 @@ export default class App extends React.Component {
     this.removeFromCart = this.removeFromCart.bind(this);
     this.updateQuantity = this.updateQuantity.bind(this);
     this.getCartTotal = this.getCartTotal.bind(this);
-  }
-
-  componentDidMount() {
-    this.getProducts();
-    this.getCartItems();
-    this.getCartTotal();
   }
 
   getProducts() {
@@ -50,13 +45,19 @@ export default class App extends React.Component {
   }
 
   getCartTotal() {
-    let newCartTotal = this.state.cartTotal;
-    let cart = this.state.cartItems
-    for (var item of cart) {
-      for (var price of item['price']) {
-        console.log(price);
-      }
+    let newCartTotal = 0;
+    let newCartLength = 0;
+    let cart = this.state.cartItems;
+    for (var item in cart) {
+      newCartTotal += (cart[item]['price'] * cart[item]['quantity']);
+      newCartLength += cart[item]['quantity'];
     }
+    this.setState({ cartTotal: newCartTotal, cartLength: newCartLength });
+  }
+
+  componentDidMount() {
+    this.getProducts();
+    this.getCartItems();
   }
 
   addToCart(product, quantity) {
@@ -70,7 +71,7 @@ export default class App extends React.Component {
             quantity: quantity
           }
         }
-      });
+      }, () => this.getCartTotal());
     } else {
       this.setState({
         cartItems: {
@@ -80,7 +81,7 @@ export default class App extends React.Component {
             quantity: cartItems[product.id].quantity + quantity
           }
         }
-      });
+      }, () => this.getCartTotal());
     }
   }
 
@@ -94,7 +95,7 @@ export default class App extends React.Component {
           quantity: quantity
         }
       }
-    });
+    }, () => this.getCartTotal());
   }
 
   removeFromCart(object, key) {
@@ -105,7 +106,7 @@ export default class App extends React.Component {
         newCartObj[itemKey] = object[itemKey];
       }
     });
-    this.setState({ cartItems: newCartObj });
+    this.setState({ cartItems: newCartObj }, () => this.getCartTotal());
   }
 
   placeOrder(orderDetails) {
@@ -118,14 +119,14 @@ export default class App extends React.Component {
     fetch('/api/orders.php', postOrderData)
       .then(res => {
         res.json();
-        this.setState({ cartItems: {} });
+        this.setState({ cartItems: {}, cartLength: 0 });
       });
   }
 
   render() {
     let cartLength;
     if (this.state.cartItems) {
-      cartLength = Object.keys(this.state.cartItems).length;
+      cartLength = this.state.cartLength;
     } else {
       cartLength = 0;
     }
@@ -156,6 +157,7 @@ export default class App extends React.Component {
                 cartItems={this.state.cartItems}
                 cartTotal={this.state.cartTotal}
                 handleRemove={this.removeFromCart}
+                handleAdd={this.addToCart}
                 updateCart={this.updateQuantity} />}
             />
             <Route
@@ -164,8 +166,7 @@ export default class App extends React.Component {
                 cartItems={this.state.cartItems}
                 cartTotal={this.state.cartTotal}
                 handlePlaceOrder={this.placeOrder}
-                handleAdd={this.addToCart}
-                updateCart={this.updateQuantity} />}
+                handleAdd={this.addToCart} />}
             />
             <Route
               path="/about"

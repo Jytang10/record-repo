@@ -109,7 +109,7 @@ class CheckoutForm extends React.Component {
     let cartItemDisplay;
     if (cartItemsList.length === 0) {
       cartItemDisplay = <tr><td>No items in cart</td></tr>;
-    } else if (Object.keys(this.state.cart).length === 0 && this.state.cart.constructor === Object) {
+    } else if (Object.keys(cartItemsList).length === 0 && this.state.cart.constructor === Object) {
       cartItemDisplay = <tr><td>No items in cart</td></tr>;
     } else {
       let cartList = cartItemsList.map(item => {

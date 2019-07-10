@@ -49,14 +49,6 @@ class CartSummary extends React.Component {
         );
       });
       cartItemDisplay = cartList;
-      // cartTotal = this.props.cartTotal;
-      // let itemTotal = 0;
-      // for (let item of cartItemsList) {
-      //   itemTotal += item.price;
-      // }
-      // let convertItemTotal = itemTotal / 100;
-      // let fixedItemTotal = convertItemTotal.toFixed(2);
-      // itemTotalDisplay = 'Total: $' + fixedItemTotal;
     }
 
     return (
@@ -90,7 +82,6 @@ class CartSummary extends React.Component {
           </Link>
         </Row>
         <Row className="float-right">
-          {/* <Button outline color="primary" className="mr-4" onClick={this.updateCart}>Update Cart</Button> */}
           <Link to="/checkout">
             <Button color="success">Check Out</Button>
           </Link>

@@ -10,7 +10,8 @@ class ProductDetails extends React.Component {
     this.state = {
       product: null,
       modal: false,
-      quantity: 1
+      quantity: 1,
+      cartTotal: 0
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleAddQuantity = this.handleAddQuantity.bind(this);
@@ -53,6 +54,7 @@ class ProductDetails extends React.Component {
 
   handleAddToCart() {
     this.props.handleAdd(this.state.product, this.state.quantity);
+    // this.setState({ cartTotal: this.props.cartTotal });
     this.toggle();
   }
 
