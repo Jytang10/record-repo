@@ -1,12 +1,12 @@
 
-{
-  "id": 4,
-  "name": "SHISHAMO",
-  "artist": "SHISHAMO",
-  "price": 1999,
-  "release": 2013,
-  "image": "/images/shishamo.jpg",
-  "shortDescription": "First full length album by Japanese rock band SHISHAMO.",
-  "longDescription": "SHISHAMO's first album containing hit songs 僕に彼女うができたんだ and 恋する",
-  "quantity": 1
-}
+  {
+    "id": 8,
+    "name": "Sun",
+    "artist": "星野源",
+    "release": 2015,
+    "price": 499,
+    "image": "/images/sun.jpg",
+    "shortDescription": "Popular single by J-Pop artist Hosino Gen",
+    "longDescription": "Popular single by J-Pop artist Hosino Gen",
+    "quantity": 0
+  }

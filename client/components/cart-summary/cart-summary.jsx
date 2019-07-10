@@ -1,45 +1,54 @@
 import React from 'react';
 import CartSummaryItem from '../cart-summary-item/cart-summary-item';
-import { Table, Container, Row, Col, Button } from 'reactstrap';
+import { Table, Container, Row, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './cart-summary.css';
 
 class CartSummary extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      cart: null
+    };
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
-  handleRemoveItem() {
+  componentDidMount() {
+    this.getCartItems();
+  }
 
+  getCartItems() {
+    this.setState({ cart: this.props.cartItems });
+  }
+
+  handleRemove(id) {
+    this.props.handleRemove(this.state.cart, id);
+    this.setState({ cart: this.props.cartItems }, () => {
+      this.getCartItems();
+    });
   }
 
   render() {
-    const cartItemsList = this.props.cartItems;
     let cartItemDisplay;
-    let itemTotalDisplay;
-    if (cartItemsList.length === 0) {
-      cartItemDisplay = (
-        <div>
-          No Items in Cart
-        </div>
-      );
+    if (!this.state.cart) {
+      cartItemDisplay = <tr><td>No items in cart</td></tr>;
+    } else if (Object.keys(this.state.cart).length === 0 && this.state.cart.constructor === Object) {
+      cartItemDisplay = <tr><td>No items in cart</td></tr>;
     } else {
-      let cartList = cartItemsList.map(item => {
+      let cartItemArray = Object.values(this.state.cart);
+      let cartList = cartItemArray.map(item => {
         return (
           <CartSummaryItem
             key={item.id}
+            id={item.id}
             item={item}
+            cartItems={this.state.cart}
+            handleRemove={this.handleRemove}
+            updateCart={this.props.updateCart}
           />
         );
       });
       cartItemDisplay = cartList;
-      let itemTotal = 0;
-      for (let item of cartItemsList) {
-        itemTotal += item.price;
-      }
-      let convertItemTotal = itemTotal / 100;
-      let fixedItemTotal = convertItemTotal.toFixed(2);
-      itemTotalDisplay = 'Total: $' + fixedItemTotal;
     }
 
     return (
@@ -54,7 +63,7 @@ class CartSummary extends React.Component {
                 <th className="text-center">Image</th>
                 <th className="text-center">Product Name</th>
                 <th className="text-center">Price</th>
-                <th className="text-center">Quantity</th>
+                <th className="text-center">Current Quantity</th>
                 <th className="text-center">Subtotal</th>
                 <th className="text-center">Remove</th>
               </tr>
@@ -65,7 +74,7 @@ class CartSummary extends React.Component {
           </Table>
         </Row>
         <Row className="float-right">
-          {itemTotalDisplay}         
+          {'Current Cart Total: $' + ((this.props.cartTotal / 100)).toFixed(2)}
         </Row>
         <Row>
           <Link to="/">
@@ -73,7 +82,6 @@ class CartSummary extends React.Component {
           </Link>
         </Row>
         <Row className="float-right">
-          <Button outline color="primary" className="mr-4">Update Cart</Button>
           <Link to="/checkout">
             <Button color="success">Check Out</Button>
           </Link>

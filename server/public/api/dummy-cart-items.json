@@ -1,5 +1,5 @@
-[
-  {
+{
+  "4": {
     "id": 4,
     "name": "SHISHAMO",
     "artist": "SHISHAMO",
@@ -9,7 +9,7 @@
     "shortDescription": "First full length album by Japanese rock band SHISHAMO.",
     "quantity": 1
   },
-  {
+  "6": {
     "id": 6,
     "name": "3",
     "artist": "tricot",
@@ -19,4 +19,4 @@
     "shortDescription": "Third album by Japanese math-rock band tricot.",
     "quantity": 1
   }
-]
+}

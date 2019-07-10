@@ -14,11 +14,16 @@ export default class App extends React.Component {
     this.state = {
       products: [],
       productID: {},
-      cart: []
+      cartItems: {},
+      cartTotal: 0,
+      cartLength: 0
     };
     this.setProductID = this.setProductID.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
+    this.updateQuantity = this.updateQuantity.bind(this);
+    this.getCartTotal = this.getCartTotal.bind(this);
   }
 
   getProducts() {
@@ -35,8 +40,19 @@ export default class App extends React.Component {
   getCartItems() {
     fetch('/api/cart.php')
       .then(res => res.json())
-      .then(cart => this.setState({ cart }))
+      .then(cartItems => this.setState({ cartItems }))
       .catch(err => console.error('No cart items found', err));
+  }
+
+  getCartTotal() {
+    let newCartTotal = 0;
+    let newCartLength = 0;
+    let cart = this.state.cartItems;
+    for (var item in cart) {
+      newCartTotal += (cart[item]['price'] * cart[item]['quantity']);
+      newCartLength += cart[item]['quantity'];
+    }
+    this.setState({ cartTotal: newCartTotal, cartLength: newCartLength });
   }
 
   componentDidMount() {
@@ -44,22 +60,57 @@ export default class App extends React.Component {
     this.getCartItems();
   }
 
-  addToCart(product) {
-    const postData = {
-      method: 'POST',
-      body: JSON.stringify(product),
-      headers: { 'Content-Type': 'application/json' }
-    };
-    fetch('/api/cart.php', postData)
-      .then(res => res.json())
-      .then(product => {
-        const cartItemList = this.state.cart.concat(product);
-        this.setState({ cart: cartItemList });
-      });
+  addToCart(product, quantity) {
+    const { cartItems } = this.state;
+    if (!(product.id in cartItems)) {
+      this.setState({
+        cartItems: {
+          ...cartItems,
+          [product.id]: {
+            ...product,
+            quantity: quantity
+          }
+        }
+      }, () => this.getCartTotal());
+    } else {
+      this.setState({
+        cartItems: {
+          ...cartItems,
+          [product.id]: {
+            ...cartItems[product.id],
+            quantity: cartItems[product.id].quantity + quantity
+          }
+        }
+      }, () => this.getCartTotal());
+    }
+  }
+
+  updateQuantity(product, quantity) {
+    const { cartItems } = this.state;
+    this.setState({
+      cartItems: {
+        ...cartItems,
+        [product.id]: {
+          ...cartItems[product.id],
+          quantity: quantity
+        }
+      }
+    }, () => this.getCartTotal());
+  }
+
+  removeFromCart(object, key) {
+    const newCartObj = {};
+    const objKeys = Object.keys(object);
+    objKeys.forEach(itemKey => {
+      if (itemKey !== key) {
+        newCartObj[itemKey] = object[itemKey];
+      }
+    });
+    this.setState({ cartItems: newCartObj }, () => this.getCartTotal());
   }
 
   placeOrder(orderDetails) {
-    const fullOrder = { orderInfo: orderDetails, cartInfo: this.state.cart };
+    const fullOrder = { orderInfo: orderDetails, cartInfo: this.state.cartItems };
     const postOrderData = {
       method: 'POST',
       body: JSON.stringify(fullOrder),
@@ -68,16 +119,21 @@ export default class App extends React.Component {
     fetch('/api/orders.php', postOrderData)
       .then(res => {
         res.json();
-        this.setState({ cart: [] });
+        this.setState({ cartItems: {}, cartLength: 0 });
       });
   }
 
   render() {
-
+    let cartLength;
+    if (this.state.cartItems) {
+      cartLength = this.state.cartLength;
+    } else {
+      cartLength = 0;
+    }
     return (
       <Router>
         <div>
-          <Header cartItemCount={this.state.cart.length} />
+          <Header cartItemCount={cartLength} />
         </div>
         <div>
           <Switch>
@@ -91,19 +147,26 @@ export default class App extends React.Component {
               path="/products/:id"
               render={ props => <ProductDetails {...props}
                 productID={this.state.productID.id}
-                handleAdd={this.addToCart} />}
+                handleAdd={this.addToCart}
+                cartItems={this.state.cartItems}
+                cartTotal={this.state.cartTotal} />}
             />
             <Route
               path="/cart"
               render={ props => <CartSummary {...props}
-                cartItems={this.state.cart} />}
+                cartItems={this.state.cartItems}
+                cartTotal={this.state.cartTotal}
+                handleRemove={this.removeFromCart}
+                handleAdd={this.addToCart}
+                updateCart={this.updateQuantity} />}
             />
             <Route
               path="/checkout"
               render={ props => <CheckoutForm {...props}
-                // cartItems={this.state.cart}
-                checkoutItems={this.state.cart}
-                handlePlaceOrder={this.placeOrder} />}
+                cartItems={this.state.cartItems}
+                cartTotal={this.state.cartTotal}
+                handlePlaceOrder={this.placeOrder}
+                handleAdd={this.addToCart} />}
             />
             <Route
               path="/about"

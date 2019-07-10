@@ -103,15 +103,14 @@ class CheckoutForm extends React.Component {
     const cityValue = this.state.city;
     const stateValue = this.state.state;
     const zipValue = this.state.zip;
-    const cartItemsList = this.props.checkoutItems;
+    const cartItemArray = Object.values(this.props.cartItems);
+    const cartItemsList = cartItemArray;
     const closeBtn = <button className="close modal-close" onClick={this.toggle}>&times;</button>;
     let cartItemDisplay;
     if (cartItemsList.length === 0) {
-      cartItemDisplay = (
-        <div>
-          No Items in Cart
-        </div>
-      );
+      cartItemDisplay = <tr><td>No items in cart</td></tr>;
+    } else if (Object.keys(cartItemsList).length === 0 && this.state.cart.constructor === Object) {
+      cartItemDisplay = <tr><td>No items in cart</td></tr>;
     } else {
       let cartList = cartItemsList.map(item => {
         return (
