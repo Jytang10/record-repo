@@ -108,11 +108,9 @@ class CheckoutForm extends React.Component {
     const closeBtn = <button className="close modal-close" onClick={this.toggle}>&times;</button>;
     let cartItemDisplay;
     if (cartItemsList.length === 0) {
-      cartItemDisplay = (
-        <div>
-          No Items in Cart
-        </div>
-      );
+      cartItemDisplay = <tr><td>No items in cart</td></tr>;
+    } else if (Object.keys(this.state.cart).length === 0 && this.state.cart.constructor === Object) {
+      cartItemDisplay = <tr><td>No items in cart</td></tr>;
     } else {
       let cartList = cartItemsList.map(item => {
         return (

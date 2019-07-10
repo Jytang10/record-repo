@@ -21,7 +21,7 @@ export default class App extends React.Component {
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     this.removeFromCart = this.removeFromCart.bind(this);
-    this.updateCartTotal = this.updateCartTotal.bind(this);
+    // this.updateCartTotal = this.updateCartTotal.bind(this);
   }
 
   getProducts() {
@@ -72,7 +72,7 @@ export default class App extends React.Component {
             quantity: quantity
           }
         }
-      }, this.updateCartTotal());
+      });
     } else {
       this.setState({
         cartItems: {
@@ -82,18 +82,17 @@ export default class App extends React.Component {
             quantity: cartItems[product.id].quantity + quantity
           }
         }
-      }, this.updateCartTotal());
+      });
     }
-    // this.updateCartTotal();
   }
 
-  updateCartTotal() {
-    let newCartTotal = 0;
-    for (var item in this.state.cartItems) {
-      newCartTotal += parseInt(this.state.cartItems[item]['price']);
-    }
-    this.setState({ cartTotal: newCartTotal });
-  }
+  // updateCartTotal() {
+  //   let newCartTotal = 0;
+  //   for (var item in this.state.cartItems) {
+  //     newCartTotal += parseInt(this.state.cartItems[item]['price']);
+  //   }
+  //   this.setState({ cartTotal: newCartTotal });
+  // }
 
   removeFromCart(object, key) {
     const newCartObj = {};
@@ -103,7 +102,7 @@ export default class App extends React.Component {
         newCartObj[itemKey] = object[itemKey];
       }
     });
-    return newCartObj;
+    this.setState({ cartItems: newCartObj });
   }
 
   placeOrder(orderDetails) {
@@ -153,14 +152,16 @@ export default class App extends React.Component {
               render={ props => <CartSummary {...props}
                 cartItems={this.state.cartItems}
                 cartTotal={this.state.cartTotal}
-                handleRemove={this.removeFromCart} />}
+                handleRemove={this.removeFromCart}
+                handleAdd={this.addToCart} />}
             />
             <Route
               path="/checkout"
               render={ props => <CheckoutForm {...props}
                 cartItems={this.state.cartItems}
                 cartTotal={this.state.cartTotal}
-                handlePlaceOrder={this.placeOrder} />}
+                handlePlaceOrder={this.placeOrder}
+                handleAdd={this.addToCart} />}
             />
             <Route
               path="/about"

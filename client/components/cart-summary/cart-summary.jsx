@@ -5,25 +5,51 @@ import { Link } from 'react-router-dom';
 import './cart-summary.css';
 
 class CartSummary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cart: null
+    };
+    this.updateCart = this.updateCart.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
+  }
+
+  componentDidMount() {
+    this.getCartItems();
+  }
+
+  getCartItems() {
+    this.setState({ cart: this.props.cartItems });
+  }
+
+  handleRemove(id) {
+    this.props.handleRemove(this.state.cart, id);
+    this.setState({ cart: this.props.cartItems }, () => {
+      this.getCartItems();
+    });
+  }
+
+  updateCart() {
+
+  }
+
   render() {
-    const cartItemArray = Object.values(this.props.cartItems);
-    const cartItemsList = cartItemArray;
     let cartItemDisplay;
-    // let cartTotal;
-    if (cartItemsList.length === 0) {
-      cartItemDisplay = (
-        <div>
-          No Items in Cart
-        </div>
-      );
+
+    if (!this.state.cart) {
+      cartItemDisplay = <tr><td>No items in cart</td></tr>;
+    } else if (Object.keys(this.state.cart).length === 0 && this.state.cart.constructor === Object) {
+      cartItemDisplay = <tr><td>No items in cart</td></tr>;
     } else {
-      let cartList = cartItemsList.map(item => {
+      let cartItemArray = Object.values(this.state.cart);
+      let cartList = cartItemArray.map(item => {
         return (
           <CartSummaryItem
             key={item.id}
             id={item.id}
             item={item}
-            handleRemove={this.props.handleRemove}
+            cartItems={this.state.cart}
+            handleRemove={this.handleRemove}
           />
         );
       });
@@ -50,7 +76,7 @@ class CartSummary extends React.Component {
                 <th className="text-center">Image</th>
                 <th className="text-center">Product Name</th>
                 <th className="text-center">Price</th>
-                <th className="text-center">Quantity</th>
+                <th className="text-center">Current Quantity</th>
                 <th className="text-center">Subtotal</th>
                 <th className="text-center">Remove</th>
               </tr>
@@ -69,7 +95,7 @@ class CartSummary extends React.Component {
           </Link>
         </Row>
         <Row className="float-right">
-          <Button outline color="primary" className="mr-4">Update Cart</Button>
+          <Button outline color="primary" className="mr-4" onClick={this.updateCart}>Update Cart</Button>
           <Link to="/checkout">
             <Button color="success">Check Out</Button>
           </Link>

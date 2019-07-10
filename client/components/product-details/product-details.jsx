@@ -79,7 +79,7 @@ class ProductDetails extends React.Component {
               <Row>
                 <Col>
                   <FormGroup>
-                    <Row className="quantity-label"><Label for="quantityNumber">Quantity</Label></Row>
+                    <Row className="quantity-label"><Label for="quantityNumber">Quantity to Add</Label></Row>
                     <Row className="quantity-input-row">
                       <i className="quantity-icon mr-1 fas fa-minus-square fa-lg" onClick={this.handleMinusQuantity}></i>
                       <Input
