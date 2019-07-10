@@ -37,12 +37,12 @@ export default class App extends React.Component {
     this.setState({ productID: id });
   }
 
-  getCartItems() {
-    fetch('/api/cart.php')
-      .then(res => res.json())
-      .then(cartItems => this.setState({ cartItems }))
-      .catch(err => console.error('No cart items found', err));
-  }
+  // getCartItems() {
+  //   fetch('/api/cart.php')
+  //     .then(res => res.json())
+  //     .then(cartItems => this.setState({ cartItems }))
+  //     .catch(err => console.error('No cart items found', err));
+  // }
 
   getCartTotal() {
     let newCartTotal = 0;
@@ -57,7 +57,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.getProducts();
-    this.getCartItems();
+    // this.getCartItems();
   }
 
   addToCart(product, quantity) {
