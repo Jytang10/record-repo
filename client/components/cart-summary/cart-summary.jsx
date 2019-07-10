@@ -10,7 +10,6 @@ class CartSummary extends React.Component {
     this.state = {
       cart: null
     };
-    this.updateCart = this.updateCart.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
   }
 
@@ -29,13 +28,8 @@ class CartSummary extends React.Component {
     });
   }
 
-  updateCart() {
-
-  }
-
   render() {
     let cartItemDisplay;
-
     if (!this.state.cart) {
       cartItemDisplay = <tr><td>No items in cart</td></tr>;
     } else if (Object.keys(this.state.cart).length === 0 && this.state.cart.constructor === Object) {
@@ -50,6 +44,7 @@ class CartSummary extends React.Component {
             item={item}
             cartItems={this.state.cart}
             handleRemove={this.handleRemove}
+            updateCart={this.props.updateCart}
           />
         );
       });
@@ -95,7 +90,7 @@ class CartSummary extends React.Component {
           </Link>
         </Row>
         <Row className="float-right">
-          <Button outline color="primary" className="mr-4" onClick={this.updateCart}>Update Cart</Button>
+          {/* <Button outline color="primary" className="mr-4" onClick={this.updateCart}>Update Cart</Button> */}
           <Link to="/checkout">
             <Button color="success">Check Out</Button>
           </Link>

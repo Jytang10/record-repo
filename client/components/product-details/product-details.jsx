@@ -39,7 +39,7 @@ class ProductDetails extends React.Component {
 
   handleMinusQuantity() {
     let currentQuantity = parseInt(this.state.quantity);
-    if (currentQuantity !== 0) {
+    if (currentQuantity > 1) {
       this.setState({ quantity: currentQuantity - 1 });
     }
   }

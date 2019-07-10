@@ -27,18 +27,21 @@ class CartSummaryItem extends React.Component {
     let currentQuantity = parseInt(this.state.quantity);
     let originalPrice = this.props.item.price;
     this.setState({ quantity: currentQuantity + 1 }, () => {
-      this.setState({ subTotal: originalPrice * this.state.quantity });
+      this.setState({ subTotal: originalPrice * this.state.quantity }, () => {
+        this.props.updateCart(this.state.item, this.state.quantity);
+      });
     });
   }
 
   handleMinusQuantity() {
     let currentQuantity = parseInt(this.state.quantity);
     let originalPrice = this.props.item.price;
-    if (currentQuantity !== 0) {
+    if (currentQuantity > 1) {
       this.setState({ quantity: currentQuantity - 1 }, () => {
         this.setState({ subTotal: originalPrice * this.state.quantity });
       });
     }
+    this.props.updateCart(this.state.item, this.state.quantity);
   }
 
   handleRemoveItem() {

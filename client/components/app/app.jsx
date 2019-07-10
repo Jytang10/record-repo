@@ -21,7 +21,14 @@ export default class App extends React.Component {
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     this.removeFromCart = this.removeFromCart.bind(this);
-    // this.updateCartTotal = this.updateCartTotal.bind(this);
+    this.updateQuantity = this.updateQuantity.bind(this);
+    this.getCartTotal = this.getCartTotal.bind(this);
+  }
+
+  componentDidMount() {
+    this.getProducts();
+    this.getCartItems();
+    this.getCartTotal();
   }
 
   getProducts() {
@@ -42,24 +49,15 @@ export default class App extends React.Component {
       .catch(err => console.error('No cart items found', err));
   }
 
-  componentDidMount() {
-    this.getProducts();
-    this.getCartItems();
+  getCartTotal() {
+    let newCartTotal = this.state.cartTotal;
+    let cart = this.state.cartItems
+    for (var item of cart) {
+      for (var price of item['price']) {
+        console.log(price);
+      }
+    }
   }
-
-  // addToCart(product) {
-  //   const postData = {
-  //     method: 'POST',
-  //     body: JSON.stringify(product),
-  //     headers: { 'Content-Type': 'application/json' }
-  //   };
-  //   fetch('/api/cart.php', postData)
-  //     .then(res => res.json())
-  //     .then(product => {
-  //       const cartItemList = this.state.cart.concat(product);
-  //       this.setState({ cart: cartItemList });
-  //     });
-  // }
 
   addToCart(product, quantity) {
     const { cartItems } = this.state;
@@ -86,13 +84,18 @@ export default class App extends React.Component {
     }
   }
 
-  // updateCartTotal() {
-  //   let newCartTotal = 0;
-  //   for (var item in this.state.cartItems) {
-  //     newCartTotal += parseInt(this.state.cartItems[item]['price']);
-  //   }
-  //   this.setState({ cartTotal: newCartTotal });
-  // }
+  updateQuantity(product, quantity) {
+    const { cartItems } = this.state;
+    this.setState({
+      cartItems: {
+        ...cartItems,
+        [product.id]: {
+          ...cartItems[product.id],
+          quantity: quantity
+        }
+      }
+    });
+  }
 
   removeFromCart(object, key) {
     const newCartObj = {};
@@ -153,7 +156,7 @@ export default class App extends React.Component {
                 cartItems={this.state.cartItems}
                 cartTotal={this.state.cartTotal}
                 handleRemove={this.removeFromCart}
-                handleAdd={this.addToCart} />}
+                updateCart={this.updateQuantity} />}
             />
             <Route
               path="/checkout"
@@ -161,7 +164,8 @@ export default class App extends React.Component {
                 cartItems={this.state.cartItems}
                 cartTotal={this.state.cartTotal}
                 handlePlaceOrder={this.placeOrder}
-                handleAdd={this.addToCart} />}
+                handleAdd={this.addToCart}
+                updateCart={this.updateQuantity} />}
             />
             <Route
               path="/about"
