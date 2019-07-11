@@ -6,7 +6,7 @@
     "release": 2004,
     "price": 1999,
     "image": "./images/ajikan.jpg",
-    "shortDescription": "2018 re-master of their 2004 classic Sol-fa",
+    "description": "Sol-fa (ソルファ Sorufa) is the second studio album by Japanese rock band, Asian Kung-Fu Generation, released on October 20, 2004.",
     "quantity": 0
   },
   {
@@ -16,7 +16,7 @@
     "release": 2003,
     "price": 2900,
     "image": "./images/meta.jpg",
-    "shortDescription": "First solo album by Hip-hop producer Nujabes",
+    "description": "Metaphorical Music is Nujabes' first solo album released in 2003. It offers a combination of hip hop and instrumental jazz, and features artists like Shing02, Substantial, Five Deez and Cise Starr (of CYNE). Despite the fact that the album has contributing vocals from several artists, it is roughly classified as a breakbeat album.",
     "quantity": 0
   },
   {
@@ -26,7 +26,7 @@
     "release": 2018,
     "price": 499,
     "image": "./images/dizzy.jpg",
-    "shortDescription": "Rare acoustic takes on Dizzy Sunfist classics",
+    "description": "Dizzy Sunfist2枚目のアコースティックCDとなる！あやぺたの声に癒されること間違いなしの１枚！",
     "quantity": 0
   },
   {
@@ -36,7 +36,7 @@
     "price": 1999,
     "release": 2013,
     "image": "./images/shishamo.jpg",
-    "shortDescription": "First full length album by Japanese rock band SHISHAMO.",
+    "description": "川崎市にある高校の軽音楽部で結成した3ピースロックバンド・SHISHAMOのデビューアルバム。通常の3ピースガールズバンドが横目で観ていたポップスが、パンチの効いたロックバンドの表現として鳴っている。それもこれも全ては、圧倒的なソングライティングの開花がモノを言っているのだろう。それぞれの曲のサビの鮮やかさ、シャープさ、ドラマティックさ、そして身近さ。これらはガールズバンドがどうとか、ロックがどうとか、そういうレベルを超えたもので、情熱的なエイガを観ているような気になる1枚。",
     "quantity": 0
   },
   {
@@ -46,7 +46,7 @@
     "release": 2018,
     "price": 899,
     "image": "./images/glim.jpg",
-    "shortDescription": "Orokamonotachi single from the album 'Looking for the Magic' by rock band Glim Spanky",
+    "description": "今年、1月にリリースされた3rd Single『愚か者たち』が10inchでリリース！！ 松尾レミのハスキーなシャウト、亀本寛貴のエモーショナルなギターが光る、ヴィンテージな質感のサウンドは本作でも健在。 映画「不能犯」の主題歌にもなった表題曲「愚か者たち」をはじめ、カップリングには、自身のサウンドにも大きな影響を与えたであろうCarol Kingの代表曲「I Feel The Earth Move」のカヴァーを収録。洋楽リスナーも唸らせる、怒涛のクオリティの全3曲を収録。",
     "quantity": 0
   },
   {
@@ -56,7 +56,7 @@
     "release": 2017,
     "price": 1899,
     "image": "./images/tricot.jpg",
-    "shortDescription": "Third album by Japanese math-rock band tricot.",
+    "description": "3 is the third studio album by math rock band Tricot. It was released on May 17, 2017, released under the record label Topshelf Records. The album received generally positive reviews from critics and fans alike, praising its accessibility while still maintaining the complexities of math rock.[",
     "quantity": 0
   },
   {
@@ -66,7 +66,7 @@
     "release": 1999,
     "price": 999,
     "image": "./images/road.jpg",
-    "shortDescription": "Third full-length album by Japanese Punk band Hi-Standard",
+    "description": "Packing more punch than a mouthful of wasabi, Hi-Standard’s third FAT album is sure to delight fans of Japan’s favorite punk all stars. Contains bonus tracks not available on the Japanese release!",
     "quantity": 0
   },
   {
@@ -76,7 +76,7 @@
     "release": 2015,
     "price": 499,
     "image": "./images/sun.jpg",
-    "shortDescription": "Popular single by J-Pop artist Hosino Gen",
+    "description": "星野 源 初のドラマタイアップシングル「SUN」（フジテレビ系４月クール水10ドラマ『心がポキッとね』主題歌）の７インチアナログ盤が、同時リリース決定。",
     "quantity": 0
   }
 ]

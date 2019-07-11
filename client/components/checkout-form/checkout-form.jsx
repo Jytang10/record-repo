@@ -124,10 +124,9 @@ class CheckoutForm extends React.Component {
     }
     let orderTotal = 0;
     for (let item of cartItemsList) {
-      orderTotal += item.price;
+      orderTotal += (item.price / 100);
     }
-    let convertOrderTotal = orderTotal / 100;
-    let fixedOrderTotal = convertOrderTotal.toFixed(2);
+    let fixedOrderTotal = orderTotal.toFixed(2);
     let shippingTotal = parseFloat(fixedOrderTotal) + 5;
     return (
       <Container>

@@ -21,9 +21,9 @@ class ProductDetails extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/products.php?id=' + this.props.productID)
+    fetch('/api/products.php?id=' + this.props.match.params.id)
       .then(res => res.json())
-      .then(product => this.setState({ product }))
+      .then(product => this.setState({ product: product[0] }))
       .catch(err => console.error('No product found', err));
   }
 
@@ -54,7 +54,6 @@ class ProductDetails extends React.Component {
 
   handleAddToCart() {
     this.props.handleAdd(this.state.product, this.state.quantity);
-    // this.setState({ cartTotal: this.props.cartTotal });
     this.toggle();
   }
 
@@ -71,7 +70,7 @@ class ProductDetails extends React.Component {
       productRender = (
         <CardGroup>
           <Card>
-            <CardImg top width="100%" src={this.state.product.image} alt="Product image" />
+            <CardImg top width="100%" src={window.location.origin + this.state.product.image} alt="Product image" />
           </Card>
           <Card>
             <CardBody>
@@ -104,7 +103,7 @@ class ProductDetails extends React.Component {
                   </Button>
                 </Col>
               </Row>
-              <CardText className="product-text">{this.state.product.longDescription}</CardText>
+              <CardText className="product-text">{this.state.product.description}</CardText>
               <Row className="catalog-btn">
                 <Link to="/">
                   <Button color="primary">Back to Catalog</Button>
