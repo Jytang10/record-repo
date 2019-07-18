@@ -140,26 +140,26 @@ class CheckoutForm extends React.Component {
                 <Col md={6}>
                   <FormGroup>
                     <Label for="name">Full Name</Label>
-                    <Input value={nameValue} onChange={this.handleChange} type="name" name="name" id="name" placeholder="Your full name" />
+                    <Input value={nameValue} onChange={this.handleChange} type="name" name="name" id="name" placeholder="Your full name" required />
                     <FormFeedback>Please enter your name</FormFeedback>
                   </FormGroup>
                 </Col>
                 <Col md={6}>
                   <FormGroup>
                     <Label for="email">E-mail</Label>
-                    <Input value={emailValue} onChange={this.handleChange} type="text" name="email" id="email" placeholder="Your e-mail address" />
+                    <Input value={emailValue} onChange={this.handleChange} type="text" name="email" id="email" placeholder="Your e-mail address" required />
                     <FormFeedback>Please enter a valid e-mail address</FormFeedback>
                   </FormGroup>
                 </Col>
               </Row>
               <FormGroup>
                 <Label for="ccnumber">Credit Card Number</Label>
-                <Input value={ccValue} onChange={this.handleChange} type="number" name="ccnumber" id="ccnumber" placeholder="Your credit card number"/>
+                <Input value={ccValue} onChange={this.handleChange} type="number" name="ccnumber" id="ccnumber" placeholder="Your credit card number" required />
                 <FormFeedback>Please enter a valid credit card number</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="address1">Shipping Address Line 1</Label>
-                <Input value={address1Value} onChange={this.handleChange} type="text" name="address1" id="address1" placeholder="1234 Main Street"/>
+                <Input value={address1Value} onChange={this.handleChange} type="text" name="address1" id="address1" placeholder="1234 Main Street" required />
                 <FormFeedback>Please enter your shipping address</FormFeedback>
               </FormGroup>
               <FormGroup>
@@ -170,21 +170,21 @@ class CheckoutForm extends React.Component {
                 <Col md={6}>
                   <FormGroup>
                     <Label for="city">City</Label>
-                    <Input value={cityValue} onChange={this.handleChange} type="text" name="city" id="city"/>
+                    <Input value={cityValue} onChange={this.handleChange} type="text" name="city" id="city" required />
                     <FormFeedback>Please enter your city</FormFeedback>
                   </FormGroup>
                 </Col>
                 <Col md={4}>
                   <FormGroup>
                     <Label for="state">State</Label>
-                    <Input value={stateValue} onChange={this.handleChange} type="text" name="state" id="state"/>
+                    <Input value={stateValue} onChange={this.handleChange} type="text" name="state" id="state" required />
                     <FormFeedback>Please enter your state</FormFeedback>
                   </FormGroup>
                 </Col>
                 <Col md={2}>
                   <FormGroup>
                     <Label for="zip">Zip</Label>
-                    <Input value={zipValue} onChange={this.handleChange} type="number" name="zip" id="zip"/>
+                    <Input value={zipValue} onChange={this.handleChange} type="number" name="zip" id="zip" required />
                     <FormFeedback>Please enter your zip code</FormFeedback>
                   </FormGroup>
                 </Col>
