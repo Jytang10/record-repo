@@ -76,7 +76,7 @@ class ProductDetails extends React.Component {
             <CardBody>
               <CardTitle className="product-title">{this.state.product.name}</CardTitle>
               <CardSubtitle className="product-artist">{this.state.product.artist}</CardSubtitle>
-              <CardText className="product-price">{'$' + (this.state.product.price / 100)}</CardText>
+              <CardText className="product-price">{'$' + (this.state.product.price / 100).toFixed(2)}</CardText>
               <Row>
                 <Col>
                   <FormGroup>
