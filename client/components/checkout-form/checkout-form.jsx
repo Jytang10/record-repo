@@ -128,6 +128,48 @@ class CheckoutForm extends React.Component {
     }
     let fixedOrderTotal = orderTotal.toFixed(2);
     let shippingTotal = parseFloat(fixedOrderTotal) + 5;
+    let nameInputCheck;
+    if (nameValue) {
+      nameInputCheck = <Input value={nameValue} onChange={this.handleChange} type="name" name="name" id="name" placeholder="Your full name" required valid />;
+    } else {
+      nameInputCheck = <Input value={nameValue} onChange={this.handleChange} type="name" name="name" id="name" placeholder="Your full name" required invalid />;
+    }
+    let emailInputCheck;
+    if (emailValue) {
+      emailInputCheck = <Input value={emailValue} onChange={this.handleChange} type="text" name="email" id="email" placeholder="Your e-mail address" required valid/>;
+    } else {
+      emailInputCheck = <Input value={emailValue} onChange={this.handleChange} type="text" name="email" id="email" placeholder="Your e-mail address" required invalid/>;
+    }
+    let ccInputCheck;
+    if (ccValue) {
+      ccInputCheck = <Input value={ccValue} onChange={this.handleChange} type="number" name="ccnumber" id="ccnumber" placeholder="Your credit card number" required valid />;
+    } else {
+      ccInputCheck = <Input value={ccValue} onChange={this.handleChange} type="number" name="ccnumber" id="ccnumber" placeholder="Your credit card number" required invalid />;
+    }
+    let addressInputCheck;
+    if (address1Value) {
+      addressInputCheck = <Input value={address1Value} onChange={this.handleChange} type="text" name="address1" id="address1" placeholder="1234 Main Street" required valid />;
+    } else {
+      addressInputCheck = <Input value={address1Value} onChange={this.handleChange} type="text" name="address1" id="address1" placeholder="1234 Main Street" required invalid />;
+    }
+    let cityInputCheck;
+    if (cityValue) {
+      cityInputCheck = <Input value={cityValue} onChange={this.handleChange} type="text" name="city" id="city" required valid />;
+    } else {
+      cityInputCheck = <Input value={cityValue} onChange={this.handleChange} type="text" name="city" id="city" required invalid />;
+    }
+    let stateInputCheck;
+    if (stateValue) {
+      stateInputCheck = <Input value={stateValue} onChange={this.handleChange} type="text" name="state" id="state" required valid />;
+    } else {
+      stateInputCheck = <Input value={stateValue} onChange={this.handleChange} type="text" name="state" id="state" required invalid />;
+    }
+    let zipInputCheck;
+    if (zipValue) {
+      zipInputCheck = <Input value={zipValue} onChange={this.handleChange} type="number" name="zip" id="zip" required valid />;
+    } else {
+      zipInputCheck = <Input value={zipValue} onChange={this.handleChange} type="number" name="zip" id="zip" required invalid />;
+    }
     return (
       <Container>
         <Row className="justify-content-center">
@@ -140,27 +182,27 @@ class CheckoutForm extends React.Component {
                 <Col md={6}>
                   <FormGroup>
                     <Label for="name">Full Name</Label>
-                    <Input value={nameValue} onChange={this.handleChange} type="name" name="name" id="name" placeholder="Your full name" required />
-                    <FormFeedback>Please enter your name</FormFeedback>
+                    {nameInputCheck}
+                    <FormFeedback invalid>Please enter your name</FormFeedback>
                   </FormGroup>
                 </Col>
                 <Col md={6}>
                   <FormGroup>
                     <Label for="email">E-mail</Label>
-                    <Input value={emailValue} onChange={this.handleChange} type="text" name="email" id="email" placeholder="Your e-mail address" required />
-                    <FormFeedback>Please enter a valid e-mail address</FormFeedback>
+                    {emailInputCheck}
+                    <FormFeedback invalid>Please enter a valid e-mail address</FormFeedback>
                   </FormGroup>
                 </Col>
               </Row>
               <FormGroup>
                 <Label for="ccnumber">Credit Card Number</Label>
-                <Input value={ccValue} onChange={this.handleChange} type="number" name="ccnumber" id="ccnumber" placeholder="Your credit card number" required />
-                <FormFeedback>Please enter a valid credit card number</FormFeedback>
+                {ccInputCheck}
+                <FormFeedback invalid>Please enter a valid credit card number</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="address1">Shipping Address Line 1</Label>
-                <Input value={address1Value} onChange={this.handleChange} type="text" name="address1" id="address1" placeholder="1234 Main Street" required />
-                <FormFeedback>Please enter your shipping address</FormFeedback>
+                {addressInputCheck}
+                <FormFeedback invalid>Please enter your shipping address</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="address2">Shipping Address Line 2</Label>
@@ -170,22 +212,22 @@ class CheckoutForm extends React.Component {
                 <Col md={6}>
                   <FormGroup>
                     <Label for="city">City</Label>
-                    <Input value={cityValue} onChange={this.handleChange} type="text" name="city" id="city" required />
-                    <FormFeedback>Please enter your city</FormFeedback>
+                    {cityInputCheck}
+                    <FormFeedback invalid>Please enter your city</FormFeedback>
                   </FormGroup>
                 </Col>
                 <Col md={4}>
                   <FormGroup>
                     <Label for="state">State</Label>
-                    <Input value={stateValue} onChange={this.handleChange} type="text" name="state" id="state" required />
-                    <FormFeedback>Please enter your state</FormFeedback>
+                    {stateInputCheck}
+                    <FormFeedback invalid>Please enter your state</FormFeedback>
                   </FormGroup>
                 </Col>
                 <Col md={2}>
                   <FormGroup>
                     <Label for="zip">Zip</Label>
-                    <Input value={zipValue} onChange={this.handleChange} type="number" name="zip" id="zip" required />
-                    <FormFeedback>Please enter your zip code</FormFeedback>
+                    {zipInputCheck}
+                    <FormFeedback invalid>Please enter your zip code</FormFeedback>
                   </FormGroup>
                 </Col>
               </Row>
@@ -198,7 +240,7 @@ class CheckoutForm extends React.Component {
                   </Link>
                 </Col>
                 <Col className="text-center">
-                  <Button color="success" size="lg" onClick={this.toggle}>Confirm Order</Button>
+                  <Button color="success" onClick={this.toggle}>Confirm Order</Button>
                 </Col>
               </Row>
             </Form>

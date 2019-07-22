@@ -1,6 +1,6 @@
 import React from 'react';
 import CartSummaryItem from '../cart-summary-item/cart-summary-item';
-import { Table, Container, Row, Button } from 'reactstrap';
+import { Table, Container, Row, Button, Col, Tooltip } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './cart-summary.css';
 
@@ -8,9 +8,11 @@ class CartSummary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cart: null
+      cart: null,
+      tooltipOpen: false
     };
     this.handleRemove = this.handleRemove.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
 
   componentDidMount() {
@@ -25,6 +27,12 @@ class CartSummary extends React.Component {
     this.props.handleRemove(this.state.cart, id);
     this.setState({ cart: this.props.cartItems }, () => {
       this.getCartItems();
+    });
+  }
+
+  toggle() {
+    this.setState({
+      tooltipOpen: !this.state.tooltipOpen
     });
   }
 
@@ -50,6 +58,21 @@ class CartSummary extends React.Component {
       });
       cartItemDisplay = cartList;
     }
+    let checkoutCheck;
+    if (this.props.cartTotal === 0) {
+      checkoutCheck = (
+        <div>
+          <Button outline color="secondary" id="zeroItems">Check Out</Button>
+          <Tooltip placement="top" isOpen={this.state.tooltipOpen} target="zeroItems" toggle={this.toggle}>No items in cart</Tooltip>
+        </div>
+      );
+    } else {
+      checkoutCheck = (
+        <Link to="/checkout">
+          <Button color="success">Check Out</Button>
+        </Link>
+      );
+    }
 
     return (
       <Container>
@@ -73,18 +96,18 @@ class CartSummary extends React.Component {
             </tbody>
           </Table>
         </Row>
-        <Row className="float-right">
-          {'Current Cart Total: $' + ((this.props.cartTotal / 100)).toFixed(2)}
-        </Row>
         <Row>
-          <Link to="/">
-            <Button outline color="secondary">Continue Shopping</Button>
-          </Link>
-        </Row>
-        <Row className="float-right">
-          <Link to="/checkout">
-            <Button color="success">Check Out</Button>
-          </Link>
+          <Col></Col>
+          <Col></Col>
+          <Col>
+            <Row className="justify-content-center"><div>{'Current Cart Total: $' + ((this.props.cartTotal / 100)).toFixed(2)}</div></Row>
+            <Row className="justify-content-center">
+              <Link to="/" className="mr-3">
+                <Button outline color="secondary">Continue Shopping</Button>
+              </Link>
+              {checkoutCheck}
+            </Row>
+          </Col>
         </Row>
       </Container>
     );
