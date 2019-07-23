@@ -28,8 +28,7 @@ class CheckoutForm extends React.Component {
       closeAll: false,
       name: '',
       email: '',
-      address1: '',
-      address2: '',
+      address: '',
       city: '',
       state: '',
       zip: '',
@@ -64,7 +63,8 @@ class CheckoutForm extends React.Component {
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
+      [event.target.id]: true
     });
   }
 
@@ -75,8 +75,7 @@ class CheckoutForm extends React.Component {
       name: this.state.name,
       email: this.state.email,
       creditCard: parseInt(creditCardInfo),
-      address1: this.state.address1,
-      address2: this.state.address2,
+      address: this.state.address,
       city: this.state.city,
       state: this.state.state,
       zip: parseInt(this.state.zip)
@@ -85,8 +84,7 @@ class CheckoutForm extends React.Component {
     this.setState({
       name: '',
       email: '',
-      address1: '',
-      address2: '',
+      address: '',
       city: '',
       state: '',
       zip: '',
@@ -97,8 +95,7 @@ class CheckoutForm extends React.Component {
   render() {
     const nameValue = this.state.name;
     const emailValue = this.state.email;
-    const address1Value = this.state.address1;
-    const address2Value = this.state.address2;
+    const addressValue = this.state.address;
     const ccValue = this.state.ccnumber;
     const cityValue = this.state.city;
     const stateValue = this.state.state;
@@ -132,15 +129,36 @@ class CheckoutForm extends React.Component {
     } else {
       ccInputValueLength = false;
     }
+    let zipInputValueLength;
+    if (zipValue.length === 5) {
+      zipInputValueLength = true;
+    } else {
+      zipInputValueLength = false;
+    }
     let fixedOrderTotal = orderTotal.toFixed(2);
     let shippingTotal = (parseFloat(orderTotal) + 5).toFixed(2);
-    const nameInputCheck = <Input value={nameValue} onChange={this.handleChange} type="name" name="name" id="name" placeholder="Your full name" required valid={!!nameValue} invalid={!nameValue}/>;
-    const emailInputCheck = <Input value={emailValue} onChange={this.handleChange} type="text" name="email" id="email" placeholder="Your e-mail address" required valid={!!emailValue} invalid={!emailValue}/>;
-    const ccInputCheck = <Input value={ccValue} onChange={this.handleChange} type="tel" pattern="[0-9]{13,16}" maxLength="19" name="ccnumber" id="ccnumber" placeholder="Your credit card number" required valid={ccInputValueLength} invalid={!ccValue} />;
-    const addressInputCheck = <Input value={address1Value} onChange={this.handleChange} type="text" name="address1" id="address1" placeholder="1234 Main Street" required valid={!!address1Value} invalid={!address1Value} />;
-    const cityInputCheck = <Input value={cityValue} onChange={this.handleChange} type="text" name="city" id="city" required valid={!!cityValue} invalid={!cityValue} />;
-    const stateInputCheck = <Input value={stateValue} onChange={this.handleChange} type="text" name="state" id="state" required valid={!!stateValue} invalid={!stateValue} />;
-    const zipInputCheck = <Input value={zipValue} onChange={this.handleChange} type="number" pattern="[0-9]" maxLength="5" name="zip" id="zip" required valid={!!zipValue} invalid={!zipValue} />;
+    if (this.state.nameCheck) {
+      var validateName = !nameValue;
+    } else if (this.state.emailCheck) {
+      var validateEmail = !emailValue;
+    } else if (this.state.ccnumberCheck) {
+      var validateCc = !ccValue;
+    } else if (this.state.addressCheck) {
+      var validateAddress = !addressValue;
+    } else if (this.state.cityCheck) {
+      var validateCity = !cityValue;
+    } else if (this.state.stateCheck) {
+      var validateState = !stateValue;
+    } else if (this.state.zipCheck) {
+      var validateZip = !zipValue;
+    }
+    const nameInputCheck = <Input value={nameValue} onChange={this.handleChange} type="name" name="name" id="nameCheck" placeholder="Your full name" required valid={!!nameValue} invalid={validateName}/>;
+    const emailInputCheck = <Input value={emailValue} onChange={this.handleChange} type="text" name="email" id="emailCheck" placeholder="Your e-mail address" required valid={!!emailValue} invalid={validateEmail}/>;
+    const ccInputCheck = <Input value={ccValue} onChange={this.handleChange} type="tel" pattern="[0-9]{13,16}" maxLength="19" name="ccnumber" id="ccnumberCheck" placeholder="Your credit card number" required valid={ccInputValueLength} invalid={validateCc} />;
+    const addressInputCheck = <Input value={addressValue} onChange={this.handleChange} type="text" name="address" id="addressCheck" placeholder="1234 Main Street" required valid={!!addressValue} invalid={validateAddress} />;
+    const cityInputCheck = <Input value={cityValue} onChange={this.handleChange} type="text" name="city" id="cityCheck" placeholder="Your City" required valid={!!cityValue} invalid={validateCity} />;
+    const stateInputCheck = <Input value={stateValue} onChange={this.handleChange} type="text" name="state" id="stateCheck" placeholder="Your State" required valid={!!stateValue} invalid={validateState} />;
+    const zipInputCheck = <Input value={zipValue} onChange={this.handleChange} type="tel" pattern="[0-9]" maxLength="5" name="zip" id="zipCheck" placeholder="Zip code" required valid={zipInputValueLength} invalid={validateZip} />;
     let confirmOrderBtn;
     if (nameInputCheck.props.valid && emailInputCheck.props.valid && ccInputCheck.props.valid && addressInputCheck.props.valid && cityInputCheck.props.valid && stateInputCheck.props.valid && zipInputCheck.props.valid) {
       confirmOrderBtn = <Button color="success" onClick={this.toggle}>Confirm Order</Button>;
@@ -149,7 +167,7 @@ class CheckoutForm extends React.Component {
     }
     return (
       <Container>
-        <Row className="justify-content-cente mt-2r">
+        <Row className="justify-content-center mt-2">
           <h1>Cart Checkout</h1>
         </Row>
         <Row>
@@ -177,13 +195,9 @@ class CheckoutForm extends React.Component {
                 <FormFeedback className="form-feedback">Please enter a valid credit card number</FormFeedback>
               </FormGroup>
               <FormGroup>
-                <Label for="address1">Shipping Address Line 1</Label>
+                <Label for="address">Shipping Address</Label>
                 {addressInputCheck}
                 <FormFeedback className="form-feedback">Please enter your shipping address</FormFeedback>
-              </FormGroup>
-              <FormGroup>
-                <Label for="address2">Shipping Address Line 2</Label>
-                <Input value={address2Value} onChange={this.handleChange} type="text" name="address2" id="address2" placeholder="Apartment, studio, or floor"/>
               </FormGroup>
               <Row form>
                 <Col md={4}>
