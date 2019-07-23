@@ -6,7 +6,6 @@ import {
   CarouselItem,
   CarouselControl,
   CarouselIndicators,
-  CarouselCaption,
   Container,
   Col,
   Row
@@ -85,9 +84,8 @@ class HomeCatalog extends React.Component {
           key={item.src}
         >
           <Link to={`/products/${item.id}`}>
-            <img src={item.src} alt={item.altText} />
+            <img src={item.src} alt={item.altText}/>
           </Link>
-          <CarouselCaption captionText={item.caption} captionHeader={item.subcaption} className="carousel-caption"/>
         </CarouselItem>
       );
     });
@@ -104,7 +102,7 @@ class HomeCatalog extends React.Component {
       <Container fluid={true}>
         <Row className="greeting-row mt-2">
           <Col className="greeting-h1">
-            <h3>Top Sellers</h3>
+            <h3>Weekly Top Sellers</h3>
           </Col>
         </Row>
         <Row className="carousel-row mb-3">

@@ -1,13 +1,17 @@
 
 .greeting-h1 {
   text-align: center;
-  color: 	black;
+  color: #010515 ;
+  font-style: italic;
 }
 
 .carousel-item img {
   width: 100%;
-  border: 2mm ridge 	#571a1a;
   filter: contrast(60%);
+}
+
+.carousel-inner {
+  border: 1mm ridge #010515  ;
 }
 
 .carousel-caption {
@@ -20,8 +24,8 @@
 
 .carousel-row {
   position: relative;
-  border-top: 4px solid 	#571a1a;
-  border-bottom: 4px solid 	#571a1a;
+  border-top: 4px solid 	#010515  ;
+  border-bottom: 4px solid 	#010515  ;
 }
 
 .carousel-row::before {
@@ -56,6 +60,12 @@
   .card-deck .card {
     -ms-flex: 0 0 32%;
     flex: 0 0 32%;
+  }
+}
+
+@media screen and (max-width: 930px) {
+  .carousel-item img {
+    width: 15rem !important;
   }
 }
 

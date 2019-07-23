@@ -237,10 +237,12 @@ class CheckoutForm extends React.Component {
               <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                 <ModalHeader toggle={this.toggle} close={closeBtn}>
                   <i className="mr-1 fas fa-exclamation-triangle confirm-icon"></i>
-                  CONFIRM YOUR ORDER
+                  Please do not submit real information
                 </ModalHeader>
                 <ModalBody>
-                  <Row className="modal-body-row">Would you like to submit your order?</Row>
+                  <Row className="modal-body-row">
+                    Would you like to submit your order?
+                  </Row>
                 </ModalBody>
                 <ModalFooter>
                   <Link to="/checkout">
