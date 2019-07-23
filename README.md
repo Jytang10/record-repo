@@ -1,6 +1,6 @@
 # Record Repo
 Live Demo: __https://record-repo.jamestang.dev/__
-![](./images/rr-video.gif)
+![](./rr-video.gif)
 <hr/>
 An online e-commerce website for a record label specializing in Japanese vinyl LPs. Customers can view, add, update and delete products from their cart, and also submit their orders.
 
