@@ -1,14 +1,17 @@
 
 .greeting-h1 {
   text-align: center;
-  color: 	black;
+  color: #010515 ;
+  font-style: italic;
 }
 
-.carousel-item > img {
-  /* width: 23rem; */
+.carousel-item img {
   width: 100%;
-  border: 2mm ridge 	#571a1a;
   filter: contrast(60%);
+}
+
+.carousel-inner {
+  border: 1mm ridge #010515  ;
 }
 
 .carousel-caption {
@@ -21,8 +24,8 @@
 
 .carousel-row {
   position: relative;
-  border-top: 4px solid 	#571a1a;
-  border-bottom: 4px solid 	#571a1a;
+  border-top: 4px solid 	#010515  ;
+  border-bottom: 4px solid 	#010515  ;
 }
 
 .carousel-row::before {
@@ -30,7 +33,7 @@
   background-image: url('https://www.billboard.com/files/media/record-stores-vinyl-2017-billboard-1548.jpg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: fill;
+  background-size: cover;
   filter: opacity(70%);
   position: absolute;
   top: 0; left: 0;
@@ -60,10 +63,26 @@
   }
 }
 
+@media screen and (max-width: 930px) {
+  .carousel-item img {
+    width: 15rem !important;
+  }
+}
+
 @media (min-width: 992px)
 {
   .card-deck .card {
     -ms-flex: 0 0 24%;
     flex: 0 0 24%;
   }
+}
+
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) { 
+    .carousel-item img {
+      width: 15rem;
+    }
 }

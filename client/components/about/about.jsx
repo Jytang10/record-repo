@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Card, CardImg, Button, CardBody, CardTitle, CardText } from 'reactstrap';
+import { Container, Row, Card, CardImg, Button, CardBody, CardText } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './about.css';
 class About extends React.Component {
@@ -9,7 +9,6 @@ class About extends React.Component {
         <Card className="mt-4 align-items-center">
           <CardImg top className="about-image" src="/images/about.jpg" alt="Card image cap" />
           <CardBody>
-            <CardTitle>Thank you for visiting Record Repo!</CardTitle>
             <CardText>
                 Hi, I&apos;m James Tang and thank you for viewing my project! With a generic online shopping cart as the base,
                 I decided to create an online store selling vinyl records. From my time in living in Japan and personal interest in Japanese music,

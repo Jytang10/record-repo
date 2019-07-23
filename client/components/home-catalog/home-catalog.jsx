@@ -6,31 +6,34 @@ import {
   CarouselItem,
   CarouselControl,
   CarouselIndicators,
-  CarouselCaption,
   Container,
   Col,
   Row
 } from 'reactstrap';
 import './home-catalog.css';
+import { Link } from 'react-router-dom';
 
 const items = [
   {
     src: '/images/meta.jpg',
     altText: 'Record 1',
     caption: 'Nujabes',
-    subcaption: 'metaphorical music'
+    subcaption: 'metaphorical music',
+    id: 2
   },
   {
     src: './images/sun.jpg',
     altText: 'Record 2',
     caption: '星野源',
-    subcaption: 'Sun'
+    subcaption: 'Sun',
+    id: 8
   },
   {
     src: './images/shishamo.jpg',
     altText: 'Record 3',
     caption: 'SHISHAMO',
-    subcaption: 'SHISHAMO'
+    subcaption: 'SHISHAMO',
+    id: 4
   }
 ];
 
@@ -80,8 +83,9 @@ class HomeCatalog extends React.Component {
           onExited={this.onExited}
           key={item.src}
         >
-          <img src={item.src} alt={item.altText} />
-          <CarouselCaption captionText={item.caption} captionHeader={item.subcaption} className="carousel-caption"/>
+          <Link to={`/products/${item.id}`}>
+            <img src={item.src} alt={item.altText}/>
+          </Link>
         </CarouselItem>
       );
     });
@@ -98,7 +102,7 @@ class HomeCatalog extends React.Component {
       <Container fluid={true}>
         <Row className="greeting-row mt-2">
           <Col className="greeting-h1">
-            <h3>Top Sellers</h3>
+            <h3>Weekly Top Sellers</h3>
           </Col>
         </Row>
         <Row className="carousel-row mb-3">
@@ -120,7 +124,7 @@ class HomeCatalog extends React.Component {
           </Col>
           <Col />
         </Row>
-        <Row>
+        <Row className="mr-2 ml-2">
           <CardDeck>
             {productList}
           </CardDeck>
