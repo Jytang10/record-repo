@@ -1,5 +1,6 @@
 # Record Repo
-Live Demo: __https://record-repo.jamestang.dev/__
+## Live Demo
+__https://record-repo.jamestang.dev/__
 ![](./rr-video.gif)
 <hr/>
 An online e-commerce website for a record label specializing in Japanese vinyl LPs. Customers can view, add, update and delete products from their cart, and also submit their orders.
@@ -14,7 +15,6 @@ $ git clone https://github.com/[user_name]/record-repo.git
 $ npm install
 ```
 3. Create a database titled record_repo in phpMyAdmin and import the record_repo.sql file
-# If not database is created, dummy data is available to be used
 
 4. Ensure that the Apache service is installed and running
 
