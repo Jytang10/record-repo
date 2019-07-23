@@ -62,21 +62,21 @@ class CartSummary extends React.Component {
     if (this.props.cartTotal === 0) {
       checkoutCheck = (
         <div>
-          <Button outline color="secondary" id="zeroItems">Check Out</Button>
+          <Button outline size="lg" color="secondary" id="zeroItems">Check Out</Button>
           <Tooltip placement="top" isOpen={this.state.tooltipOpen} target="zeroItems" toggle={this.toggle}>No items in cart</Tooltip>
         </div>
       );
     } else {
       checkoutCheck = (
         <Link to="/checkout">
-          <Button color="success">Check Out</Button>
+          <Button size="lg" color="success">Check Out</Button>
         </Link>
       );
     }
 
     return (
       <Container>
-        <Row className="cart-header">
+        <Row className="cart-header mt-2">
           <h1>My Shopping Cart</h1>
         </Row>
         <Row>
@@ -103,7 +103,7 @@ class CartSummary extends React.Component {
             <Row className="justify-content-center"><div>{'Current Cart Total: $' + ((this.props.cartTotal / 100)).toFixed(2)}</div></Row>
             <Row className="justify-content-center">
               <Link to="/" className="mr-3">
-                <Button outline color="secondary">Continue Shopping</Button>
+                <Button size="lg" outline color="secondary">Continue Shopping</Button>
               </Link>
               {checkoutCheck}
             </Row>

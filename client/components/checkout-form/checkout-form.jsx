@@ -126,53 +126,30 @@ class CheckoutForm extends React.Component {
     for (let item of cartItemsList) {
       orderTotal += (item.price / 100);
     }
+    let ccInputValueLength;
+    if (ccValue.length >= 16 && ccValue.length <= 19) {
+      ccInputValueLength = true;
+    } else {
+      ccInputValueLength = false;
+    }
     let fixedOrderTotal = orderTotal.toFixed(2);
-    let shippingTotal = parseFloat(fixedOrderTotal) + 5;
-    let nameInputCheck;
-    if (nameValue) {
-      nameInputCheck = <Input value={nameValue} onChange={this.handleChange} type="name" name="name" id="name" placeholder="Your full name" required valid />;
+    let shippingTotal = (parseFloat(orderTotal) + 5).toFixed(2);
+    const nameInputCheck = <Input value={nameValue} onChange={this.handleChange} type="name" name="name" id="name" placeholder="Your full name" required valid={!!nameValue} invalid={!nameValue}/>;
+    const emailInputCheck = <Input value={emailValue} onChange={this.handleChange} type="text" name="email" id="email" placeholder="Your e-mail address" required valid={!!emailValue} invalid={!emailValue}/>;
+    const ccInputCheck = <Input value={ccValue} onChange={this.handleChange} type="tel" pattern="[0-9]{13,16}" maxLength="19" name="ccnumber" id="ccnumber" placeholder="Your credit card number" required valid={ccInputValueLength} invalid={!ccValue} />;
+    const addressInputCheck = <Input value={address1Value} onChange={this.handleChange} type="text" name="address1" id="address1" placeholder="1234 Main Street" required valid={!!address1Value} invalid={!address1Value} />;
+    const cityInputCheck = <Input value={cityValue} onChange={this.handleChange} type="text" name="city" id="city" required valid={!!cityValue} invalid={!cityValue} />;
+    const stateInputCheck = <Input value={stateValue} onChange={this.handleChange} type="text" name="state" id="state" required valid={!!stateValue} invalid={!stateValue} />;
+    const zipInputCheck = <Input value={zipValue} onChange={this.handleChange} type="number" pattern="[0-9]" maxLength="5" name="zip" id="zip" required valid={!!zipValue} invalid={!zipValue} />;
+    let confirmOrderBtn;
+    if (nameInputCheck.props.valid && emailInputCheck.props.valid && ccInputCheck.props.valid && addressInputCheck.props.valid && cityInputCheck.props.valid && stateInputCheck.props.valid && zipInputCheck.props.valid) {
+      confirmOrderBtn = <Button color="success" onClick={this.toggle}>Confirm Order</Button>;
     } else {
-      nameInputCheck = <Input value={nameValue} onChange={this.handleChange} type="name" name="name" id="name" placeholder="Your full name" required invalid />;
-    }
-    let emailInputCheck;
-    if (emailValue) {
-      emailInputCheck = <Input value={emailValue} onChange={this.handleChange} type="text" name="email" id="email" placeholder="Your e-mail address" required valid/>;
-    } else {
-      emailInputCheck = <Input value={emailValue} onChange={this.handleChange} type="text" name="email" id="email" placeholder="Your e-mail address" required invalid/>;
-    }
-    let ccInputCheck;
-    if (ccValue) {
-      ccInputCheck = <Input value={ccValue} onChange={this.handleChange} type="number" name="ccnumber" id="ccnumber" placeholder="Your credit card number" required valid />;
-    } else {
-      ccInputCheck = <Input value={ccValue} onChange={this.handleChange} type="number" name="ccnumber" id="ccnumber" placeholder="Your credit card number" required invalid />;
-    }
-    let addressInputCheck;
-    if (address1Value) {
-      addressInputCheck = <Input value={address1Value} onChange={this.handleChange} type="text" name="address1" id="address1" placeholder="1234 Main Street" required valid />;
-    } else {
-      addressInputCheck = <Input value={address1Value} onChange={this.handleChange} type="text" name="address1" id="address1" placeholder="1234 Main Street" required invalid />;
-    }
-    let cityInputCheck;
-    if (cityValue) {
-      cityInputCheck = <Input value={cityValue} onChange={this.handleChange} type="text" name="city" id="city" required valid />;
-    } else {
-      cityInputCheck = <Input value={cityValue} onChange={this.handleChange} type="text" name="city" id="city" required invalid />;
-    }
-    let stateInputCheck;
-    if (stateValue) {
-      stateInputCheck = <Input value={stateValue} onChange={this.handleChange} type="text" name="state" id="state" required valid />;
-    } else {
-      stateInputCheck = <Input value={stateValue} onChange={this.handleChange} type="text" name="state" id="state" required invalid />;
-    }
-    let zipInputCheck;
-    if (zipValue) {
-      zipInputCheck = <Input value={zipValue} onChange={this.handleChange} type="number" name="zip" id="zip" required valid />;
-    } else {
-      zipInputCheck = <Input value={zipValue} onChange={this.handleChange} type="number" name="zip" id="zip" required invalid />;
+      confirmOrderBtn = <Button outline color="secondary">Confirm Order</Button>;
     }
     return (
       <Container>
-        <Row className="justify-content-center">
+        <Row className="justify-content-cente mt-2r">
           <h1>Cart Checkout</h1>
         </Row>
         <Row>
@@ -183,55 +160,55 @@ class CheckoutForm extends React.Component {
                   <FormGroup>
                     <Label for="name">Full Name</Label>
                     {nameInputCheck}
-                    <FormFeedback invalid>Please enter your name</FormFeedback>
+                    <FormFeedback className="form-feedback">Please enter your name</FormFeedback>
                   </FormGroup>
                 </Col>
                 <Col md={6}>
                   <FormGroup>
                     <Label for="email">E-mail</Label>
                     {emailInputCheck}
-                    <FormFeedback invalid>Please enter a valid e-mail address</FormFeedback>
+                    <FormFeedback className="form-feedback">Please enter a valid e-mail address</FormFeedback>
                   </FormGroup>
                 </Col>
               </Row>
               <FormGroup>
                 <Label for="ccnumber">Credit Card Number</Label>
                 {ccInputCheck}
-                <FormFeedback invalid>Please enter a valid credit card number</FormFeedback>
+                <FormFeedback className="form-feedback">Please enter a valid credit card number</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="address1">Shipping Address Line 1</Label>
                 {addressInputCheck}
-                <FormFeedback invalid>Please enter your shipping address</FormFeedback>
+                <FormFeedback className="form-feedback">Please enter your shipping address</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="address2">Shipping Address Line 2</Label>
                 <Input value={address2Value} onChange={this.handleChange} type="text" name="address2" id="address2" placeholder="Apartment, studio, or floor"/>
               </FormGroup>
               <Row form>
-                <Col md={6}>
+                <Col md={4}>
                   <FormGroup>
                     <Label for="city">City</Label>
                     {cityInputCheck}
-                    <FormFeedback invalid>Please enter your city</FormFeedback>
+                    <FormFeedback className="form-feedback">Please enter your city</FormFeedback>
                   </FormGroup>
                 </Col>
                 <Col md={4}>
                   <FormGroup>
                     <Label for="state">State</Label>
                     {stateInputCheck}
-                    <FormFeedback invalid>Please enter your state</FormFeedback>
+                    <FormFeedback className="form-feedback">Please enter your state</FormFeedback>
                   </FormGroup>
                 </Col>
-                <Col md={2}>
+                <Col md={4}>
                   <FormGroup>
                     <Label for="zip">Zip</Label>
                     {zipInputCheck}
-                    <FormFeedback invalid>Please enter your zip code</FormFeedback>
+                    <FormFeedback className="form-feedback">Please enter your zip code</FormFeedback>
                   </FormGroup>
                 </Col>
               </Row>
-              <Row>
+              <Row className="mb-4">
                 <Col className="text-center">
                   <Link to="/cart">
                     <Button color="danger">
@@ -240,9 +217,36 @@ class CheckoutForm extends React.Component {
                   </Link>
                 </Col>
                 <Col className="text-center">
-                  <Button color="success" onClick={this.toggle}>Confirm Order</Button>
+                  {confirmOrderBtn}
                 </Col>
               </Row>
+              <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                <ModalHeader toggle={this.toggle} close={closeBtn}>
+                  <i className="mr-1 fas fa-exclamation-triangle confirm-icon"></i>
+                  CONFIRM YOUR ORDER
+                </ModalHeader>
+                <ModalBody>
+                  <Row className="modal-body-row">Would you like to submit your order?</Row>
+                </ModalBody>
+                <ModalFooter>
+                  <Link to="/checkout">
+                    <Button color="danger" onClick={this.toggle}>Return to Checkout</Button>{' '}
+                  </Link>
+                  <Button color="success" onClick={this.handleSubmit}>Submit Order</Button>
+                  <Modal isOpen={this.state.nestedModal} toggle={this.toggleNested} onClosed={this.state.closeAll ? this.toggle : undefined}>
+                    <ModalHeader>
+                      <i className="mr-1 fas fa-handshake"></i>
+                      THANK YOU
+                    </ModalHeader>
+                    <ModalBody>Order successfully placed. Thank you for your patronage.</ModalBody>
+                    <ModalFooter className="order-success-modal">
+                      <Link to="/">
+                        <Button color="success" onClick={this.toggleAll}>Back to Home</Button>
+                      </Link>
+                    </ModalFooter>
+                  </Modal>
+                </ModalFooter>
+              </Modal>
             </Form>
           </Col>
           <Col className="cart-item-summary-div">
@@ -269,33 +273,6 @@ class CheckoutForm extends React.Component {
             </Container>
           </Col>
         </Row>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle} close={closeBtn}>
-            <i className="mr-1 fas fa-exclamation-triangle confirm-icon"></i>
-            CONFIRM YOUR ORDER
-          </ModalHeader>
-          <ModalBody>
-            <Row className="modal-body-row">Would you like to submit your order?</Row>
-          </ModalBody>
-          <ModalFooter>
-            <Link to="/checkout">
-              <Button color="danger" onClick={this.toggle}>Return to Checkout</Button>{' '}
-            </Link>
-            <Button color="success" onClick={this.handleSubmit}>Submit Order</Button>
-            <Modal isOpen={this.state.nestedModal} toggle={this.toggleNested} onClosed={this.state.closeAll ? this.toggle : undefined}>
-              <ModalHeader>
-                <i className="mr-1 fas fa-handshake"></i>
-                THANK YOU
-              </ModalHeader>
-              <ModalBody>Order successfully placed. Thank you for your patronage.</ModalBody>
-              <ModalFooter className="order-success-modal">
-                <Link to="/">
-                  <Button color="success" onClick={this.toggleAll}>Back to Home</Button>
-                </Link>
-              </ModalFooter>
-            </Modal>
-          </ModalFooter>
-        </Modal>
       </Container>
     );
   }
