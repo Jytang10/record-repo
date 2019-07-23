@@ -50,7 +50,6 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.getProducts();
-    // this.getCartItems();
   }
 
   addToCart(product, quantity) {

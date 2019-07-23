@@ -20,6 +20,7 @@
 
 .quantity-input-row {
   justify-content: center;
+  align-items: center;
 }
 
 .quantity-input {
