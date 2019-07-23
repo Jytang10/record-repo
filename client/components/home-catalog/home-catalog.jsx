@@ -12,25 +12,29 @@ import {
   Row
 } from 'reactstrap';
 import './home-catalog.css';
+import { Link } from 'react-router-dom';
 
 const items = [
   {
     src: '/images/meta.jpg',
     altText: 'Record 1',
     caption: 'Nujabes',
-    subcaption: 'metaphorical music'
+    subcaption: 'metaphorical music',
+    id: 2
   },
   {
     src: './images/sun.jpg',
     altText: 'Record 2',
     caption: '星野源',
-    subcaption: 'Sun'
+    subcaption: 'Sun',
+    id: 8
   },
   {
     src: './images/shishamo.jpg',
     altText: 'Record 3',
     caption: 'SHISHAMO',
-    subcaption: 'SHISHAMO'
+    subcaption: 'SHISHAMO',
+    id: 4
   }
 ];
 
@@ -80,7 +84,9 @@ class HomeCatalog extends React.Component {
           onExited={this.onExited}
           key={item.src}
         >
-          <img src={item.src} alt={item.altText} />
+          <Link to={`/products/${item.id}`}>
+            <img src={item.src} alt={item.altText} />
+          </Link>
           <CarouselCaption captionText={item.caption} captionHeader={item.subcaption} className="carousel-caption"/>
         </CarouselItem>
       );
@@ -120,7 +126,7 @@ class HomeCatalog extends React.Component {
           </Col>
           <Col />
         </Row>
-        <Row>
+        <Row className="mr-2 ml-2">
           <CardDeck>
             {productList}
           </CardDeck>
