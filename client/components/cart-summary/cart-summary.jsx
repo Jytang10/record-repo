@@ -96,7 +96,7 @@ class CartSummary extends React.Component {
             </tbody>
           </Table>
         </Row>
-        <Row>
+        <Row className="mb-4">
           <Col></Col>
           <Col></Col>
           <Col>

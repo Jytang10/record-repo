@@ -252,7 +252,7 @@ class CheckoutForm extends React.Component {
           <Col className="cart-item-summary-div">
             <Container>
               <Row className="mt-1">
-                <Table>
+                <Table borderless>
                   <tbody>
                     {cartItemDisplay}
                   </tbody>
