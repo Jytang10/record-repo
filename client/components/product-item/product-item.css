@@ -1,0 +1,25 @@
+.product-image {
+  filter: drop-shadow(2px 2px 2px black);
+}
+
+.product-image:hover{
+  filter: drop-shadow(0 0 0.75rem #1d446c);
+}
+
+.product-title {
+  font-weight: 500;
+  font-size: 125%;
+}
+
+.product-artist {
+  color: rgb(68, 65, 65);
+}
+
+.product-price {
+  color: rgb(68, 65, 65);
+}
+
+.product-text {
+  font-style: italic;
+  color: rgb(68, 65, 65);
+}

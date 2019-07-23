@@ -1,0 +1,15 @@
+.cart-item-summary-div {
+  border-left: solid 1px;
+}
+
+.confirm-icon {
+  color: goldenrod;
+}
+
+.order-success-modal {
+  justify-content: center;
+}
+
+.form-feedback {
+  font-size: 50%;
+}

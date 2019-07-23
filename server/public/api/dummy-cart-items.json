@@ -1,0 +1,22 @@
+{
+  "4": {
+    "id": 4,
+    "name": "SHISHAMO",
+    "artist": "SHISHAMO",
+    "price": 1999,
+    "release": 2013,
+    "image": "./images/shishamo.jpg",
+    "shortDescription": "First full length album by Japanese rock band SHISHAMO.",
+    "quantity": 1
+  },
+  "6": {
+    "id": 6,
+    "name": "3",
+    "artist": "tricot",
+    "release": 2017,
+    "price": 1899,
+    "image": "./images/tricot.jpg",   
+    "shortDescription": "Third album by Japanese math-rock band tricot.",
+    "quantity": 1
+  }
+}
