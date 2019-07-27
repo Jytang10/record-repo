@@ -16,7 +16,11 @@ export default class App extends React.Component {
       productID: {},
       cartItems: {},
       cartTotal: 0,
-      cartLength: 0
+      cartLength: 0,
+      lastOrder: {
+        customerInfo: {},
+        cart: {}
+      }
     };
     this.setProductID = this.setProductID.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -102,17 +106,32 @@ export default class App extends React.Component {
   }
 
   placeOrder(orderDetails) {
-    const fullOrder = { orderInfo: orderDetails, cartInfo: this.state.cartItems };
+    // const fullOrder = { orderInfo: orderDetails, cartInfo: this.state.cartItems };
+    const fullOrder = {
+      name: 'test name',
+      email: 'test email',
+      address: 'test address',
+      city: 'test city',
+      state: 'test state',
+      zip: 94537,
+      ccnumber: 1235333434343,
+      cart: {}
+    };
     const postOrderData = {
       method: 'POST',
-      body: JSON.stringify(fullOrder),
-      headers: { 'Content-Type': 'application/json' }
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(fullOrder)
     };
     fetch('/api/orders.php', postOrderData)
       .then(res => {
+        console.log(res);
         res.json();
         this.setState({ cartItems: {}, cartLength: 0 });
-      });
+      })
+      .catch(err => console.error('Could not place order. Please try again: ', err));
   }
 
   render() {

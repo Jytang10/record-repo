@@ -74,7 +74,7 @@ class CheckoutForm extends React.Component {
     const newOrder = {
       name: this.state.name,
       email: this.state.email,
-      creditCard: parseInt(creditCardInfo),
+      ccnumber: parseInt(creditCardInfo),
       address: this.state.address,
       city: this.state.city,
       state: this.state.state,
