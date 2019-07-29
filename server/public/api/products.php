@@ -50,11 +50,4 @@ function utf8ize($d) {
 
 echo json_encode(utf8ize($output));
 
-// if (empty($_GET['id'])) {
-//   $output = file_get_contents('dummy-products-list.json');
-//   print($output);
-// } else {
-//   readfile('dummy-product-details.json');
-// }
-
 ?>
