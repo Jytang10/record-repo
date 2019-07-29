@@ -102,17 +102,30 @@ export default class App extends React.Component {
   }
 
   placeOrder(orderDetails) {
-    const fullOrder = { orderInfo: orderDetails, cartInfo: this.state.cartItems };
+    const fullOrder = {
+      name: orderDetails.name,
+      email: orderDetails.email,
+      address: orderDetails.address,
+      city: orderDetails.city,
+      state: orderDetails.state,
+      zip: orderDetails.zip,
+      ccnumber: orderDetails.ccnumber,
+      cart: this.state.cartItems
+    };
     const postOrderData = {
       method: 'POST',
-      body: JSON.stringify(fullOrder),
-      headers: { 'Content-Type': 'application/json' }
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(fullOrder)
     };
     fetch('/api/orders.php', postOrderData)
       .then(res => {
         res.json();
         this.setState({ cartItems: {}, cartLength: 0 });
-      });
+      })
+      .catch(err => console.error('Could not place order. Please try again: ', err));
   }
 
   render() {
