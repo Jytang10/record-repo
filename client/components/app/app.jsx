@@ -16,11 +16,7 @@ export default class App extends React.Component {
       productID: {},
       cartItems: {},
       cartTotal: 0,
-      cartLength: 0,
-      lastOrder: {
-        customerInfo: {},
-        cart: {}
-      }
+      cartLength: 0
     };
     this.setProductID = this.setProductID.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -106,16 +102,15 @@ export default class App extends React.Component {
   }
 
   placeOrder(orderDetails) {
-    // const fullOrder = { orderInfo: orderDetails, cartInfo: this.state.cartItems };
     const fullOrder = {
-      name: 'test name',
-      email: 'test email',
-      address: 'test address',
-      city: 'test city',
-      state: 'test state',
-      zip: 94537,
-      ccnumber: 1235333434343,
-      cart: {}
+      name: orderDetails.name,
+      email: orderDetails.email,
+      address: orderDetails.address,
+      city: orderDetails.city,
+      state: orderDetails.state,
+      zip: orderDetails.zip,
+      ccnumber: orderDetails.ccnumber,
+      cart: this.state.cartItems
     };
     const postOrderData = {
       method: 'POST',
@@ -127,7 +122,6 @@ export default class App extends React.Component {
     };
     fetch('/api/orders.php', postOrderData)
       .then(res => {
-        console.log(res);
         res.json();
         this.setState({ cartItems: {}, cartLength: 0 });
       })

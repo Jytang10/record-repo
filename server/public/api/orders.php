@@ -20,9 +20,10 @@ $state = $order['state'];
 $zip = $order['zip'];
 $email = $order['email'];
 $credit_card = $order['ccnumber'];
-$order_items = $order['cart'];
+$order_items = json_encode($order['cart'], JSON_HEX_APOS);
 
-$query = "INSERT INTO `orders` (`name`, `address`, `city`, `state`, `zip`, `email`, `ccnumber`, `cart`) VALUES ('{$name}','{$address}','{$city}', '{$state}', '{$zip}', '{$email}', '{$credit_card}', '{$order_items}')";
+$query = "INSERT INTO `orders` (`name`, `address`, `city`, `state`, `zip`, `email`, `credit_card`, `order_items`) 
+          VALUES ('{$name}','{$address}','{$city}', '{$state}', '{$zip}', '{$email}', '{$credit_card}', '{$order_items}')";
 
 $result = mysqli_query($conn, $query);
 
@@ -37,19 +38,5 @@ if ($result) {
 } else {
     throw new Exception("Could not place order: " . mysqli_error($conn));
 }
-
-// header('Content-Type: application/json');
-// $method = $_SERVER['REQUEST_METHOD'];
-// $order = file_get_contents('php://input');
-// if ($method != 'POST') {
-//   http_response_code(404);
-//   print(json_encode([
-//     'error' => 'Not Found',
-//     'message' => "Cannot $method /api/orders.php"
-//   ]));
-// } else {
-//   http_response_code(201);
-//   print_r($order);
-// }
 
 ?>
