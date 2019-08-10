@@ -13,10 +13,6 @@
   margin-top: 5px !important;
 }
 
-.seller-div {
-  cursor: pointer;
-}
-
 .seller-div img {
   border: 1mm ridge #010515 !important;
   filter: contrast(80%);
@@ -25,6 +21,13 @@
 .carousel .thumbs-wrapper {
   margin: 0px !important;
   margin-top: 10px !important;
+}
+
+.legend {
+  color: white !important;
+  text-shadow: 1px 1px black;
+  background: transparent !important;
+  font-size: 3rem !important;
 }
 
 .thumbs {

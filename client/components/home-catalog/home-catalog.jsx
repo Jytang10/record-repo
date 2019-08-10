@@ -11,46 +11,8 @@ import { Link } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-// const items = [
-//   {
-//     src: '/images/meta.jpg',
-//     altText: 'Record 1',
-//     caption: 'Nujabes',
-//     subcaption: 'metaphorical music',
-//     id: 2
-//   },
-//   {
-//     src: './images/sun.jpg',
-//     altText: 'Record 2',
-//     caption: '星野源',
-//     subcaption: 'Sun',
-//     id: 8
-//   },
-//   {
-//     src: './images/shishamo.jpg',
-//     altText: 'Record 3',
-//     caption: 'SHISHAMO',
-//     subcaption: 'SHISHAMO',
-//     id: 4
-//   }
-// ];
-
 class HomeCatalog extends React.Component {
   render() {
-
-    // const slides = items.map(item => {
-    //   return (
-    //     <CarouselItem
-    //       onExiting={this.onExiting}
-    //       onExited={this.onExited}
-    //       key={item.src}
-    //     >
-    //       <Link to={`/products/${item.id}`}>
-    //         <img src={item.src} alt={item.altText}/>
-    //       </Link>
-    //     </CarouselItem>
-    //   );
-    // });
     const productList = this.props.products.map(product => {
       return (
         <ProductItem
@@ -72,15 +34,16 @@ class HomeCatalog extends React.Component {
           <Col className="carousel-col">
             <Carousel autoPlay>
               <div className="seller-div">
-                {/* <Link to="/checkout"> */}
-                  <img src="/images/meta.jpg" />
-                {/* </Link> */}
+                <img src="/images/meta.jpg" />
+                <Link to="/products/2" className="legend">metaphorical music</Link>
               </div>
               <div className="seller-div">
                 <img src="/images/sun.jpg" />
+                <Link to="/products/8" className="legend">SUN</Link>
               </div>
               <div className="seller-div">
                 <img src="/images/shishamo.jpg" />
+                <Link to="/products/4" className="legend">SHISHAMO</Link>
               </div>
             </Carousel>
           </Col>
