@@ -62,14 +62,14 @@ class CartSummary extends React.Component {
     if (this.props.cartTotal === 0) {
       checkoutCheck = (
         <div>
-          <Button outline size="lg" color="secondary" id="zeroItems">Check Out</Button>
+          <Button outline size="lg" color="secondary" id="zeroItems">Checkout</Button>
           <Tooltip placement="top" isOpen={this.state.tooltipOpen} target="zeroItems" toggle={this.toggle}>No items in cart</Tooltip>
         </div>
       );
     } else {
       checkoutCheck = (
         <Link to="/checkout">
-          <Button size="lg" color="success">Check Out</Button>
+          <Button size="lg" color="success">Checkout</Button>
         </Link>
       );
     }

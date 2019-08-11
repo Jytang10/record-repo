@@ -2,93 +2,32 @@ import React from 'react';
 import ProductItem from '../product-item/product-item';
 import {
   CardDeck,
-  Carousel,
-  CarouselItem,
-  CarouselControl,
-  CarouselIndicators,
   Container,
   Col,
-  Row
+  Row,
+  Tooltip
 } from 'reactstrap';
 import './home-catalog.css';
 import { Link } from 'react-router-dom';
-
-const items = [
-  {
-    src: '/images/meta.jpg',
-    altText: 'Record 1',
-    caption: 'Nujabes',
-    subcaption: 'metaphorical music',
-    id: 2
-  },
-  {
-    src: './images/sun.jpg',
-    altText: 'Record 2',
-    caption: '星野源',
-    subcaption: 'Sun',
-    id: 8
-  },
-  {
-    src: './images/shishamo.jpg',
-    altText: 'Record 3',
-    caption: 'SHISHAMO',
-    subcaption: 'SHISHAMO',
-    id: 4
-  }
-];
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 class HomeCatalog extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { activeIndex: 0 };
-    this.next = this.next.bind(this);
-    this.previous = this.previous.bind(this);
-    this.goToIndex = this.goToIndex.bind(this);
-    this.onExiting = this.onExiting.bind(this);
-    this.onExited = this.onExited.bind(this);
+    this.state = {
+      tooltipOpen: false
+    };
+    this.toggle = this.toggle.bind(this);
   }
 
-  onExiting() {
-    this.animating = true;
-  }
-
-  onExited() {
-    this.animating = false;
-  }
-
-  next() {
-    if (this.animating) return;
-    const nextIndex = this.state.activeIndex === items.length - 1 ? 0 : this.state.activeIndex + 1;
-    this.setState({ activeIndex: nextIndex });
-  }
-
-  previous() {
-    if (this.animating) return;
-    const nextIndex = this.state.activeIndex === 0 ? items.length - 1 : this.state.activeIndex - 1;
-    this.setState({ activeIndex: nextIndex });
-  }
-
-  goToIndex(newIndex) {
-    if (this.animating) return;
-    this.setState({ activeIndex: newIndex });
+  toggle() {
+    this.setState({
+      tooltipOpen: !this.state.tooltipOpen
+    });
   }
 
   render() {
-    const { activeIndex } = this.state;
-
-    const slides = items.map(item => {
-      return (
-        <CarouselItem
-          onExiting={this.onExiting}
-          onExited={this.onExited}
-          key={item.src}
-        >
-          <Link to={`/products/${item.id}`}>
-            <img src={item.src} alt={item.altText}/>
-          </Link>
-        </CarouselItem>
-      );
-    });
     const productList = this.props.products.map(product => {
       return (
         <ProductItem
@@ -102,24 +41,28 @@ class HomeCatalog extends React.Component {
       <Container fluid={true}>
         <Row className="greeting-row mt-2">
           <Col className="greeting-h1">
-            <h3>Weekly Top Sellers</h3>
+            <h3 href="#" id="disclaimerTip">Top 3 Sellers</h3>
+            <Tooltip placement="top" isOpen={this.state.tooltipOpen} autohide={false} target="disclaimerTip" toggle={this.toggle}>
+              Disclaimer: This is a demo project for demonstration purposes only. Thank you for visiting!
+            </Tooltip>
           </Col>
         </Row>
         <Row className="carousel-row mb-3">
           <Col />
-          <Col>
-            <Carousel
-              activeIndex={activeIndex}
-              next={this.next}
-              previous={this.previous}
-              hover={true}
-              pause= "hover"
-              ride="carousel"
-            >
-              <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} id="carousel-custom"/>
-              {slides}
-              <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-              <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+          <Col className="carousel-col">
+            <Carousel autoPlay>
+              <div className="seller-div">
+                <img src="/images/meta.jpg" />
+                <Link to="/products/2" className="legend">metaphorical music</Link>
+              </div>
+              <div className="seller-div">
+                <img src="/images/sun.jpg" />
+                <Link to="/products/8" className="legend">SUN</Link>
+              </div>
+              <div className="seller-div">
+                <img src="/images/shishamo.jpg" />
+                <Link to="/products/4" className="legend">SHISHAMO</Link>
+              </div>
             </Carousel>
           </Col>
           <Col />
