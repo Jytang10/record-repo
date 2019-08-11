@@ -103,6 +103,7 @@ class CheckoutForm extends React.Component {
     const cartItemArray = Object.values(this.props.cartItems);
     const cartItemsList = cartItemArray;
     const closeBtn = <button className="close modal-close" onClick={this.toggle}>&times;</button>;
+    let orderStatus;
     let cartItemDisplay;
     if (cartItemsList.length === 0) {
       cartItemDisplay = <tr><td>No items in cart</td></tr>;
@@ -165,6 +166,11 @@ class CheckoutForm extends React.Component {
     } else {
       confirmOrderBtn = <Button outline color="secondary">Confirm Order</Button>;
     }
+    if (cartItemsList.length === 0) {
+      orderStatus = '$0.00';
+    } else {
+      orderStatus = '$' + shippingTotal;
+    }
     return (
       <Container>
         <Row className="justify-content-center mt-2">
@@ -172,6 +178,7 @@ class CheckoutForm extends React.Component {
         </Row>
         <Row>
           <Col>
+            <Row className="mb-2 ml-1 checkout-disclaimer"> This project is for demonstration purposes only, so please do not enter real information. </Row>
             <Form>
               <Row form>
                 <Col md={6}>
@@ -190,7 +197,8 @@ class CheckoutForm extends React.Component {
                 </Col>
               </Row>
               <FormGroup>
-                <Label for="ccnumber">Credit Card Number</Label>
+                <Label for="ccnumber" className="cc-label">Credit Card Number</Label>
+                <br/><span className="cc-warning">*Please do not enter real info*</span>
                 {ccInputCheck}
                 <FormFeedback className="form-feedback">Please enter a valid credit card number</FormFeedback>
               </FormGroup>
@@ -249,7 +257,7 @@ class CheckoutForm extends React.Component {
                     <Button color="danger" onClick={this.toggle}>Return to Checkout</Button>{' '}
                   </Link>
                   <Button color="success" onClick={this.handleSubmit}>Submit Order</Button>
-                  <Modal isOpen={this.state.nestedModal} toggle={this.toggleNested} onClosed={this.state.closeAll ? this.toggle : undefined}>
+                  <Modal backdrop="static" isOpen={this.state.nestedModal} toggle={this.toggleNested} onClosed={this.state.closeAll ? this.toggle : undefined}>
                     <ModalHeader>
                       <i className="mr-1 fas fa-handshake"></i>
                       THANK YOU
@@ -284,7 +292,7 @@ class CheckoutForm extends React.Component {
               </Row>
               <Row>
                 <Col>Order Total</Col>
-                <Col>{'$' + shippingTotal}</Col>
+                <Col>{orderStatus}</Col>
               </Row>
             </Container>
           </Col>

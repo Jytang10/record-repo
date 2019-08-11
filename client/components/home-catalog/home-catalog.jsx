@@ -4,7 +4,8 @@ import {
   CardDeck,
   Container,
   Col,
-  Row
+  Row,
+  Tooltip
 } from 'reactstrap';
 import './home-catalog.css';
 import { Link } from 'react-router-dom';
@@ -12,6 +13,20 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 class HomeCatalog extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tooltipOpen: false
+    };
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle() {
+    this.setState({
+      tooltipOpen: !this.state.tooltipOpen
+    });
+  }
+
   render() {
     const productList = this.props.products.map(product => {
       return (
@@ -26,7 +41,10 @@ class HomeCatalog extends React.Component {
       <Container fluid={true}>
         <Row className="greeting-row mt-2">
           <Col className="greeting-h1">
-            <h3>Top 3 Sellers</h3>
+            <h3 href="#" id="disclaimerTip">Top 3 Sellers</h3>
+            <Tooltip placement="top" isOpen={this.state.tooltipOpen} autohide={false} target="disclaimerTip" toggle={this.toggle}>
+              Disclaimer: This is a demo project for demonstration purposes only. Thank you for visiting!
+            </Tooltip>
           </Col>
         </Row>
         <Row className="carousel-row mb-3">

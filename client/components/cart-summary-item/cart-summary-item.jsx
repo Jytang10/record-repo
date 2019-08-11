@@ -56,13 +56,19 @@ class CartSummaryItem extends React.Component {
     itemQuantity = this.state.quantity;
     let itemSubtotal;
     itemSubtotal = this.state.subTotal;
+    let quantityMinus;
+    if (itemQuantity === 1) {
+      quantityMinus = <i className="quantity-icon-error mr-1 fas fa-minus-square" onClick={this.handleMinusQuantity}></i>;
+    } else {
+      quantityMinus = <i className="quantity-icon mr-1 fas fa-minus-square" onClick={this.handleMinusQuantity}></i>;
+    }
     return (
       <tr>
         <td align="center"><img className="cart-image" width="150rem" src={productImage} alt="Cart item image" /></td>
         <td align="center">{this.props.item.name}</td>
         <td align="center">{'$' + (fixedItemPrice)}</td>
         <td align="center">
-          <i className="quantity-icon mr-1 fas fa-minus-square" onClick={this.handleMinusQuantity}></i>
+          {quantityMinus}
           {itemQuantity}
           <i className="quantity-icon ml-1 fas fa-plus-square" onClick={this.handleAddQuantity}></i>
         </td>

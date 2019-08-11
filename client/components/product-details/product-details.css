@@ -29,4 +29,11 @@
 
 .quantity-icon {
   line-height: inherit;
+  cursor: pointer;
+}
+
+.quantity-icon-error {
+  line-height: inherit;
+  cursor: not-allowed;
+  color: darkgray;
 }
