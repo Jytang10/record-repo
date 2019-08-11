@@ -7,7 +7,7 @@
 }
 
 .cc-warning, .checkout-disclaimer {
-  color: red;
+  color: #e60000;
   text-decoration: underline;
   font-style: italic;
   font-size: 1rem;
@@ -24,4 +24,10 @@
 
 .form-feedback {
   font-size: 50%;
+}
+
+.error {
+  color: red;
+  font-style: italic;
+  font-size: 14px;
 }
