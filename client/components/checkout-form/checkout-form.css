@@ -1,5 +1,17 @@
 .cart-item-summary-div {
-  border-left: solid 1px;
+  border-right: solid 1px;
+}
+
+.cc-label {
+  margin-bottom: 0px !important;
+}
+
+.cc-warning, .checkout-disclaimer {
+  color: #e60000;
+  text-decoration: underline;
+  font-style: italic;
+  font-size: 1rem;
+  cursor: not-allowed;
 }
 
 .confirm-icon {
@@ -12,4 +24,10 @@
 
 .form-feedback {
   font-size: 50%;
+}
+
+.error {
+  color: red;
+  font-style: italic;
+  font-size: 14px;
 }

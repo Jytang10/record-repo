@@ -19,6 +19,8 @@ import {
 import { Link } from 'react-router-dom';
 import './checkout-form.css';
 
+const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+
 class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
@@ -26,13 +28,22 @@ class CheckoutForm extends React.Component {
       modal: false,
       nestedModal: false,
       closeAll: false,
-      name: '',
-      email: '',
-      address: '',
-      city: '',
-      state: '',
-      zip: '',
-      ccnumber: ''
+      fullName: null,
+      email: null,
+      address: null,
+      city: null,
+      state: null,
+      zip: null,
+      ccnumber: null,
+      errors: {
+        fullName: '',
+        email: '',
+        address: '',
+        city: '',
+        state: '',
+        zip: '',
+        ccnumber: ''
+      }
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -61,18 +72,73 @@ class CheckoutForm extends React.Component {
     });
   }
 
+  validateForm(errors) {
+    let valid = true;
+    Object.values(errors).forEach(
+      val => val.length > 0 && (valid = false)
+    );
+    return valid;
+  }
+
   handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value,
-      [event.target.id]: true
-    });
+    event.preventDefault();
+    const { name, value } = event.target;
+    let errors = this.state.errors;
+    switch (name) {
+      case 'fullName':
+        errors.fullName =
+          value.length < 3
+            ? 'Name must be at least 3 characters!'
+            : '';
+        break;
+      case 'email':
+        errors.email =
+          validEmailRegex.test(value)
+            ? ''
+            : 'Valid email address includes @ and .';
+        break;
+      case 'address':
+        errors.address =
+          value.length < 5
+            ? 'Address must be at least 5 characters!'
+            : '';
+        break;
+      case 'city':
+        errors.city =
+          value.length < 3
+            ? 'Must be at least 3 characters!'
+            : '';
+        break;
+      case 'state':
+        errors.state =
+          value.length < 2
+            ? 'Must be at least 2 characters!'
+            : '';
+        break;
+      case 'zip':
+        errors.zip =
+          value.length < 5
+            ? 'Must be at least 5 characters!'
+            : '';
+        break;
+      case 'ccnumber':
+        errors.ccnumber =
+          value.length < 16
+            ? 'Credit Card must be at least 16 digits!'
+            : '';
+        break;
+      default:
+        break;
+    }
+    this.setState({ errors, [name]: value });
+    this.validateForm(this.state.errors);
   }
 
   handleSubmit(event) {
     event.preventDefault();
     let creditCardInfo = this.state.ccnumber;
     const newOrder = {
-      name: this.state.name,
+      name: this.state.fullName,
       email: this.state.email,
       ccnumber: parseInt(creditCardInfo),
       address: this.state.address,
@@ -80,29 +146,29 @@ class CheckoutForm extends React.Component {
       state: this.state.state,
       zip: parseInt(this.state.zip)
     };
-    this.props.handlePlaceOrder(newOrder);
-    this.setState({
-      name: '',
-      email: '',
-      address: '',
-      city: '',
-      state: '',
-      zip: '',
-      ccnumber: '' });
-    this.toggleNested();
+    if (this.validateForm(this.state.errors)) {
+      this.props.handlePlaceOrder(newOrder);
+      this.setState({
+        name: null,
+        email: null,
+        address: null,
+        city: null,
+        state: null,
+        zip: null,
+        ccnumber: null
+      });
+      this.toggleNested();
+    } else {
+      alert('Invalid form, please check your submission');
+    }
   }
 
   render() {
-    const nameValue = this.state.name;
-    const emailValue = this.state.email;
-    const addressValue = this.state.address;
-    const ccValue = this.state.ccnumber;
-    const cityValue = this.state.city;
-    const stateValue = this.state.state;
-    const zipValue = this.state.zip;
+    const { errors } = this.state;
     const cartItemArray = Object.values(this.props.cartItems);
     const cartItemsList = cartItemArray;
     const closeBtn = <button className="close modal-close" onClick={this.toggle}>&times;</button>;
+    let orderStatus;
     let cartItemDisplay;
     if (cartItemsList.length === 0) {
       cartItemDisplay = <tr><td>No items in cart</td></tr>;
@@ -123,47 +189,20 @@ class CheckoutForm extends React.Component {
     for (let item of cartItemsList) {
       orderTotal += (item.price / 100);
     }
-    let ccInputValueLength;
-    if (ccValue.length >= 16 && ccValue.length <= 19) {
-      ccInputValueLength = true;
-    } else {
-      ccInputValueLength = false;
-    }
-    let zipInputValueLength;
-    if (zipValue.length === 5) {
-      zipInputValueLength = true;
-    } else {
-      zipInputValueLength = false;
-    }
     let fixedOrderTotal = orderTotal.toFixed(2);
     let shippingTotal = (parseFloat(orderTotal) + 5).toFixed(2);
-    if (this.state.nameCheck) {
-      var validateName = !nameValue;
-    } else if (this.state.emailCheck) {
-      var validateEmail = !emailValue;
-    } else if (this.state.ccnumberCheck) {
-      var validateCc = !ccValue;
-    } else if (this.state.addressCheck) {
-      var validateAddress = !addressValue;
-    } else if (this.state.cityCheck) {
-      var validateCity = !cityValue;
-    } else if (this.state.stateCheck) {
-      var validateState = !stateValue;
-    } else if (this.state.zipCheck) {
-      var validateZip = !zipValue;
-    }
-    const nameInputCheck = <Input value={nameValue} onChange={this.handleChange} type="name" name="name" id="nameCheck" placeholder="Your full name" required valid={!!nameValue} invalid={validateName}/>;
-    const emailInputCheck = <Input value={emailValue} onChange={this.handleChange} type="text" name="email" id="emailCheck" placeholder="Your e-mail address" required valid={!!emailValue} invalid={validateEmail}/>;
-    const ccInputCheck = <Input value={ccValue} onChange={this.handleChange} type="tel" pattern="[0-9]{13,16}" maxLength="19" name="ccnumber" id="ccnumberCheck" placeholder="Your credit card number" required valid={ccInputValueLength} invalid={validateCc} />;
-    const addressInputCheck = <Input value={addressValue} onChange={this.handleChange} type="text" name="address" id="addressCheck" placeholder="1234 Main Street" required valid={!!addressValue} invalid={validateAddress} />;
-    const cityInputCheck = <Input value={cityValue} onChange={this.handleChange} type="text" name="city" id="cityCheck" placeholder="Your City" required valid={!!cityValue} invalid={validateCity} />;
-    const stateInputCheck = <Input value={stateValue} onChange={this.handleChange} type="text" name="state" id="stateCheck" placeholder="Your State" required valid={!!stateValue} invalid={validateState} />;
-    const zipInputCheck = <Input value={zipValue} onChange={this.handleChange} type="tel" pattern="[0-9]" maxLength="5" name="zip" id="zipCheck" placeholder="Zip code" required valid={zipInputValueLength} invalid={validateZip} />;
     let confirmOrderBtn;
-    if (nameInputCheck.props.valid && emailInputCheck.props.valid && ccInputCheck.props.valid && addressInputCheck.props.valid && cityInputCheck.props.valid && stateInputCheck.props.valid && zipInputCheck.props.valid) {
+
+    if (this.state.fullName && this.state.email && this.state.ccnumber && this.state.address && this.state.city && this.state.zip && this.state.zip) {
       confirmOrderBtn = <Button color="success" onClick={this.toggle}>Confirm Order</Button>;
     } else {
-      confirmOrderBtn = <Button outline color="secondary">Confirm Order</Button>;
+      confirmOrderBtn = <Button outline color="secondary" href="#">Confirm Order</Button>;
+    }
+
+    if (cartItemsList.length === 0) {
+      orderStatus = '$0.00';
+    } else {
+      orderStatus = '$' + shippingTotal;
     }
     return (
       <Container>
@@ -171,58 +210,90 @@ class CheckoutForm extends React.Component {
           <h1>Cart Checkout</h1>
         </Row>
         <Row>
+          <Col className="cart-item-summary-div mb-2">
+            <Container>
+              <Row className="mt-1">
+                <Table borderless>
+                  <tbody>
+                    {cartItemDisplay}
+                  </tbody>
+                </Table>
+              </Row>
+              <Row>
+                <Col>Subtotal</Col>
+                <Col>{'$' + fixedOrderTotal}</Col>
+              </Row>
+              <Row>
+                <Col>Shipping</Col>
+                <Col>$5.00</Col>
+              </Row>
+              <Row>
+                <Col>Order Total</Col>
+                <Col>{orderStatus}</Col>
+              </Row>
+            </Container>
+          </Col>
           <Col>
-            <Form>
+            <Row className="mb-2 ml-1 checkout-disclaimer"> This project is for demonstration purposes only; please do not enter real information. </Row>
+            <Form noValidate>
               <Row form>
                 <Col md={6}>
                   <FormGroup>
-                    <Label for="name">Full Name</Label>
-                    {nameInputCheck}
+                    <Label for="fullName">Full Name</Label>
+                    <Input type="text" placeholder="Your full name" name="fullName" onChange={this.handleChange} noValidate/>
+                    {errors.fullName.length > 0 && <span className='error'>{errors.fullName}</span>}
                     <FormFeedback className="form-feedback">Please enter your name</FormFeedback>
                   </FormGroup>
                 </Col>
                 <Col md={6}>
                   <FormGroup>
                     <Label for="email">E-mail</Label>
-                    {emailInputCheck}
+                    <Input type="email" placeholder="Your e-mail address" name="email" onChange={this.handleChange} noValidate/>
+                    {errors.email.length > 0 && <span className='error'>{errors.email}</span>}
                     <FormFeedback className="form-feedback">Please enter a valid e-mail address</FormFeedback>
                   </FormGroup>
                 </Col>
               </Row>
               <FormGroup>
-                <Label for="ccnumber">Credit Card Number</Label>
-                {ccInputCheck}
+                <Label for="ccnumber" className="cc-label">Credit Card Number</Label>
+                <br/><span className="cc-warning">*Please do not enter real info*</span>
+                <Input type="text" placeholder="Your credit card number" name="ccnumber" onChange={this.handleChange} noValidate/>
+                {errors.ccnumber.length > 0 && <span className='error'>{errors.ccnumber}</span>}
                 <FormFeedback className="form-feedback">Please enter a valid credit card number</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="address">Shipping Address</Label>
-                {addressInputCheck}
+                <Input type="text" placeholder="Your shipping address" name="address" onChange={this.handleChange} noValidate/>
+                {errors.address.length > 0 && <span className='error'>{errors.address}</span>}
                 <FormFeedback className="form-feedback">Please enter your shipping address</FormFeedback>
               </FormGroup>
               <Row form>
                 <Col md={4}>
                   <FormGroup>
                     <Label for="city">City</Label>
-                    {cityInputCheck}
+                    <Input type="text" placeholder="Your city" name="city" onChange={this.handleChange} noValidate/>
+                    {errors.city.length > 0 && <span className='error'>{errors.city}</span>}
                     <FormFeedback className="form-feedback">Please enter your city</FormFeedback>
                   </FormGroup>
                 </Col>
                 <Col md={4}>
                   <FormGroup>
                     <Label for="state">State</Label>
-                    {stateInputCheck}
+                    <Input type="text" placeholder="Your state" name="state" onChange={this.handleChange} noValidate/>
+                    {errors.state.length > 0 && <span className='error'>{errors.state}</span>}
                     <FormFeedback className="form-feedback">Please enter your state</FormFeedback>
                   </FormGroup>
                 </Col>
                 <Col md={4}>
                   <FormGroup>
                     <Label for="zip">Zip</Label>
-                    {zipInputCheck}
+                    <Input type="text" placeholder="Your zip code" name="zip" onChange={this.handleChange} noValidate/>
+                    {errors.zip.length > 0 && <span className='error'>{errors.zip}</span>}
                     <FormFeedback className="form-feedback">Please enter your zip code</FormFeedback>
                   </FormGroup>
                 </Col>
               </Row>
-              <Row className="mb-4">
+              <Row className="mb-2">
                 <Col className="text-center">
                   <Link to="/cart">
                     <Button color="danger">
@@ -249,7 +320,7 @@ class CheckoutForm extends React.Component {
                     <Button color="danger" onClick={this.toggle}>Return to Checkout</Button>{' '}
                   </Link>
                   <Button color="success" onClick={this.handleSubmit}>Submit Order</Button>
-                  <Modal isOpen={this.state.nestedModal} toggle={this.toggleNested} onClosed={this.state.closeAll ? this.toggle : undefined}>
+                  <Modal backdrop="static" isOpen={this.state.nestedModal} toggle={this.toggleNested} onClosed={this.state.closeAll ? this.toggle : undefined}>
                     <ModalHeader>
                       <i className="mr-1 fas fa-handshake"></i>
                       THANK YOU
@@ -265,7 +336,7 @@ class CheckoutForm extends React.Component {
               </Modal>
             </Form>
           </Col>
-          <Col className="cart-item-summary-div">
+          {/* <Col className="cart-item-summary-div">
             <Container>
               <Row className="mt-1">
                 <Table borderless>
@@ -284,10 +355,10 @@ class CheckoutForm extends React.Component {
               </Row>
               <Row>
                 <Col>Order Total</Col>
-                <Col>{'$' + shippingTotal}</Col>
+                <Col>{orderStatus}</Col>
               </Row>
             </Container>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     );

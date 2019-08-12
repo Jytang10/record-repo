@@ -5,7 +5,7 @@ import './about.css';
 class About extends React.Component {
   render() {
     return (
-      <Container>
+      <Container className="mb-2">
         <Card className="mt-4 align-items-center">
           <CardImg top className="about-image" src="/images/about.jpg" alt="Card image cap" />
           <CardBody>
@@ -15,7 +15,7 @@ class About extends React.Component {
                 I chose to offer J-Pop vinyl records in order to share my interest with others. I used React and Reactstrap to design and display components
                 on the front-end, while I used MySQL queries and PHP scripts in order to link and communicate with the back-end to handle data. This was one of my personal favorite projects as I
                 had full responsibility of the front-end visual aspect and the back-end data portion of the project, and overall the design and functionality were a joy to create.
-                Please feel free to visit my <a href="https://github.com/Jytang10/peanut-gallery">GitHub</a> or <a href="https://jamestang.dev/">Portfolio</a> for more of my projects. Thank you!
+                Please feel free to visit my <a href="https://github.com/Jytang10/peanut-gallery" target="__blank">GitHub</a> or <a href="https://jamestang.dev/" target="__blank">Portfolio</a> for more of my projects. Thank you!
             </CardText>
             <Row className="about-row">
               <Link to="/">

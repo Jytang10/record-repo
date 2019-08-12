@@ -5,21 +5,45 @@
   font-style: italic;
 }
 
-.carousel-item img {
-  width: 100%;
-  filter: contrast(60%);
+#disclaimerTip {
+  cursor: help;
 }
 
-.carousel-inner {
-  border: 1mm ridge #010515  ;
+.carousel-col {
+  padding: 0px;
 }
 
-.carousel-caption {
+.slider-wrapper {
+  margin-top: 5px !important;
+}
+
+.seller-div img {
+  border: 1mm ridge #010515 !important;
+  filter: contrast(80%);
+}
+
+.carousel .thumbs-wrapper {
+  margin: 0px !important;
+  margin-top: 10px !important;
+}
+
+.legend {
+  color: white !important;
   text-shadow: 1px 1px black;
+  background: transparent !important;
+  font-size: 3rem !important;
 }
 
-.carousel-control-prev, .carousel-control-next {
-  cursor:pointer;
+.thumbs {
+  align-content: center;
+  padding: 0px;
+  margin-bottom: 0px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.dot, .carousel-status {
+  display: none !important;
 }
 
 .carousel-row {
@@ -63,26 +87,10 @@
   }
 }
 
-@media screen and (max-width: 930px) {
-  .carousel-item img {
-    width: 15rem !important;
-  }
-}
-
 @media (min-width: 992px)
 {
   .card-deck .card {
     -ms-flex: 0 0 24%;
     flex: 0 0 24%;
   }
-}
-
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait) { 
-    .carousel-item img {
-      width: 15rem;
-    }
 }

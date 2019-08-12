@@ -66,6 +66,12 @@ class ProductDetails extends React.Component {
     let productQuantity;
     let productSumPrice;
     let quantityVal = this.state.quantity;
+    let quantityMinus;
+    if (quantityVal === 1) {
+      quantityMinus = <i className="quantity-icon-error mr-1 fas fa-minus-square fa-lg"></i>;
+    } else {
+      quantityMinus = <i className="quantity-icon mr-1 fas fa-minus-square fa-lg" onClick={this.handleMinusQuantity}></i>;
+    }
     if (productStatus) {
       productRender = (
         <CardGroup>
@@ -82,7 +88,7 @@ class ProductDetails extends React.Component {
                   <FormGroup>
                     <Row className="quantity-label"><Label for="quantityNumber">Quantity to Add</Label></Row>
                     <Row className="quantity-input-row">
-                      <i className="quantity-icon mr-1 fas fa-minus-square fa-lg" onClick={this.handleMinusQuantity}></i>
+                      {quantityMinus}
                       <Input
                         className="quantity-input"
                         type="number"
