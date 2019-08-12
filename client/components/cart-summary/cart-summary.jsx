@@ -75,7 +75,7 @@ class CartSummary extends React.Component {
     }
 
     return (
-      <Container>
+      <Container className="mb-2">
         <Row className="cart-header mt-2">
           <h1>My Shopping Cart</h1>
         </Row>
@@ -84,10 +84,10 @@ class CartSummary extends React.Component {
             <thead>
               <tr>
                 <th className="text-center">Image</th>
-                <th className="text-center">Product Name</th>
+                <th className="text-center">Product</th>
                 <th className="text-center">Price</th>
-                <th className="text-center">Current Quantity</th>
-                <th className="text-center">Subtotal</th>
+                <th className="text-center">Quantity</th>
+                <th className="text-center subtotal">Subtotal</th>
                 <th className="text-center">Remove</th>
               </tr>
             </thead>
@@ -103,7 +103,7 @@ class CartSummary extends React.Component {
             <Row className="justify-content-center"><div>{'Current Cart Total: $' + ((this.props.cartTotal / 100)).toFixed(2)}</div></Row>
             <Row className="justify-content-center">
               <Link to="/" className="mr-3">
-                <Button size="lg" outline color="secondary">Continue Shopping</Button>
+                <Button size="lg" outline color="secondary" className="mb-2">Continue Shopping</Button>
               </Link>
               {checkoutCheck}
             </Row>
