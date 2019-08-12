@@ -6,3 +6,9 @@
 .remove-card-img {
   width: 50% !important;
 }
+
+@media screen and (max-width: 770px) {
+  .subtotal {
+    display: none !important;
+  }
+}

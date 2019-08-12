@@ -5,7 +5,7 @@ import './about.css';
 class About extends React.Component {
   render() {
     return (
-      <Container>
+      <Container className="mb-2">
         <Card className="mt-4 align-items-center">
           <CardImg top className="about-image" src="/images/about.jpg" alt="Card image cap" />
           <CardBody>

@@ -72,7 +72,7 @@ class CartSummaryItem extends React.Component {
     }
     return (
       <tr>
-        <td align="center"><img className="cart-image" width="150rem" src={productImage} alt="Cart item image" /></td>
+        <td align="center"><img className="cart-image" width="75rem" src={productImage} alt="Cart item image" /></td>
         <td align="center">{this.props.item.name}</td>
         <td align="center">{'$' + (fixedItemPrice)}</td>
         <td align="center">
@@ -80,7 +80,7 @@ class CartSummaryItem extends React.Component {
           {itemQuantity}
           <i className="quantity-icon ml-1 fas fa-plus-square" onClick={this.handleAddQuantity}></i>
         </td>
-        <td align="center">${(itemSubtotal / 100).toFixed(2)}</td>
+        <td align="center" className="subtotal">${(itemSubtotal / 100).toFixed(2)}</td>
         <td align="center">
           <Button color="danger" onClick={this.toggle}>
             <i className="fas fa-trash-alt"></i>

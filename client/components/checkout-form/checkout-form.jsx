@@ -210,6 +210,29 @@ class CheckoutForm extends React.Component {
           <h1>Cart Checkout</h1>
         </Row>
         <Row>
+          <Col className="cart-item-summary-div mb-2">
+            <Container>
+              <Row className="mt-1">
+                <Table borderless>
+                  <tbody>
+                    {cartItemDisplay}
+                  </tbody>
+                </Table>
+              </Row>
+              <Row>
+                <Col>Subtotal</Col>
+                <Col>{'$' + fixedOrderTotal}</Col>
+              </Row>
+              <Row>
+                <Col>Shipping</Col>
+                <Col>$5.00</Col>
+              </Row>
+              <Row>
+                <Col>Order Total</Col>
+                <Col>{orderStatus}</Col>
+              </Row>
+            </Container>
+          </Col>
           <Col>
             <Row className="mb-2 ml-1 checkout-disclaimer"> This project is for demonstration purposes only; please do not enter real information. </Row>
             <Form noValidate>
@@ -270,7 +293,7 @@ class CheckoutForm extends React.Component {
                   </FormGroup>
                 </Col>
               </Row>
-              <Row className="mb-4">
+              <Row className="mb-2">
                 <Col className="text-center">
                   <Link to="/cart">
                     <Button color="danger">
@@ -313,7 +336,7 @@ class CheckoutForm extends React.Component {
               </Modal>
             </Form>
           </Col>
-          <Col className="cart-item-summary-div">
+          {/* <Col className="cart-item-summary-div">
             <Container>
               <Row className="mt-1">
                 <Table borderless>
@@ -335,7 +358,7 @@ class CheckoutForm extends React.Component {
                 <Col>{orderStatus}</Col>
               </Row>
             </Container>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     );
