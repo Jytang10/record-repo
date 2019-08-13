@@ -20,7 +20,6 @@ import { Link } from 'react-router-dom';
 import './checkout-form.css';
 
 const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
-
 class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
@@ -134,6 +133,14 @@ class CheckoutForm extends React.Component {
     this.validateForm(this.state.errors);
   }
 
+  handleKeyPress(event) {
+    const pattern = /[0-9\+\-\ ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (!pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     let creditCardInfo = this.state.ccnumber;
@@ -193,10 +200,10 @@ class CheckoutForm extends React.Component {
     let shippingTotal = (parseFloat(orderTotal) + 5).toFixed(2);
     let confirmOrderBtn;
 
-    if (this.state.fullName && this.state.email && this.state.ccnumber && this.state.address && this.state.city && this.state.zip && this.state.zip) {
+    if (cartItemsList.length && this.state.fullName && this.state.email && this.state.ccnumber && this.state.address && this.state.city && this.state.zip && this.state.zip && this.validateForm(this.state.errors)) {
       confirmOrderBtn = <Button color="success" onClick={this.toggle}>Confirm Order</Button>;
     } else {
-      confirmOrderBtn = <Button outline color="secondary" href="#">Confirm Order</Button>;
+      confirmOrderBtn = <Button outline color="secondary" disabled>Confirm Order</Button>;
     }
 
     if (cartItemsList.length === 0) {
@@ -257,7 +264,7 @@ class CheckoutForm extends React.Component {
               <FormGroup>
                 <Label for="ccnumber" className="cc-label">Credit Card Number</Label>
                 <br/><span className="cc-warning">*Please do not enter real info*</span>
-                <Input type="text" placeholder="Your credit card number" name="ccnumber" onChange={this.handleChange} noValidate/>
+                <Input type="text" onKeyPress={this.handleKeyPress} maxLength="19" placeholder="Your credit card number" name="ccnumber" onChange={this.handleChange} noValidate />
                 {errors.ccnumber.length > 0 && <span className='error'>{errors.ccnumber}</span>}
                 <FormFeedback className="form-feedback">Please enter a valid credit card number</FormFeedback>
               </FormGroup>
@@ -279,7 +286,7 @@ class CheckoutForm extends React.Component {
                 <Col md={4}>
                   <FormGroup>
                     <Label for="state">State</Label>
-                    <Input type="text" placeholder="Your state" name="state" onChange={this.handleChange} noValidate/>
+                    <Input type="text" maxLength="2" placeholder="Your state" name="state" onChange={this.handleChange} noValidate/>
                     {errors.state.length > 0 && <span className='error'>{errors.state}</span>}
                     <FormFeedback className="form-feedback">Please enter your state</FormFeedback>
                   </FormGroup>
@@ -287,7 +294,7 @@ class CheckoutForm extends React.Component {
                 <Col md={4}>
                   <FormGroup>
                     <Label for="zip">Zip</Label>
-                    <Input type="text" placeholder="Your zip code" name="zip" onChange={this.handleChange} noValidate/>
+                    <Input type="text" onKeyPress={this.handleKeyPress} maxLength="5" placeholder="Your zip code" name="zip" onChange={this.handleChange} noValidate/>
                     {errors.zip.length > 0 && <span className='error'>{errors.zip}</span>}
                     <FormFeedback className="form-feedback">Please enter your zip code</FormFeedback>
                   </FormGroup>
@@ -336,29 +343,6 @@ class CheckoutForm extends React.Component {
               </Modal>
             </Form>
           </Col>
-          {/* <Col className="cart-item-summary-div">
-            <Container>
-              <Row className="mt-1">
-                <Table borderless>
-                  <tbody>
-                    {cartItemDisplay}
-                  </tbody>
-                </Table>
-              </Row>
-              <Row>
-                <Col>Subtotal</Col>
-                <Col>{'$' + fixedOrderTotal}</Col>
-              </Row>
-              <Row>
-                <Col>Shipping</Col>
-                <Col>$5.00</Col>
-              </Row>
-              <Row>
-                <Col>Order Total</Col>
-                <Col>{orderStatus}</Col>
-              </Row>
-            </Container>
-          </Col> */}
         </Row>
       </Container>
     );
