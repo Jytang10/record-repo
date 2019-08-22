@@ -21,9 +21,12 @@ class ProductItem extends React.Component {
   }
 
   render() {
-    const productImage = this.props.product.image;
-    const productID = this.props.product.id;
-
+    let productImage;
+    let productID;
+    if (this.props.product) {
+      productImage = this.props.product.images[0];
+      productID = this.props.product.id;
+    }
     return (
       <Card className="shadow p-2 mb-4 bg-white rounded">
         <Link to={`/products/${productID}`}>

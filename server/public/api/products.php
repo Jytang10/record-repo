@@ -20,7 +20,14 @@ if (!empty($_GET["id"])) {
   $whereClause = "WHERE `id` = $id" ;
 }
 
-$query = "SELECT * FROM `products` $whereClause";
+$query = "SELECT p.`id`, p.`name`, p.`price`, p.`artist`, p.`description`, 
+	        GROUP_CONCAT(i.`url`) AS `images`
+	        FROM `products` AS p 
+	        JOIN `images` AS i 
+          ON p.`id` = i.`products_id` 
+          GROUP BY p.`id`
+          $whereClause";
+
 $result = mysqli_query($conn, $query);
 
 if (!$result){
@@ -30,8 +37,10 @@ if (!$result){
 $output = [];
 
 while ($row = mysqli_fetch_assoc( $result )){
+  $row['images'] = explode(",", $row['images']);
   array_push($output,$row);
 }
+
 
 if (mysqli_num_rows($result) === 0 && $id !== false ){
   throw new Exception("Invalid ID: " . $id);
@@ -48,6 +57,6 @@ function utf8ize($d) {
   return $d;
 }
 
-echo json_encode(utf8ize($output));
+echo json_encode(utf8ize($output), JSON_UNESCAPED_SLASHES);
 
 ?>
