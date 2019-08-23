@@ -1,8 +1,10 @@
 import React from 'react';
-import { Card, Button, CardImg, CardTitle, CardText, CardGroup,
+import { Card, Button, CardTitle, CardText, CardGroup,
   CardSubtitle, CardBody, Container, Col, Row, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './product-details.css';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -58,9 +60,13 @@ class ProductDetails extends React.Component {
   }
 
   render() {
-    let productImage;
+    let productImage1;
+    let productImage2;
+    let productImage3;
     if (this.state.product) {
-      productImage = this.state.product.images[0];
+      productImage1 = this.state.product.images[0];
+      productImage2 = this.state.product.images[1];
+      productImage3 = this.state.product.images[2];
     }
     const closeBtn = <button className="close modal-close" onClick={this.toggle}>&times;</button>;
     const productStatus = this.state.product;
@@ -80,7 +86,17 @@ class ProductDetails extends React.Component {
       productRender = (
         <CardGroup>
           <Card>
-            <CardImg top width="100%" src={productImage} alt="Product image" />
+            <Carousel autoPlay>
+              <div className="seller-div">
+                <img src={productImage1} />
+              </div>
+              <div className="seller-div">
+                <img src={productImage2} />
+              </div>
+              <div className="seller-div">
+                <img src={productImage3} />
+              </div>
+            </Carousel>
           </Card>
           <Card>
             <CardBody>
