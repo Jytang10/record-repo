@@ -58,6 +58,10 @@ class ProductDetails extends React.Component {
   }
 
   render() {
+    let productImage;
+    if (this.state.product) {
+      productImage = this.state.product.images[0];
+    }
     const closeBtn = <button className="close modal-close" onClick={this.toggle}>&times;</button>;
     const productStatus = this.state.product;
     let productRender;
@@ -76,7 +80,7 @@ class ProductDetails extends React.Component {
       productRender = (
         <CardGroup>
           <Card>
-            <CardImg top width="100%" src={window.location.origin + this.state.product.image} alt="Product image" />
+            <CardImg top width="100%" src={productImage} alt="Product image" />
           </Card>
           <Card>
             <CardBody>
