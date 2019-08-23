@@ -13,4 +13,8 @@
     header('Content-Type: application/json');
   }
 
+  function getBodyData(){
+    $data = json_decode(file_get_contents('php://input'), true);
+  }
+
 ?>
