@@ -1,7 +1,7 @@
 <?php
 	require_once('functions.php');
 	require_once("db_connection.php");
-	set_exception_handler("error_handler");
+  set_exception_handler("error_handler");
 
 	if (defined('INTERNAL')) {            // Add our INTERNAL check like in cart_add
 		print('Cannot allow direct access');
@@ -9,7 +9,7 @@
 	}
 
   if(empty($_SESSION['cart_id'])){        // Check if SESSION[‘cart_id’] is empty
-    print(json_encode([]));               // If it is, print a json encoded empty array
+    print(json_encode(array()));               // If it is, print a json encoded empty array
     exit();                               // Exit to stop processing, we have no cart for this person
   }
 
@@ -29,31 +29,17 @@
     WHERE c.`id` = $cart_id
     ";
   
-  $cart_data_result = mysqli_query($conn, $cart_query);  // Send the query to mysql and get the result
+  $cart_data = mysqli_query($conn, $cart_query);  // Send the query to mysql and get the result
 
   if(!$cart_data){
     throw new Exception(mysqli_error($conn));
   }
 
   if(mysqli_num_rows($cart_data) === 0){  // If there is nothing there, make sure it prints out an empty array
-    print(json_encode([]));
+    print(json_encode(array()));
     exit(); 
   }
 
-  $output['cartItems'] = [];     //Retrieve the data you got from the query and print it out.
-  $output['cartMetaData'] = [];
-  while($row = mysqli_fetch_assoc($cart_data)){
-      $output['cartItems'][] = [
-          'name' => $row['name'],
-          'price' => (int) $row['price'],
-          'image' => $row['image'],
-          'count' => (int) $row['count'],
-          'id' => (int) $row['id']
-      ];
-      $output['cartMetaData']['created'] = $row['created'];
-      // $output['cartMetaData']['total'] = (int) $row['total_price'];
-  }
-  $output['success'] = true;
-  print(json_encode($output));
-
+  print(json_encode($cart_data));  //Retrieve the data you got from the query and print it out.
+  
 ?>
