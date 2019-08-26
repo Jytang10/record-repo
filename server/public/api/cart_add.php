@@ -1,14 +1,17 @@
 <?php
-	require_once('functions.php');
-	require_once("db_connection.php");
-	set_exception_handler("error_handler");
 
-	if (defined('INTERNAL')) {
+	if (!defined('INTERNAL')) {
 		print('Cannot allow direct access');
 		exit();
 	}
 
-	$id = getBodyData();															// get the json body, store to variable $id
+	$data = getBodyData();													// get the json body, store to variable $id
+																									// Scott changed from $id to $data
+// print_r($data);
+// exit;
+
+
+
 
 	if(empty($_GET['id'])){
 		throw new Exception('Must have a product id to add to cart');
@@ -94,4 +97,7 @@
 
 	mysqli_query("COMMIT"); // Your query is now complete, we need to finalize the transaction: send to mysql this: “COMMIT”
 
+	print(json_encode([
+		'message' => 'Items added to cart'
+	]));
 ?>

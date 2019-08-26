@@ -1,15 +1,12 @@
 <?php
-	require_once('functions.php');
-	require_once("db_connection.php");
-  set_exception_handler("error_handler");
 
-	if (defined('INTERNAL')) {            // Add our INTERNAL check like in cart_add
+	if (!defined('INTERNAL')) {            // Add our INTERNAL check like in cart_add
 		print('Cannot allow direct access');
 		exit();
 	}
 
   if(empty($_SESSION['cart_id'])){        // Check if SESSION[‘cart_id’] is empty
-    print(json_encode(array()));               // If it is, print a json encoded empty array
+    print(json_encode(array()));          // If it is, print a json encoded empty array
     exit();                               // Exit to stop processing, we have no cart for this person
   }
 
@@ -41,5 +38,5 @@
   }
 
   print(json_encode($cart_data));  //Retrieve the data you got from the query and print it out.
-  
+
 ?>
