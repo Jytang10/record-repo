@@ -1,6 +1,6 @@
 <?php
 
-	if (!defined('INTERNAL')) {            // Add our INTERNAL check like in cart_add
+	if (!defined('INTERNAL')) {            // Add our INTERNAL check like in cart_add 
 		print('Cannot allow direct access');
 		exit();
 	}

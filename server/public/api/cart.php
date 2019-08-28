@@ -1,23 +1,21 @@
 <?php
-session_start();
 header('Content-Type: application/json');
-define('INTERNAL', true);
+define('INTERNAL', true);   
 
 require_once("functions.php");
+session_start();
 set_exception_handler("error_handler");
+startUp();
 require_once("db_connection.php");
 
 $method = $_SERVER['REQUEST_METHOD'];
-$item = file_get_contents('php://input');
 
 switch ($method) {
     case 'GET':
         require_once('cart_get.php');
         break;
     case 'POST':
-        // http_response_code(201);
         require_once('cart_add.php');
-        print($item);
         break;
     case 'DELETE':
         require_once('cart_delete.php');

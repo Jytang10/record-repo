@@ -6,23 +6,18 @@
 	}
 
 	$data = getBodyData();													// get the json body, store to variable $id
-																									// Scott changed from $id to $data
-// print_r($data);
-// exit;
 
-
-
-
-	if(empty($_GET['id'])){
+	if(isset($data['id'])) {												// See if id came in the json body data
+		$id = intval($data['id']);										// Store it into a variable, $id, if it did
+		if ($id < 1) {														//check if it is greater than 0
+			throw new Exception('id less than zero');				//throw an error otherwise
+		}
+	} else {
 		throw new Exception('Must have a product id to add to cart');
 	}
 
-	if (intval($id) < 0) {														// Parse int the $id variable to sanitize it, check if it is greater than 0
-	  throw new Exception('id less than zero');				//throw an error otherwise
-	}
-
-	if(!empty($_GET['id'])){													// See if id came in the json body data
-		$id = intval($_GET['id']);											// store it into a variable, $id, if it did
+	if(isset($data['count'])) {										// See if count came in the json body data
+		$count = $data['count'];										// Store it into a variable, $count if it did
 	}
 
 	if (empty($_SESSION['cartId'])) {							// Make conditional to test if $_SESSION[‘cartId’] is empty
