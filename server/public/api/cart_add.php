@@ -18,36 +18,38 @@
 
 	if(isset($data['count'])) {										// See if count came in the json body data
 		$count = $data['count'];										// Store it into a variable, $count if it did
+	} else {
+		throw new Exception('Please send product count');
 	}
 
 	if (empty($_SESSION['cartId'])) {							// Make conditional to test if $_SESSION[‘cartId’] is empty
-		$cartId = $_SESSION['cartId'];							// If yes, store $_SESSION[‘cartId’] into a variable $cartID					
+		$cartId = false;														// If empty, store false into the variable
 	} else {
-		$cartId = false;														// If not, store false into the variable
+		$cartId = $_SESSION['cartId'];							// If not, store $_SESSION[‘cartId’] into a variable $cartID					
 	}
 
 	$price_query = "SELECT `price` FROM `products` WHERE id = $id"; // Make a query to get the price from products for the given id you got from the body json
 	$price_result = mysqli_query($conn, $price_query);  	//  Send the query to the database and store the result
 
 	if(!$price_result){															// Make sure result is valid
-		throw new Exception(mysqli_error($conn));
+		throw new Exception('price query error'.mysqli_error($conn));
 	}
 
 	if( mysqli_num_rows($price_result) === 0){				// Check how many rows came back.
 		throw new Exception("No product matches product id $id");		// Throw an exception if there isn’t one. It wasn’t a valid product id
 	}
 
-	$productData = mysqli_fetch_assoc($result); 	// Extract the data for the row from the database, store the results into productData
+	$product_data = mysqli_fetch_assoc($price_result); 	// Extract the data for the row from the database, store the results into productData
+	$product_price = (int)$product_data['price'];
 
 	$transaction_query = "START TRANSACTION";     // Send a query to the database with the words “START TRANSACTION”
 	$transaction_result = mysqli_query($conn, $transaction_query);
 
 	if(!$transaction_result){											// Check to make sure the transaction was started by testing the result
-		throw new Exception(mysqli_error($conn));
+		throw new Exception('transaction query error'.mysqli_error($conn));
 	}
 
-	if ($cardId === false) {
-																									// Make an insert query to insert a new entry into the cart table
+	if ($cartId === false) {  // Make an insert query to insert a new entry into the cart table
 		$cart_create_query = "INSERT INTO `cart` SET `created` = NOW()";  // Specify ‘created’ as being equal to the mysql function NOW()
 		$cart_result = mysqli_query($conn, $cart_create_query);  // Send your query to mysql and get the result
 
