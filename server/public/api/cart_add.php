@@ -16,11 +16,11 @@
 		throw new Exception('Must have a product id to add to cart');
 	}
 
-	if(isset($data['count'])) {										// See if count came in the json body data
-		$count = $data['count'];										// Store it into a variable, $count if it did
-	} else {
-		throw new Exception('Please send product count');
-	}
+	// if(isset($data['count'])) {										// See if count came in the json body data
+	// 	$count = $data['count'];										// Store it into a variable, $count if it did
+	// } else {
+	// 	throw new Exception('Please send product count');
+	// }
 
 	if (empty($_SESSION['cartId'])) {							// Make conditional to test if $_SESSION[‘cartId’] is empty
 		$cartId = false;														// If empty, store false into the variable
@@ -49,14 +49,13 @@
 		throw new Exception('transaction query error'.mysqli_error($conn));
 	}
 
-	if ($cartId === false) {  // Make an insert query to insert a new entry into the cart table
-		$cart_create_query = "INSERT INTO `cart` SET `created` = NOW()";  // Specify ‘created’ as being equal to the mysql function NOW()
-		$cart_result = mysqli_query($conn, $cart_create_query);  // Send your query to mysql and get the result
+	if ($cartId === false) {  // Make an insert query to insert a new entry into the cart table if cardId is false
+		$insert_query = "INSERT INTO `cart` SET `created` = NOW()";  // Specify ‘created’ as being equal to the mysql function NOW()
+		$insert_result = mysqli_query($conn, $insert_query);  // Send your query to mysql and get the result
 
-		if(!$cart_result){												// Check if your result is valid or throw an error
-			throw new Exception(mysqli_error($conn));
+		if(!$insert_result){												// Check if your result is valid or throw an error
+			throw new Exception('insert query error'.mysqli_error($conn));
 		}
-
 		if(mysqli_affected_rows($conn) === 0){				// Use mysqli_affected_rows to see if a row was inserted or not.
 			throw new Exception('Data was not added to cart table');
 		}
@@ -65,7 +64,9 @@
 		$_SESSION['cartId'] = $cartId;							// store it into both cartId and $_SESSION[‘cartId’]
 	}
 
-																								// Make a query to insert data into the cartItems table
+
+
+																									// Make a query to insert data into the cartItems table
 																									// Add count=1
 																									// Add productID = the id you were passed in and sanitzed
 																									// Add price = the price you got from the product table earlier
@@ -74,10 +75,10 @@
 																									// Add a new bit onto the end of this query “ON DUPLICATE KEY UPDATE”
 	$cart_item_query = "INSERT INTO `cartItems` SET
 		`count` = 1,																		
-		`productID`= $id,
-		`price` = $price_result,
+		`productID`= {$id},
+		`price` = {$product_price},
 		`added` = NOW(),
-		`cartID` = $cartId
+		`cartID` = {$cartId}
 		ON DUPLICATE KEY UPDATE 
 		`count` = `count` + 1
 	";
