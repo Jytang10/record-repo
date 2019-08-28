@@ -32,7 +32,7 @@
 	$price_result = mysqli_query($conn, $price_query);  	//  Send the query to the database and store the result
 
 	if(!$price_result){															// Make sure result is valid
-		throw new Exception('price query error'.mysqli_error($conn));
+		throw new Exception('price query error '.mysqli_error($conn));
 	}
 
 	if( mysqli_num_rows($price_result) === 0){				// Check how many rows came back.
@@ -46,7 +46,7 @@
 	$transaction_result = mysqli_query($conn, $transaction_query);
 
 	if(!$transaction_result){											// Check to make sure the transaction was started by testing the result
-		throw new Exception('transaction query error'.mysqli_error($conn));
+		throw new Exception('transaction query error '.mysqli_error($conn));
 	}
 
 	if ($cartId === false) {  // Make an insert query to insert a new entry into the cart table if cardId is false
@@ -54,7 +54,7 @@
 		$insert_result = mysqli_query($conn, $insert_query);  // Send your query to mysql and get the result
 
 		if(!$insert_result){												// Check if your result is valid or throw an error
-			throw new Exception('insert query error'.mysqli_error($conn));
+			throw new Exception('insert query error '.mysqli_error($conn));
 		}
 		if(mysqli_affected_rows($conn) === 0){				// Use mysqli_affected_rows to see if a row was inserted or not.
 			throw new Exception('Data was not added to cart table');
@@ -86,14 +86,16 @@
 	$cart_item_result = mysqli_query($conn, $cart_item_query);  // Send your query to mysql and get the result back
 
 	if(!$cart_item_result){																	// Test the result and act appropriately
-		throw new Exception( mysqli_error($conn));
+		throw new Exception('cart item insert error '.mysqli_error($conn));
 	}
-	if(mysqli_affected_rows($conn) >= 1 ){								// Check to make sure your query updated AT LEAST 1 row. DUPLICATE KEY updates sometimes report updating 2 rows since they tried to insert first.
-		mysqli_query("ROLLBACK");														// If not, send this query to mysql: “ROLLBACK” (this will undo the first cart insert so you don’t have partial inserts)
-		throw new Exception('Failed to insert into cart items');		// Throw an exception now as normal
-	}																						
-
-	mysqli_query("COMMIT"); // Your query is now complete, we need to finalize the transaction: send to mysql this: “COMMIT”
+	if(mysqli_affected_rows($conn) < 1 ){								// Check to make sure your query updated AT LEAST 1 row. DUPLICATE KEY updates sometimes report updating 2 rows since they tried to insert first.
+		$rollback_query = "ROLLBACK";
+		mysqli_query($conn, $rollback_query);														// If not, send this query to mysql: “ROLLBACK” (this will undo the first cart insert so you don’t have partial inserts)
+		throw new Exception('Failed to insert into cart items');				// Throw an exception now as normal
+	}
+	
+	$commit_query = "COMMIT";
+	mysqli_query($conn, $commit_query); // Your query is now complete, we need to finalize the transaction: send to mysql this: “COMMIT”
 
 	print(json_encode([
 		'message' => 'Items added to cart'
