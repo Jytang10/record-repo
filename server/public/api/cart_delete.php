@@ -23,4 +23,7 @@
 		$cartId = $_SESSION['cartId'];	
   }
 
+  $delete_query = "DELETE FROM `cartItems` WHERE `productID` = {$id}";
+  $delete_result = mysqli_query($conn, $delete_query);
+
 ?>

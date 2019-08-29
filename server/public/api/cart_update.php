@@ -23,7 +23,7 @@
 		$cartId = $_SESSION['cartId'];	
   }
   
-  $update_query  = "UPDATE cartItems SET `count` = `count` - 1 WHERE `productID` = {$id}";
+  $update_query  = "UPDATE `cartItems` SET `count` = `count` - 1 WHERE `productID` = {$id}";
   $update_result = mysqli_query($conn, $update_query);
 
   if (!$update_result) {
