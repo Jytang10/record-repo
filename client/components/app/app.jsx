@@ -22,7 +22,7 @@ export default class App extends React.Component {
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     // this.removeFromCart = this.removeFromCart.bind(this);
-    // this.updateCart = this.updateCart.bind(this);
+    this.updateCart = this.updateCart.bind(this);
     this.getCartTotal = this.getCartTotal.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
   }
@@ -62,7 +62,7 @@ export default class App extends React.Component {
   }
 
   addToCart(productId) {
-    const postOrderData = {
+    const postData = {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -70,11 +70,27 @@ export default class App extends React.Component {
       },
       body: JSON.stringify(productId)
     };
-    fetch('/api/cart.php', postOrderData)
+    fetch('/api/cart.php', postData)
       .then(res => {
         res.json();
       })
       .catch(err => console.error('Could not add to cart. Please try again: ', err));
+  }
+
+  updateCart(productId) {
+    const putData = {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(productId)
+    };
+    fetch('/api/cart.php', putData)
+      .then(res => {
+        res.json();
+      })
+      .catch(err => console.error('Could not update cart. Please try again: ', err));
   }
 
   // addToCart(product, quantity) {
@@ -178,6 +194,7 @@ export default class App extends React.Component {
               render={ props => <ProductDetails {...props}
                 productID={this.state.productID.id}
                 handleAdd={this.addToCart}
+                updateCart={this.updateCart}
                 cartItems={this.state.cartItems}
                 cartTotal={this.state.cartTotal} />}
             />
@@ -188,7 +205,7 @@ export default class App extends React.Component {
                 cartTotal={this.state.cartTotal}
                 // handleRemove={this.removeFromCart}
                 handleAdd={this.addToCart}
-                // updateCart={this.updateQuantity}
+                updateCart={this.updateCart}
               />}
             />
             <Route
