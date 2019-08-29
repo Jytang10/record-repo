@@ -36,7 +36,6 @@ class ProductDetails extends React.Component {
   handleAddQuantity() {
     let currentQuantity = parseInt(this.state.quantity);
     this.setState({ quantity: currentQuantity + 1 });
-    this.props.handleAdd({ 'id': this.state.product.id });
   }
 
   handleMinusQuantity() {
@@ -44,12 +43,13 @@ class ProductDetails extends React.Component {
     if (currentQuantity > 1) {
       this.setState({ quantity: currentQuantity - 1 });
     }
-    this.props.updateCart({ 'id': this.state.product.id });
   }
 
   handleAddToCart() {
-    // this.props.handleAdd(this.state.product, this.state.quantity);
-    this.props.handleAdd({ 'id': this.state.product.id });
+    let quantity = this.state.quantity;
+    for (let i = 0; i < quantity; i++) {
+      this.props.handleAdd({ 'id': this.state.product.id });
+    }
     this.toggle();
   }
 
@@ -71,7 +71,7 @@ class ProductDetails extends React.Component {
     let productSumPrice;
     let quantityVal = this.state.quantity;
     let quantityMinus;
-    if (quantityVal === 0) {
+    if (quantityVal === 1) {
       quantityMinus = <i className="quantity-icon-error mr-1 fas fa-minus-square fa-lg"></i>;
     } else {
       quantityMinus = <i className="quantity-icon mr-1 fas fa-minus-square fa-lg" onClick={this.handleMinusQuantity}></i>;
@@ -99,7 +99,7 @@ class ProductDetails extends React.Component {
               <CardText className="product-price">{'$' + (this.state.product.price / 100).toFixed(2)}</CardText>
               <Row>
                 <Col>
-                  <Row className="quantity-label"><Label for="quantityNumber">Update Quantity</Label></Row>
+                  <Row className="quantity-label"><Label for="quantityNumber">Update Quantit to Add</Label></Row>
                   <Row className="quantity-input-row">
                     {quantityMinus}
                     <Badge color="success">{quantityVal}</Badge>
