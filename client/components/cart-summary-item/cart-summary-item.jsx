@@ -52,7 +52,7 @@ class CartSummaryItem extends React.Component {
   }
 
   handleRemoveItem() {
-    this.props.handleRemove((this.props.id).toString());
+    this.props.handleRemove({ 'id': this.props.id });
     this.toggle();
   }
 

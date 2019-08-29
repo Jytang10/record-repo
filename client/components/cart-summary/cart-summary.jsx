@@ -15,10 +15,12 @@ class CartSummary extends React.Component {
   }
 
   handleRemove(id) {
-    // this.props.handleRemove(this.state.cart, id);
-    this.setState({ cart: this.props.cartItems }, () => {
-      this.getCartItems();
-    });
+    this.props.handleRemove(id);
+    this.getCartItems();
+  }
+
+  getCartItems() {
+    this.props.getCartItems();
   }
 
   toggle() {
