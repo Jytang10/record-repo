@@ -24,6 +24,7 @@ export default class App extends React.Component {
     this.removeFromCart = this.removeFromCart.bind(this);
     this.updateQuantity = this.updateQuantity.bind(this);
     this.getCartTotal = this.getCartTotal.bind(this);
+    this.getCartItems = this.getCartItems.bind(this);
   }
 
   getProducts() {
@@ -31,6 +32,13 @@ export default class App extends React.Component {
       .then(res => res.json())
       .then(products => this.setState({ products }))
       .catch(err => console.error('No products found', err));
+  }
+
+  getCartItems() {
+    fetch('/api/cart.php')
+      .then(res => res.json())
+      .then(cartItems => this.setState({ cartItems }, () => this.getCartTotal()))
+      .catch(err => console.error('Cart items could not be retrieved', err));
   }
 
   setProductID(id) {
@@ -75,6 +83,10 @@ export default class App extends React.Component {
         }
       }, () => this.getCartTotal());
     }
+  }
+
+  addToCartServer(id) {
+
   }
 
   updateQuantity(product, quantity) {
