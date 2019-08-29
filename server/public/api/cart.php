@@ -20,6 +20,9 @@ switch ($method) {
     case 'DELETE':
         require_once('cart_delete.php');
         break;
+    case 'PUT':
+        require_once('cart_update.php');
+        break;
     default:
         http_response_code(404);
         print(json_encode([
