@@ -1,22 +1,22 @@
-{
-  "4": {
-    "id": 4,
-    "name": "SHISHAMO",
-    "artist": "SHISHAMO",
+[
+  {
+    "id": 1,
+    "count": 1,
+    "name": "Sol-fa",
+    "artist": "Asian Kung-Fu Generation",
+    "release": 2004,
     "price": 1999,
-    "release": 2013,
-    "image": "./images/shishamo.jpg",
-    "shortDescription": "First full length album by Japanese rock band SHISHAMO.",
-    "quantity": 1
+    "image": "./images/ajikan.jpg",
+    "description": "Sol-fa (ソルファ Sorufa) is the second studio album by Japanese rock band, Asian Kung-Fu Generation, released on October 20, 2004.",
   },
-  "6": {
-    "id": 6,
-    "name": "3",
-    "artist": "tricot",
-    "release": 2017,
-    "price": 1899,
-    "image": "./images/tricot.jpg",   
-    "shortDescription": "Third album by Japanese math-rock band tricot.",
-    "quantity": 1
+  {
+    "id": 2,
+    "count": 1,
+    "name": "metaphorical music",
+    "artist": "Nujabes",
+    "release": 2003,
+    "price": 2900,
+    "image": "./images/meta.jpg",
+    "description": "Metaphorical Music is Nujabes' first solo album released in 2003. It offers a combination of hip hop and instrumental jazz, and features artists like Shing02, Substantial, Five Deez and Cise Starr (of CYNE). Despite the fact that the album has contributing vocals from several artists, it is roughly classified as a breakbeat album.",
   }
-}
+]

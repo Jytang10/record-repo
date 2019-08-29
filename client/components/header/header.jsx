@@ -10,6 +10,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem
+  // Button
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './header.css';
@@ -21,18 +22,37 @@ class Header extends React.Component {
     this.state = {
       isOpen: false
     };
+    // this.phptest = this.phptest.bind(this);
   }
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     });
   }
+
+  // phptest() {
+  //   let jlo = {'name': 'jlo'};
+  //   const postOrderData = {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(jlo)
+  //   };
+  //   fetch('/api/cart.php', postOrderData)
+  //     .then(res => {
+  //       res.json();
+  //       console.log(res);
+  //     });
+  // }
   render() {
     return (
       <div>
         <Navbar className="top-navbar" dark expand="md">
           <Link to="/">
             <div className="navbar-brand">
+              {/* <Button onClick={this.phptest}>Test PHP Buton</Button> */}
               <i className="fas fa-compact-disc mr-1"></i>
               Record Repo
               <small>J-Pop Record Specialist</small>
