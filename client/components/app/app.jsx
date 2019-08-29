@@ -21,10 +21,15 @@ export default class App extends React.Component {
     this.setProductID = this.setProductID.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
-    this.removeFromCart = this.removeFromCart.bind(this);
-    this.updateQuantity = this.updateQuantity.bind(this);
+    // this.removeFromCart = this.removeFromCart.bind(this);
+    // this.updateCart = this.updateCart.bind(this);
     this.getCartTotal = this.getCartTotal.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
+  }
+
+  componentDidMount() {
+    this.getProducts();
+    this.getCartItems();
   }
 
   getProducts() {
@@ -56,62 +61,70 @@ export default class App extends React.Component {
     this.setState({ cartTotal: newCartTotal, cartLength: newCartLength });
   }
 
-  componentDidMount() {
-    this.getProducts();
+  addToCart(productId) {
+    const postOrderData = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(productId)
+    };
+    fetch('/api/cart.php', postOrderData)
+      .then(res => {
+        res.json();
+      })
+      .catch(err => console.error('Could not add to cart. Please try again: ', err));
   }
 
-  addToCart(product, quantity) {
-    const { cartItems } = this.state;
-    if (!(product.id in cartItems)) {
-      this.setState({
-        cartItems: {
-          ...cartItems,
-          [product.id]: {
-            ...product,
-            quantity: quantity
-          }
-        }
-      }, () => this.getCartTotal());
-    } else {
-      this.setState({
-        cartItems: {
-          ...cartItems,
-          [product.id]: {
-            ...cartItems[product.id],
-            quantity: cartItems[product.id].quantity + quantity
-          }
-        }
-      }, () => this.getCartTotal());
-    }
-  }
+  // addToCart(product, quantity) {
+  //   const { cartItems } = this.state;
+  //   if (!(product.id in cartItems)) {
+  //     this.setState({
+  //       cartItems: {
+  //         ...cartItems,
+  //         [product.id]: {
+  //           ...product,
+  //           quantity: quantity
+  //         }
+  //       }
+  //     }, () => this.getCartTotal());
+  //   } else {
+  //     this.setState({
+  //       cartItems: {
+  //         ...cartItems,
+  //         [product.id]: {
+  //           ...cartItems[product.id],
+  //           quantity: cartItems[product.id].quantity + quantity
+  //         }
+  //       }
+  //     }, () => this.getCartTotal());
+  //   }
+  // }
 
-  addToCartServer(id) {
+  // updateQuantity(product, quantity) {
+  //   const { cartItems } = this.state;
+  //   this.setState({
+  //     cartItems: {
+  //       ...cartItems,
+  //       [product.id]: {
+  //         ...cartItems[product.id],
+  //         quantity: quantity
+  //       }
+  //     }
+  //   }, () => this.getCartTotal());
+  // }
 
-  }
-
-  updateQuantity(product, quantity) {
-    const { cartItems } = this.state;
-    this.setState({
-      cartItems: {
-        ...cartItems,
-        [product.id]: {
-          ...cartItems[product.id],
-          quantity: quantity
-        }
-      }
-    }, () => this.getCartTotal());
-  }
-
-  removeFromCart(object, key) {
-    const newCartObj = {};
-    const objKeys = Object.keys(object);
-    objKeys.forEach(itemKey => {
-      if (itemKey !== key) {
-        newCartObj[itemKey] = object[itemKey];
-      }
-    });
-    this.setState({ cartItems: newCartObj }, () => this.getCartTotal());
-  }
+  // removeFromCart(object, key) {
+  //   const newCartObj = {};
+  //   const objKeys = Object.keys(object);
+  //   objKeys.forEach(itemKey => {
+  //     if (itemKey !== key) {
+  //       newCartObj[itemKey] = object[itemKey];
+  //     }
+  //   });
+  //   this.setState({ cartItems: newCartObj }, () => this.getCartTotal());
+  // }
 
   placeOrder(orderDetails) {
     const fullOrder = {
@@ -173,9 +186,10 @@ export default class App extends React.Component {
               render={ props => <CartSummary {...props}
                 cartItems={this.state.cartItems}
                 cartTotal={this.state.cartTotal}
-                handleRemove={this.removeFromCart}
+                // handleRemove={this.removeFromCart}
                 handleAdd={this.addToCart}
-                updateCart={this.updateQuantity} />}
+                // updateCart={this.updateQuantity}
+              />}
             />
             <Route
               path="/checkout"
@@ -183,7 +197,8 @@ export default class App extends React.Component {
                 cartItems={this.state.cartItems}
                 cartTotal={this.state.cartTotal}
                 handlePlaceOrder={this.placeOrder}
-                handleAdd={this.addToCart} />}
+                // handleAdd={this.addToCart}
+              />}
             />
             <Route
               path="/about"
