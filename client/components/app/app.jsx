@@ -14,14 +14,14 @@ export default class App extends React.Component {
     this.state = {
       products: [],
       productID: {},
-      cartItems: {},
+      cartItems: [],
       cartTotal: 0,
       cartLength: 0
     };
     this.setProductID = this.setProductID.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
-    // this.removeFromCart = this.removeFromCart.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
     this.updateCart = this.updateCart.bind(this);
     this.getCartTotal = this.getCartTotal.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
@@ -91,6 +91,22 @@ export default class App extends React.Component {
         res.json();
       })
       .catch(err => console.error('Could not update cart. Please try again: ', err));
+  }
+
+  removeFromCart(productId) {
+    const deleteData = {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(productId)
+    };
+    fetch('/api/cart.php', deleteData)
+      .then(res => {
+        res.json();
+      })
+      .catch(err => console.error('Could not removce item from cart. Please try again: ', err));
   }
 
   // addToCart(product, quantity) {
@@ -164,7 +180,7 @@ export default class App extends React.Component {
     fetch('/api/orders.php', postOrderData)
       .then(res => {
         res.json();
-        this.setState({ cartItems: {}, cartLength: 0 });
+        this.setState({ cartItems: [], cartLength: 0 });
       })
       .catch(err => console.error('Could not place order. Please try again: ', err));
   }
@@ -203,7 +219,7 @@ export default class App extends React.Component {
               render={ props => <CartSummary {...props}
                 cartItems={this.state.cartItems}
                 cartTotal={this.state.cartTotal}
-                // handleRemove={this.removeFromCart}
+                handleRemove={this.removeFromCart}
                 handleAdd={this.addToCart}
                 updateCart={this.updateCart}
               />}
@@ -214,7 +230,6 @@ export default class App extends React.Component {
                 cartItems={this.state.cartItems}
                 cartTotal={this.state.cartTotal}
                 handlePlaceOrder={this.placeOrder}
-                // handleAdd={this.addToCart}
               />}
             />
             <Route
