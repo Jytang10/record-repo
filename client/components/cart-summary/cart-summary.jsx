@@ -8,28 +8,14 @@ class CartSummary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cart: null,
       tooltipOpen: false
     };
     this.handleRemove = this.handleRemove.bind(this);
     this.toggle = this.toggle.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.props.getCartItems();
-  // }
-
-  // getCartItems() {
-  //   this.props.getCartItems();
-  //   this.setCartItems();
-  // }
-
-  // setCartItems() {
-  //   this.setState({ cart: this.props.cartItems });
-  // }
-
   handleRemove(id) {
-    this.props.handleRemove(this.state.cart, id);
+    // this.props.handleRemove(this.state.cart, id);
     this.setState({ cart: this.props.cartItems }, () => {
       this.getCartItems();
     });
@@ -43,26 +29,26 @@ class CartSummary extends React.Component {
 
   render() {
     let cartItemDisplay;
-    // if (!this.state.cart) {
-    //   cartItemDisplay = <tr><td>No items in cart</td></tr>;
-    // } else if (this.state.cart.length === 0) {
-    //   cartItemDisplay = <tr><td>No items in cart</td></tr>;
-    // } else {
-    let cartItemArray = this.props.cartItems;
-    let cartList = cartItemArray.map(item => {
-      return (
-        <CartSummaryItem
-          key={item.id}
-          id={item.id}
-          item={item}
-          cartItems={this.props.cartItems}
-          handleRemove={this.handleRemove}
-          updateCart={this.props.updateCart}
-        />
-      );
-    });
-    cartItemDisplay = cartList;
-    // }
+    if (!this.props.cartItems) {
+      cartItemDisplay = <tr><td>No items in cart</td></tr>;
+    } else if (this.props.cartItems.length === 0) {
+      cartItemDisplay = <tr><td>No items in cart</td></tr>;
+    } else {
+      let cartItemArray = this.props.cartItems;
+      let cartList = cartItemArray.map(item => {
+        return (
+          <CartSummaryItem
+            key={item.id}
+            id={item.id}
+            item={item}
+            cartItems={this.props.cartItems}
+            handleRemove={this.handleRemove}
+            updateCart={this.props.updateCart}
+          />
+        );
+      });
+      cartItemDisplay = cartList;
+    }
     let checkoutCheck;
     if (this.props.cartTotal === 0) {
       checkoutCheck = (
