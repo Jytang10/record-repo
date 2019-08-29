@@ -23,14 +23,14 @@
 		$cartId = $_SESSION['cartId'];	
   }
   
-  $update_query  = "UPDATE cartItems SET `count` = `count` - 1 WHERE `productID` = {$id}";
+  $update_query  = "UPDATE `cartItems` SET `count` = `count` - 1 WHERE `productID` = {$id}";
   $update_result = mysqli_query($conn, $update_query);
 
   if (!$update_result) {
     throw new exception('cart update error '.mysqli_error($conn));
   };
   if (mysqli_affected_rows($conn) === 0) {
-      throw new Exception('could not update cart '.mysqli_error($conn));
+    throw new Exception('could not update cart '.mysqli_error($conn));
   };
 
   print(json_encode([
