@@ -40,11 +40,14 @@ export default class App extends React.Component {
       .catch(err => console.error('No products found', err));
   }
 
-  getCartItems() {
-    fetch('/api/cart.php')
-      .then(res => res.json())
-      .then(cartItems => this.setState({ cartItems }, () => this.getCartTotal()))
-      .catch(err => console.error('Cart items could not be retrieved', err));
+  async getCartItems() {
+    try {
+      const response = await fetch('/api/cart.php');
+      const json = await response.json();
+      this.setState({ cartItems: json }, () => this.getCartTotal());
+    } catch (err) {
+      console.error('Cart items could not be retrieved', err);
+    }
   }
 
   setProductID(id) {
@@ -58,15 +61,15 @@ export default class App extends React.Component {
     for (let i = 0; i < cart.length; i++) {
       newCartTotal += parseInt((cart[i]['price'] * cart[i]['count']));
       newCartLength += parseInt(cart[i]['count']);
+      this.updateCartTotal(newCartTotal, newCartLength);
     }
-    this.updateCartTotal(newCartTotal, newCartLength);
   }
 
   updateCartTotal(total, length) {
     this.setState({ cartTotal: total, cartLength: length });
   }
 
-  addToCart(productId) {
+  async addToCart(productId) {
     const postData = {
       method: 'POST',
       headers: {
@@ -75,15 +78,16 @@ export default class App extends React.Component {
       },
       body: JSON.stringify(productId)
     };
-    fetch('/api/cart.php', postData)
-      .then(res => {
-        res.json();
-      })
-      .then(this.getCartItems())
-      .catch(err => console.error('Could not add to cart. Please try again: ', err));
+    try {
+      const response = await fetch('/api/cart.php', postData);
+      const json = await response.json();
+      this.getCartItems();
+    } catch (err) {
+      console.error('Could not add to cart. Please try again: ', err);
+    }
   }
 
-  updateCart(productId) {
+  async updateCart(productId) {
     const putData = {
       method: 'PUT',
       headers: {
@@ -92,15 +96,16 @@ export default class App extends React.Component {
       },
       body: JSON.stringify(productId)
     };
-    fetch('/api/cart.php', putData)
-      .then(res => {
-        res.json();
-      })
-      .then(this.getCartItems())
-      .catch(err => console.error('Could not update cart. Please try again: ', err));
+    try {
+      const response = await fetch('/api/cart.php', putData);
+      const json = await response.json();
+      this.getCartItems();
+    } catch (err) {
+      console.error('Could not update cart. Please try again: ', err);
+    }
   }
-
-  removeFromCart(productId) {
+  
+  async removeFromCart(productId) {
     const deleteData = {
       method: 'DELETE',
       headers: {
@@ -109,12 +114,13 @@ export default class App extends React.Component {
       },
       body: JSON.stringify(productId)
     };
-    fetch('/api/cart.php', deleteData)
-      .then(res => {
-        res.json();
-      })
-      .then(this.getCartItems())
-      .catch(err => console.error('Could not removce item from cart. Please try again: ', err));
+    try {
+      const response = await fetch('/api/cart.php', deleteData);
+      const json = await response.json();
+      this.getCartItems();
+    } catch (err) {
+      console.error('Could not removce item from cart. Please try again: ', err)
+    }
   }
 
   placeOrder(orderDetails) {

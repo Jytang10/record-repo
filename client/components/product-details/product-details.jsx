@@ -18,7 +18,6 @@ class ProductDetails extends React.Component {
     this.handleMinusQuantity = this.handleMinusQuantity.bind(this);
     this.handleAddToCart = this.handleAddToCart.bind(this);
     this.toggle = this.toggle.bind(this);
-    this.updateCartTotal = this.updateCartTotal.bind(this);
   }
 
   componentDidMount() {
@@ -50,13 +49,8 @@ class ProductDetails extends React.Component {
     let quantity = this.state.quantity;
     for (let i = 0; i < quantity; i++) {
       this.props.handleAdd({ 'id': this.state.product.id });
-      this.updateCartTotal();
     }
     this.toggle();
-  }
-
-  updateCartTotal() {
-    this.props.getCartItems();
   }
 
   render() {
@@ -105,7 +99,7 @@ class ProductDetails extends React.Component {
               <CardText className="product-price">{'$' + (this.state.product.price / 100).toFixed(2)}</CardText>
               <Row>
                 <Col>
-                  <Row className="quantity-label"><Label for="quantityNumber">Update Quantity to Add</Label></Row>
+                  <Row className="quantity-label"><Label for="quantityNumber">Update Quantity</Label></Row>
                   <Row className="quantity-input-row">
                     {quantityMinus}
                     <Badge color="success">{quantityVal}</Badge>

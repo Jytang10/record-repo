@@ -14,6 +14,10 @@ class CartSummary extends React.Component {
     this.toggle = this.toggle.bind(this);
   }
 
+  componentDidMount() {
+    this.props.getCartItems();
+  }
+
   handleRemove(id) {
     this.props.handleRemove(id);
     this.getCartItems();
@@ -31,9 +35,7 @@ class CartSummary extends React.Component {
 
   render() {
     let cartItemDisplay;
-    if (!this.props.cartItems) {
-      cartItemDisplay = <tr><td>No items in cart</td></tr>;
-    } else if (this.props.cartItems.length === 0) {
+    if (this.props.cartItems.length === 0) {
       cartItemDisplay = <tr><td>No items in cart</td></tr>;
     } else {
       let cartItemArray = this.props.cartItems;
