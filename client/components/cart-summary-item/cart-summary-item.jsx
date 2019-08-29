@@ -16,6 +16,7 @@ class CartSummaryItem extends React.Component {
     this.handleAddQuantity = this.handleAddQuantity.bind(this);
     this.handleMinusQuantity = this.handleMinusQuantity.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.updateCartTotal = this.updateCartTotal.bind(this);
   }
 
   componentDidMount() {
@@ -37,7 +38,7 @@ class CartSummaryItem extends React.Component {
     this.setState({ quantity: currentQuantity + 1 }, () => {
       this.setState({ subTotal: originalPrice * this.state.quantity }, () => {
         this.props.handleAdd({ 'id': this.props.id });
-        this.props.getCartItems();
+        this.updateCartTotal();
       });
     });
   }
@@ -48,7 +49,7 @@ class CartSummaryItem extends React.Component {
     this.setState({ quantity: currentQuantity - 1 }, () => {
       this.setState({ subTotal: originalPrice * this.state.quantity }, () => {
         this.props.updateCart({ 'id': this.props.id });
-        this.props.getCartItems();
+        this.updateCartTotal();
       });
     });
   }
@@ -56,6 +57,10 @@ class CartSummaryItem extends React.Component {
   handleRemoveItem() {
     this.props.handleRemove({ 'id': this.props.id });
     this.toggle();
+  }
+
+  updateCartTotal() {
+    this.props.getCartItems();
   }
 
   render() {

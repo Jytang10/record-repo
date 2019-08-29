@@ -79,6 +79,7 @@ export default class App extends React.Component {
       .then(res => {
         res.json();
       })
+      .then(this.getCartItems())
       .catch(err => console.error('Could not add to cart. Please try again: ', err));
   }
 
@@ -95,6 +96,7 @@ export default class App extends React.Component {
       .then(res => {
         res.json();
       })
+      .then(this.getCartItems())
       .catch(err => console.error('Could not update cart. Please try again: ', err));
   }
 
@@ -111,6 +113,7 @@ export default class App extends React.Component {
       .then(res => {
         res.json();
       })
+      .then(this.getCartItems())
       .catch(err => console.error('Could not removce item from cart. Please try again: ', err));
   }
 
