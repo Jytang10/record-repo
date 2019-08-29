@@ -5,68 +5,59 @@
 		exit();
 	}
 
-	$data = getBodyData();													// get the json body, store to variable $id
+	$data = getBodyData();
 
-	if(isset($data['id'])) {												// See if id came in the json body data
-		$id = intval($data['id']);										// Store it into a variable, $id, if it did
-		if ($id < 1) {														//check if it is greater than 0
-			throw new Exception('invalid id. must be a number greater than 0');				//throw an error otherwise
+	if(isset($data['id'])) {
+		$id = intval($data['id']);
+		if ($id < 1) {
+			throw new Exception('invalid id. must be a number greater than 0');
 		}
 	} else {
 		throw new Exception('Must have a product id to add to cart');
 	}
 
-	if (empty($_SESSION['cartId'])) {							// Make conditional to test if $_SESSION[‘cartId’] is empty
-		$cartId = false;														// If empty, store false into the variable
+	if (empty($_SESSION['cartId'])) {
+		$cartId = false;
 	} else {
-		$cartId = $_SESSION['cartId'];							// If not, store $_SESSION[‘cartId’] into a variable $cartID					
+		$cartId = $_SESSION['cartId'];		
 	}
 
-	$price_query = "SELECT `price` FROM `products` WHERE id = $id"; // Make a query to get the price from products for the given id you got from the body json
-	$price_result = mysqli_query($conn, $price_query);  	//  Send the query to the database and store the result
+	$price_query = "SELECT `price` FROM `products` WHERE id = $id";
+	$price_result = mysqli_query($conn, $price_query);
 
-	if(!$price_result){															// Make sure result is valid
+	if(!$price_result){
 		throw new Exception('price query error '.mysqli_error($conn));
 	}
 
-	if( mysqli_num_rows($price_result) === 0){				// Check how many rows came back.
-		throw new Exception("No product matches product id $id");		// Throw an exception if there isn’t one. It wasn’t a valid product id
+	if( mysqli_num_rows($price_result) === 0){
+		throw new Exception("No product matches product id $id");
 	}
 
-	$product_data = mysqli_fetch_assoc($price_result); 	// Extract the data for the row from the database, store the results into productData
+	$product_data = mysqli_fetch_assoc($price_result);
 	$product_price = (int)$product_data['price'];
 
-	$transaction_query = "START TRANSACTION";     // Send a query to the database with the words “START TRANSACTION”
+	$transaction_query = "START TRANSACTION";
 	$transaction_result = mysqli_query($conn, $transaction_query);
 
-	if(!$transaction_result){											// Check to make sure the transaction was started by testing the result
+	if(!$transaction_result){
 		throw new Exception('transaction query error '.mysqli_error($conn));
 	}
 
-	if ($cartId === false) {  // Make an insert query to insert a new entry into the cart table if cardId is false
-		$insert_query = "INSERT INTO `cart` SET `created` = NOW()";  // Specify ‘created’ as being equal to the mysql function NOW()
-		$insert_result = mysqli_query($conn, $insert_query);  // Send your query to mysql and get the result
+	if ($cartId === false) {
+		$insert_query = "INSERT INTO `cart` SET `created` = NOW()";
+		$insert_result = mysqli_query($conn, $insert_query);
 
-		if(!$insert_result){												// Check if your result is valid or throw an error
+		if(!$insert_result){
 			throw new Exception('insert query error '.mysqli_error($conn));
 		}
-		if(mysqli_affected_rows($conn) === 0){				// Use mysqli_affected_rows to see if a row was inserted or not.
+		if(mysqli_affected_rows($conn) === 0){
 			throw new Exception('Data was not added to cart table');
 		}
 
-		$cartId = mysqli_insert_id($conn);					// Use mysqli_insert_id to get the id of the cart that was created
-		$_SESSION['cartId'] = $cartId;							// store it into both cartId and $_SESSION[‘cartId’]
+		$cartId = mysqli_insert_id($conn);
+		$_SESSION['cartId'] = $cartId;
 	}
 
-
-
-																									// Make a query to insert data into the cartItems table
-																									// Add count=1
-																									// Add productID = the id you were passed in and sanitzed
-																									// Add price = the price you got from the product table earlier
-																									// Add added = NOW()
-																									// cartID = the ID you got either from SESSIONS or from the insert previously
-																									// Add a new bit onto the end of this query “ON DUPLICATE KEY UPDATE”
 	$cart_item_query = "INSERT INTO `cartItems` SET
 		`count` = 1,																		
 		`productID`= {$id},
@@ -77,19 +68,19 @@
 		`count` = `count` + 1
 	";
 
-	$cart_item_result = mysqli_query($conn, $cart_item_query);  // Send your query to mysql and get the result back
+	$cart_item_result = mysqli_query($conn, $cart_item_query);
 
-	if(!$cart_item_result){																	// Test the result and act appropriately
+	if(!$cart_item_result){
 		throw new Exception('cart item insert error '.mysqli_error($conn));
 	}
-	if(mysqli_affected_rows($conn) < 1 ){								// Check to make sure your query updated AT LEAST 1 row. DUPLICATE KEY updates sometimes report updating 2 rows since they tried to insert first.
+	if(mysqli_affected_rows($conn) < 1 ){
 		$rollback_query = "ROLLBACK";
-		mysqli_query($conn, $rollback_query);														// If not, send this query to mysql: “ROLLBACK” (this will undo the first cart insert so you don’t have partial inserts)
-		throw new Exception('Failed to insert into cart items');				// Throw an exception now as normal
+		mysqli_query($conn, $rollback_query);
+		throw new Exception('Failed to insert into cart items');
 	}
 	
 	$commit_query = "COMMIT";
-	mysqli_query($conn, $commit_query); // Your query is now complete, we need to finalize the transaction: send to mysql this: “COMMIT”
+	mysqli_query($conn, $commit_query);
 
 	print(json_encode([
 		'message' => 'Items added to cart'
