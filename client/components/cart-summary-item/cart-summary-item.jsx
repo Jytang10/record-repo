@@ -64,7 +64,7 @@ class CartSummaryItem extends React.Component {
     let convertItemPrice = this.props.item.price / 100;
     let fixedItemPrice = convertItemPrice.toFixed(2);
     let itemQuantity;
-    itemQuantity = this.state.quantity;
+    itemQuantity = parseInt(this.props.item.count);
     let itemSubtotal;
     itemSubtotal = this.state.subTotal;
     let quantityMinus;
