@@ -15,11 +15,16 @@ class CartSummary extends React.Component {
     this.toggle = this.toggle.bind(this);
   }
 
-  componentDidMount() {
-    this.getCartItems();
-  }
+  // componentDidMount() {
+  //   this.getCartItems();
+  // }
 
   getCartItems() {
+    this.props.getCartItems();
+    this.setCartItems();
+  }
+
+  setCartItems() {
     this.setState({ cart: this.props.cartItems });
   }
 
@@ -40,10 +45,10 @@ class CartSummary extends React.Component {
     let cartItemDisplay;
     if (!this.state.cart) {
       cartItemDisplay = <tr><td>No items in cart</td></tr>;
-    } else if (Object.keys(this.state.cart).length === 0 && this.state.cart.constructor === Object) {
+    } else if (this.state.cart.length === 0) {
       cartItemDisplay = <tr><td>No items in cart</td></tr>;
     } else {
-      let cartItemArray = Object.values(this.state.cart);
+      let cartItemArray = this.state.cart;
       let cartList = cartItemArray.map(item => {
         return (
           <CartSummaryItem

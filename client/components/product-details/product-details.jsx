@@ -99,7 +99,7 @@ class ProductDetails extends React.Component {
               <CardText className="product-price">{'$' + (this.state.product.price / 100).toFixed(2)}</CardText>
               <Row>
                 <Col>
-                  <Row className="quantity-label"><Label for="quantityNumber">Update Quantit to Add</Label></Row>
+                  <Row className="quantity-label"><Label for="quantityNumber">Update Quantity to Add</Label></Row>
                   <Row className="quantity-input-row">
                     {quantityMinus}
                     <Badge color="success">{quantityVal}</Badge>

@@ -54,9 +54,9 @@ export default class App extends React.Component {
     let newCartTotal = 0;
     let newCartLength = 0;
     let cart = this.state.cartItems;
-    for (var item in cart) {
-      newCartTotal += (cart[item]['price'] * cart[item]['quantity']);
-      newCartLength += cart[item]['quantity'];
+    for (let i = 0; i < cart.length; i++) {
+      newCartTotal += parseInt((cart[i]['price'] * cart[i]['count']));
+      newCartLength += parseInt(cart[i]['count']);
     }
     this.setState({ cartTotal: newCartTotal, cartLength: newCartLength });
   }
