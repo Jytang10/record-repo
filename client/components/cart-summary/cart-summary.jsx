@@ -47,6 +47,7 @@ class CartSummary extends React.Component {
             handleAdd={this.props.handleAdd}
             handleRemove={this.handleRemove}
             updateCart={this.props.updateCart}
+            getCartItems={this.props.getCartItems}
           />
         );
       });
