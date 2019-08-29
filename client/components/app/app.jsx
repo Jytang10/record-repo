@@ -55,6 +55,9 @@ export default class App extends React.Component {
   }
 
   getCartTotal() {
+    if (!this.state.cart) {
+      this.setState({ cartLength: 0, cartTotal: 0 });
+    }
     let newCartTotal = 0;
     let newCartLength = 0;
     let cart = this.state.cartItems;
@@ -104,7 +107,7 @@ export default class App extends React.Component {
       console.error('Could not update cart. Please try again: ', err);
     }
   }
-  
+
   async removeFromCart(productId) {
     const deleteData = {
       method: 'DELETE',
@@ -119,7 +122,7 @@ export default class App extends React.Component {
       const json = await response.json();
       this.getCartItems();
     } catch (err) {
-      console.error('Could not removce item from cart. Please try again: ', err)
+      console.error('Could not removce item from cart. Please try again: ', err);
     }
   }
 
