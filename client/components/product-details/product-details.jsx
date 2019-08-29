@@ -18,6 +18,7 @@ class ProductDetails extends React.Component {
     this.handleMinusQuantity = this.handleMinusQuantity.bind(this);
     this.handleAddToCart = this.handleAddToCart.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.updateCartTotal = this.updateCartTotal.bind(this);
   }
 
   componentDidMount() {
@@ -49,9 +50,13 @@ class ProductDetails extends React.Component {
     let quantity = this.state.quantity;
     for (let i = 0; i < quantity; i++) {
       this.props.handleAdd({ 'id': this.state.product.id });
+      this.updateCartTotal();
     }
-    this.props.getCartItems();
     this.toggle();
+  }
+
+  updateCartTotal() {
+    this.props.getCartItems();
   }
 
   render() {
