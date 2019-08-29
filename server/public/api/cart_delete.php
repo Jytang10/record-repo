@@ -26,4 +26,14 @@
   $delete_query = "DELETE FROM `cartItems` WHERE `productID` = {$id}";
   $delete_result = mysqli_query($conn, $delete_query);
 
+  if (!$delete_result) {
+    throw new exception('cart delete error '.mysqli_error($conn));
+  };
+  if (mysqli_affected_rows($conn) === 0) {
+    throw new Exception('could not remove item from cart '.mysqli_error($conn));
+  };
+
+  print(json_encode([
+		'message' => 'Item removed from cart'
+	]));
 ?>

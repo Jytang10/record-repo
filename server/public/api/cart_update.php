@@ -30,7 +30,7 @@
     throw new exception('cart update error '.mysqli_error($conn));
   };
   if (mysqli_affected_rows($conn) === 0) {
-      throw new Exception('could not update cart '.mysqli_error($conn));
+    throw new Exception('could not update cart '.mysqli_error($conn));
   };
 
   print(json_encode([
