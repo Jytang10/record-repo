@@ -2,7 +2,7 @@
 
 require_once('functions.php');
 require_once('db_connection.php');
-
+session_start();
 set_exception_handler("error_handler");
 startUp();
 
@@ -38,5 +38,8 @@ if ($result) {
 } else {
     throw new Exception("Could not place order: " . mysqli_error($conn));
 }
+
+unset($_SESSION['cardId']);
+$_SESSION = array();
 
 ?>
