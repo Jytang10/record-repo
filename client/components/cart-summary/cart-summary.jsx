@@ -16,17 +16,17 @@ class CartSummary extends React.Component {
   }
 
   // componentDidMount() {
-  //   this.getCartItems();
+  //   this.props.getCartItems();
   // }
 
-  getCartItems() {
-    this.props.getCartItems();
-    this.setCartItems();
-  }
+  // getCartItems() {
+  //   this.props.getCartItems();
+  //   this.setCartItems();
+  // }
 
-  setCartItems() {
-    this.setState({ cart: this.props.cartItems });
-  }
+  // setCartItems() {
+  //   this.setState({ cart: this.props.cartItems });
+  // }
 
   handleRemove(id) {
     this.props.handleRemove(this.state.cart, id);
@@ -43,26 +43,26 @@ class CartSummary extends React.Component {
 
   render() {
     let cartItemDisplay;
-    if (!this.state.cart) {
-      cartItemDisplay = <tr><td>No items in cart</td></tr>;
-    } else if (this.state.cart.length === 0) {
-      cartItemDisplay = <tr><td>No items in cart</td></tr>;
-    } else {
-      let cartItemArray = this.state.cart;
-      let cartList = cartItemArray.map(item => {
-        return (
-          <CartSummaryItem
-            key={item.id}
-            id={item.id}
-            item={item}
-            cartItems={this.state.cart}
-            handleRemove={this.handleRemove}
-            updateCart={this.props.updateCart}
-          />
-        );
-      });
-      cartItemDisplay = cartList;
-    }
+    // if (!this.state.cart) {
+    //   cartItemDisplay = <tr><td>No items in cart</td></tr>;
+    // } else if (this.state.cart.length === 0) {
+    //   cartItemDisplay = <tr><td>No items in cart</td></tr>;
+    // } else {
+    let cartItemArray = this.props.cartItems;
+    let cartList = cartItemArray.map(item => {
+      return (
+        <CartSummaryItem
+          key={item.id}
+          id={item.id}
+          item={item}
+          cartItems={this.props.cartItems}
+          handleRemove={this.handleRemove}
+          updateCart={this.props.updateCart}
+        />
+      );
+    });
+    cartItemDisplay = cartList;
+    // }
     let checkoutCheck;
     if (this.props.cartTotal === 0) {
       checkoutCheck = (

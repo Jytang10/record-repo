@@ -50,6 +50,7 @@ class ProductDetails extends React.Component {
     for (let i = 0; i < quantity; i++) {
       this.props.handleAdd({ 'id': this.state.product.id });
     }
+    this.props.getCartItems();
     this.toggle();
   }
 

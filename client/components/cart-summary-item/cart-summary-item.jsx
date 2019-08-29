@@ -21,8 +21,8 @@ class CartSummaryItem extends React.Component {
   componentDidMount() {
     this.setState({ item: this.props.item });
     this.setState({ cart: this.props.cartItem });
-    this.setState({ quantity: this.props.item.quantity });
-    this.setState({ subTotal: (this.props.item.quantity * this.props.item.price) });
+    this.setState({ quantity: this.props.item.count });
+    this.setState({ subTotal: (this.props.item.count * this.props.item.price) });
   }
 
   toggle() {
@@ -59,7 +59,7 @@ class CartSummaryItem extends React.Component {
   render() {
     let productImage;
     if (this.props.item) {
-      productImage = this.props.item.images[0];
+      productImage = this.props.item.url;
     }
     let convertItemPrice = this.props.item.price / 100;
     let fixedItemPrice = convertItemPrice.toFixed(2);

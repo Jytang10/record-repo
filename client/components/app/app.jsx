@@ -109,55 +109,6 @@ export default class App extends React.Component {
       .catch(err => console.error('Could not removce item from cart. Please try again: ', err));
   }
 
-  // addToCart(product, quantity) {
-  //   const { cartItems } = this.state;
-  //   if (!(product.id in cartItems)) {
-  //     this.setState({
-  //       cartItems: {
-  //         ...cartItems,
-  //         [product.id]: {
-  //           ...product,
-  //           quantity: quantity
-  //         }
-  //       }
-  //     }, () => this.getCartTotal());
-  //   } else {
-  //     this.setState({
-  //       cartItems: {
-  //         ...cartItems,
-  //         [product.id]: {
-  //           ...cartItems[product.id],
-  //           quantity: cartItems[product.id].quantity + quantity
-  //         }
-  //       }
-  //     }, () => this.getCartTotal());
-  //   }
-  // }
-
-  // updateQuantity(product, quantity) {
-  //   const { cartItems } = this.state;
-  //   this.setState({
-  //     cartItems: {
-  //       ...cartItems,
-  //       [product.id]: {
-  //         ...cartItems[product.id],
-  //         quantity: quantity
-  //       }
-  //     }
-  //   }, () => this.getCartTotal());
-  // }
-
-  // removeFromCart(object, key) {
-  //   const newCartObj = {};
-  //   const objKeys = Object.keys(object);
-  //   objKeys.forEach(itemKey => {
-  //     if (itemKey !== key) {
-  //       newCartObj[itemKey] = object[itemKey];
-  //     }
-  //   });
-  //   this.setState({ cartItems: newCartObj }, () => this.getCartTotal());
-  // }
-
   placeOrder(orderDetails) {
     const fullOrder = {
       name: orderDetails.name,
@@ -212,7 +163,8 @@ export default class App extends React.Component {
                 handleAdd={this.addToCart}
                 updateCart={this.updateCart}
                 cartItems={this.state.cartItems}
-                cartTotal={this.state.cartTotal} />}
+                cartTotal={this.state.cartTotal}
+                getCartItems={this.getCartItems} />}
             />
             <Route
               path="/cart"
@@ -222,20 +174,19 @@ export default class App extends React.Component {
                 handleRemove={this.removeFromCart}
                 handleAdd={this.addToCart}
                 updateCart={this.updateCart}
-              />}
+                getCartItems={this.getCartItems} />}
             />
             <Route
               path="/checkout"
               render={ props => <CheckoutForm {...props}
                 cartItems={this.state.cartItems}
                 cartTotal={this.state.cartTotal}
-                handlePlaceOrder={this.placeOrder}
-              />}
+                handlePlaceOrder={this.placeOrder} />}
             />
             <Route
               path="/about"
               render={ props => <About {...props}
-                products={this.state.products}/>}
+                products={this.state.products} />}
             />
           </Switch>
         </div>
