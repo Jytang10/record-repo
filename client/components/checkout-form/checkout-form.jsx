@@ -172,14 +172,12 @@ class CheckoutForm extends React.Component {
 
   render() {
     const { errors } = this.state;
-    const cartItemArray = Object.values(this.props.cartItems);
-    const cartItemsList = cartItemArray;
+    const cartItemsList = this.props.cartItems;
     const closeBtn = <button className="close modal-close" onClick={this.toggle}>&times;</button>;
-    let orderStatus;
     let cartItemDisplay;
     if (cartItemsList.length === 0) {
       cartItemDisplay = <tr><td>No items in cart</td></tr>;
-    } else if (Object.keys(cartItemsList).length === 0 && this.state.cart.constructor === Object) {
+    } else if (cartItemsList.length === 0) {
       cartItemDisplay = <tr><td>No items in cart</td></tr>;
     } else {
       let cartList = cartItemsList.map(item => {
@@ -192,12 +190,6 @@ class CheckoutForm extends React.Component {
       });
       cartItemDisplay = cartList;
     }
-    let orderTotal = 0;
-    for (let item of cartItemsList) {
-      orderTotal += (item.price / 100);
-    }
-    let fixedOrderTotal = orderTotal.toFixed(2);
-    let shippingTotal = (parseFloat(orderTotal) + 5).toFixed(2);
     let confirmOrderBtn;
 
     if (cartItemsList.length && this.state.fullName && this.state.email && this.state.ccnumber && this.state.address && this.state.city && this.state.zip && this.state.zip && this.validateForm(this.state.errors)) {
@@ -206,11 +198,6 @@ class CheckoutForm extends React.Component {
       confirmOrderBtn = <Button outline color="secondary" disabled>Confirm Order</Button>;
     }
 
-    if (cartItemsList.length === 0) {
-      orderStatus = '$0.00';
-    } else {
-      orderStatus = '$' + shippingTotal;
-    }
     return (
       <Container>
         <Row className="justify-content-center mt-2">
@@ -228,7 +215,7 @@ class CheckoutForm extends React.Component {
               </Row>
               <Row>
                 <Col>Subtotal</Col>
-                <Col>{'$' + fixedOrderTotal}</Col>
+                <Col>{'$' + this.props.cartTotal / 100}</Col>
               </Row>
               <Row>
                 <Col>Shipping</Col>
@@ -236,7 +223,7 @@ class CheckoutForm extends React.Component {
               </Row>
               <Row>
                 <Col>Order Total</Col>
-                <Col>{orderStatus}</Col>
+                <Col>{'$' + ((this.props.cartTotal / 100) + 5).toFixed(2)}</Col>
               </Row>
             </Container>
           </Col>

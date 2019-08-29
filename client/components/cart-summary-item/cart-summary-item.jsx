@@ -16,13 +16,14 @@ class CartSummaryItem extends React.Component {
     this.handleAddQuantity = this.handleAddQuantity.bind(this);
     this.handleMinusQuantity = this.handleMinusQuantity.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.updateCartTotal = this.updateCartTotal.bind(this);
   }
 
   componentDidMount() {
     this.setState({ item: this.props.item });
     this.setState({ cart: this.props.cartItem });
-    this.setState({ quantity: this.props.item.quantity });
-    this.setState({ subTotal: (this.props.item.quantity * this.props.item.price) });
+    this.setState({ quantity: this.props.item.count });
+    this.setState({ subTotal: (this.props.item.count * this.props.item.price) });
   }
 
   toggle() {
@@ -36,7 +37,8 @@ class CartSummaryItem extends React.Component {
     let originalPrice = this.props.item.price;
     this.setState({ quantity: currentQuantity + 1 }, () => {
       this.setState({ subTotal: originalPrice * this.state.quantity }, () => {
-        this.props.updateCart(this.state.item, this.state.quantity);
+        this.props.handleAdd({ 'id': this.props.id });
+        this.updateCartTotal();
       });
     });
   }
@@ -46,22 +48,30 @@ class CartSummaryItem extends React.Component {
     let originalPrice = this.props.item.price;
     this.setState({ quantity: currentQuantity - 1 }, () => {
       this.setState({ subTotal: originalPrice * this.state.quantity }, () => {
-        this.props.updateCart(this.state.item, this.state.quantity);
+        this.props.updateCart({ 'id': this.props.id });
+        this.updateCartTotal();
       });
     });
   }
 
   handleRemoveItem() {
-    this.props.handleRemove((this.props.id).toString());
+    this.props.handleRemove({ 'id': this.props.id });
     this.toggle();
   }
 
+  updateCartTotal() {
+    this.props.getCartItems();
+  }
+
   render() {
-    const productImage = this.props.item.image;
+    let productImage;
+    if (this.props.item) {
+      productImage = this.props.item.url;
+    }
     let convertItemPrice = this.props.item.price / 100;
     let fixedItemPrice = convertItemPrice.toFixed(2);
     let itemQuantity;
-    itemQuantity = this.state.quantity;
+    itemQuantity = parseInt(this.props.item.count);
     let itemSubtotal;
     itemSubtotal = this.state.subTotal;
     let quantityMinus;

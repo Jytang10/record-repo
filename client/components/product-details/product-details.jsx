@@ -1,8 +1,10 @@
 import React from 'react';
-import { Card, Button, CardImg, CardTitle, CardText, CardGroup,
-  CardSubtitle, CardBody, Container, Col, Row, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Card, Button, CardTitle, CardText, CardGroup,
+  CardSubtitle, CardBody, Container, Col, Row, Label, Badge, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './product-details.css';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -10,10 +12,8 @@ class ProductDetails extends React.Component {
     this.state = {
       product: null,
       modal: false,
-      quantity: 1,
-      cartTotal: 0
+      quantity: 1
     };
-    this.handleChange = this.handleChange.bind(this);
     this.handleAddQuantity = this.handleAddQuantity.bind(this);
     this.handleMinusQuantity = this.handleMinusQuantity.bind(this);
     this.handleAddToCart = this.handleAddToCart.bind(this);
@@ -45,19 +45,23 @@ class ProductDetails extends React.Component {
     }
   }
 
-  handleChange(event) {
-    let inputVal = parseInt(event.target.value);
-    this.setState({
-      [event.target.name]: inputVal
-    });
-  }
-
   handleAddToCart() {
-    this.props.handleAdd(this.state.product, this.state.quantity);
+    let quantity = this.state.quantity;
+    for (let i = 0; i < quantity; i++) {
+      this.props.handleAdd({ 'id': this.state.product.id });
+    }
     this.toggle();
   }
 
   render() {
+    let productImage1;
+    let productImage2;
+    let productImage3;
+    if (this.state.product) {
+      productImage1 = this.state.product.images[0];
+      productImage2 = this.state.product.images[1];
+      productImage3 = this.state.product.images[2];
+    }
     const closeBtn = <button className="close modal-close" onClick={this.toggle}>&times;</button>;
     const productStatus = this.state.product;
     let productRender;
@@ -76,7 +80,17 @@ class ProductDetails extends React.Component {
       productRender = (
         <CardGroup>
           <Card>
-            <CardImg top width="100%" src={window.location.origin + this.state.product.image} alt="Product image" />
+            <Carousel autoPlay>
+              <div className="seller-div">
+                <img src={productImage1} />
+              </div>
+              <div className="seller-div">
+                <img src={productImage2} />
+              </div>
+              <div className="seller-div">
+                <img src={productImage3} />
+              </div>
+            </Carousel>
           </Card>
           <Card>
             <CardBody>
@@ -85,22 +99,12 @@ class ProductDetails extends React.Component {
               <CardText className="product-price">{'$' + (this.state.product.price / 100).toFixed(2)}</CardText>
               <Row>
                 <Col>
-                  <FormGroup>
-                    <Row className="quantity-label"><Label for="quantityNumber">Quantity to Add</Label></Row>
-                    <Row className="quantity-input-row">
-                      {quantityMinus}
-                      <Input
-                        className="quantity-input"
-                        type="number"
-                        name="quantity"
-                        id="quantityNumber"
-                        placeholder="1"
-                        value={quantityVal}
-                        onChange={this.handleChange}
-                      />
-                      <i className="quantity-icon ml-1 fas fa-plus-square fa-lg" onClick={this.handleAddQuantity}></i>
-                    </Row>
-                  </FormGroup>
+                  <Row className="quantity-label"><Label for="quantityNumber">Update Quantity</Label></Row>
+                  <Row className="quantity-input-row">
+                    {quantityMinus}
+                    <Badge color="success">{quantityVal}</Badge>
+                    <i className="quantity-icon ml-1 fas fa-plus-square fa-lg" onClick={this.handleAddQuantity}></i>
+                  </Row>
                 </Col>
                 <Col>
                   <Button color="success" onClick={this.handleAddToCart}>

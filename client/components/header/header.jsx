@@ -22,11 +22,13 @@ class Header extends React.Component {
       isOpen: false
     };
   }
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     });
   }
+
   render() {
     return (
       <div>
@@ -52,7 +54,7 @@ class Header extends React.Component {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    <a className="contact-link" href="https://github.com/Jytang10/record-repo" target="__blank">GitHub</a>
+                    <a className="contact-link" href="https://github.com/Jytang10/record-repo" target="_blank" rel="noopener noreferrer">GitHub</a>
                   </DropdownItem>
                   <DropdownItem>
                     <Link to="/about" className="contact-link">
