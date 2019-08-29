@@ -42,6 +42,7 @@ class CartSummary extends React.Component {
             id={item.id}
             item={item}
             cartItems={this.props.cartItems}
+            handleAdd={this.props.handleAdd}
             handleRemove={this.handleRemove}
             updateCart={this.props.updateCart}
           />

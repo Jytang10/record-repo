@@ -36,7 +36,7 @@ class CartSummaryItem extends React.Component {
     let originalPrice = this.props.item.price;
     this.setState({ quantity: currentQuantity + 1 }, () => {
       this.setState({ subTotal: originalPrice * this.state.quantity }, () => {
-        this.props.updateCart(this.state.item, this.state.quantity);
+        this.props.handleAdd({ 'id': this.props.id });
       });
     });
   }
@@ -46,7 +46,7 @@ class CartSummaryItem extends React.Component {
     let originalPrice = this.props.item.price;
     this.setState({ quantity: currentQuantity - 1 }, () => {
       this.setState({ subTotal: originalPrice * this.state.quantity }, () => {
-        this.props.updateCart(this.state.item, this.state.quantity);
+        this.props.updateCart({ 'id': this.props.id });
       });
     });
   }
