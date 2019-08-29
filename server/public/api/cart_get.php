@@ -15,16 +15,12 @@
                                           // You’ll need a join with products table to get data from there
                                           // You’ll need a subquery to get the first image from images table
                                           // You’ll need to only get the cart where the cart ID is the one you are looking for
-  $cart_query = "SELECT 
-      c.`created`,
-      ci.`count`, ci.`price`
-      p.`id`, p.`name`, p.`price`, p,`artist`,
-      (SELECT `url` FROM `images` WHERE `products_id` = p.`id` LIMIT 1) AS url
-    FROM `cart` AS `c` 
-    JOIN `cartItems` AS `ci` ON ci.`cartID` = c.`id`  
-    JOIN `products` AS `p` ON ci.`productID` = p.`id`
-    WHERE c.`id` = {$cartId}
-    ";
+
+  $cart_query = "SELECT c.`price`, c.`count`, p.`name`, p.`id`, p.`artist`,
+                (SELECT `url` FROM `images` WHERE `products_id` = p.`id` LIMIT 1) AS`url`
+                FROM `cartItems` AS `c`
+                INNER JOIN `products` AS `p` ON c.`productID` = p.`id`
+                WHERE c.`cartID` = {$cartId}";
   
   $cart_result = mysqli_query($conn, $cart_query);  // Send the query to mysql and get the result
 
@@ -44,6 +40,6 @@
   if(count($data) === 1) {        //Retrieve the data you got from the query and print it out.
     print(json_encode($data));    // index 0 because this returns an array with one object inside
   } else {
-    print(json_encode($data));
+    print(json_encode($data, JSON_UNESCAPED_SLASHES));
   }
 ?>

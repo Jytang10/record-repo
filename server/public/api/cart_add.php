@@ -10,17 +10,11 @@
 	if(isset($data['id'])) {												// See if id came in the json body data
 		$id = intval($data['id']);										// Store it into a variable, $id, if it did
 		if ($id < 1) {														//check if it is greater than 0
-			throw new Exception('id less than zero');				//throw an error otherwise
+			throw new Exception('invalid id. must be a number greater than 0');				//throw an error otherwise
 		}
 	} else {
 		throw new Exception('Must have a product id to add to cart');
 	}
-
-	// if(isset($data['count'])) {										// See if count came in the json body data
-	// 	$count = $data['count'];										// Store it into a variable, $count if it did
-	// } else {
-	// 	throw new Exception('Please send product count');
-	// }
 
 	if (empty($_SESSION['cartId'])) {							// Make conditional to test if $_SESSION[‘cartId’] is empty
 		$cartId = false;														// If empty, store false into the variable
