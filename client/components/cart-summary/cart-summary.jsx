@@ -8,7 +8,6 @@ class CartSummary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cart: null,
       tooltipOpen: false
     };
     this.handleRemove = this.handleRemove.bind(this);
@@ -16,18 +15,16 @@ class CartSummary extends React.Component {
   }
 
   componentDidMount() {
+    this.props.getCartItems();
+  }
+
+  handleRemove(id) {
+    this.props.handleRemove(id);
     this.getCartItems();
   }
 
   getCartItems() {
-    this.setState({ cart: this.props.cartItems });
-  }
-
-  handleRemove(id) {
-    this.props.handleRemove(this.state.cart, id);
-    this.setState({ cart: this.props.cartItems }, () => {
-      this.getCartItems();
-    });
+    this.props.getCartItems();
   }
 
   toggle() {
@@ -38,21 +35,21 @@ class CartSummary extends React.Component {
 
   render() {
     let cartItemDisplay;
-    if (!this.state.cart) {
-      cartItemDisplay = <tr><td>No items in cart</td></tr>;
-    } else if (Object.keys(this.state.cart).length === 0 && this.state.cart.constructor === Object) {
+    if (this.props.cartItems.length === 0) {
       cartItemDisplay = <tr><td>No items in cart</td></tr>;
     } else {
-      let cartItemArray = Object.values(this.state.cart);
+      let cartItemArray = this.props.cartItems;
       let cartList = cartItemArray.map(item => {
         return (
           <CartSummaryItem
             key={item.id}
             id={item.id}
             item={item}
-            cartItems={this.state.cart}
+            cartItems={this.props.cartItems}
+            handleAdd={this.props.handleAdd}
             handleRemove={this.handleRemove}
             updateCart={this.props.updateCart}
+            getCartItems={this.props.getCartItems}
           />
         );
       });

@@ -6,7 +6,7 @@
 	}
 
   if(empty($_SESSION['cartId'])){        // Check if SESSION[‘cart_id’] is empty
-    print(json_encode(array()));          // If it is, print a json encoded empty array
+    print_r(getBodyData([]));          // If it is, print a json encoded empty array
     exit();                               // Exit to stop processing, we have no cart for this person
   }
 
@@ -34,12 +34,9 @@
   }
 
   if($data === []) {                // If query id does not exist, no result is returned (test for valid id). Print out an empty array
-    print(json_encode(array()));
+    print_r("[]");
+    exit();
   }
 
-  if(count($data) === 1) {        //Retrieve the data you got from the query and print it out.
-    print(json_encode($data));    // index 0 because this returns an array with one object inside
-  } else {
-    print(json_encode($data, JSON_UNESCAPED_SLASHES));
-  }
+  print(json_encode($data, JSON_UNESCAPED_SLASHES));  //Retrieve the data you got from the query and print it out.
 ?>
